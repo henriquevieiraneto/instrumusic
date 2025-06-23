@@ -1,54 +1,120 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <title>IntruMusic - Sua Jornada Musical</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntruMusic: Aprenda, Crie, Transforme!</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#">IntruMusic</a>
-      <div class="ms-auto">
-        <a href="login.html" class="btn btn-outline-light me-2">Login</a>
-        <a href="cadastro.html" class="btn btn-primary">Criar Conta</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Carousel Section -->
-  <header id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="img/banner.png" class="d-block w-100" alt="Banner com Instrumentos" />
-        <div class="carousel-caption d-none d-md-block">
-          <h1 class="display-4">Descubra o Poder da Música</h1>
-          <p>Aprenda gratuitamente com apoio, instrumentos e especialistas!</p>
-          <a href="instrumentos.html" class="btn btn-light">Ver Instrumentos</a>
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <nav class="navbar">
+            <div class="logo">IntruMusic</div>
+            <ul class="nav-links">
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#instruments">Instrumentos</a></li>
+                <li><a href="#testimonials">Depoimentos</a></li>
+                <li><a href="entry.html" class="btn btn-primary">Login / Cadastro</a></li>
+            </ul>
+        </nav>
+        <div class="hero-content">
+            <h1>IntruMusic: Aprenda, Crie, Transforme!</h1>
+            <p>Sua jornada musical gratuita começa aqui.</p>
+            <a href="entry.html" class="btn btn-secondary">Comece a Aprender</a>
         </div>
-      </div>
-      <div class="carousel-item">
-        <img src="img/hero-bg-1.jpg" class="d-block w-100" alt="Imagem 2" />
-      </div>
-      <div class="carousel-item">
-        <img src="img/hero-bg-2.jpg" class="d-block w-100" alt="Imagem 3" />
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon"></span>
-    </button>
-  </header>
+    </header>
 
-  <footer class="bg-dark text-white text-center py-3 mt-5">
-    <p>&copy; 2025 IntruMusic. Todos os direitos reservados.</p>
-  </footer>
+    <main>
+        <section id="features" class="section-padded">
+            <div class="container">
+                <h2>Por Que Escolher a IntruMusic?</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <img src="images/icon-free.png" alt="Aulas Gratuitas">
+                        <h3>Aulas Gratuitas</h3>
+                        <p>Educação musical de qualidade, sem custos para você.</p>
+                    </div>
+                    <div class="feature-item">
+                        <img src="images/icon-instrument.png" alt="Instrumentos Disponíveis">
+                        <h3>Instrumentos Disponíveis</h3>
+                        <p>Nós fornecemos o instrumento para você praticar e aprender.</p>
+                    </div>
+                    <div class="feature-item">
+                        <img src="images/icon-private.png" alt="Aulas Personalizadas">
+                        <h3>Aulas Personalizadas</h3>
+                        <p>Aulas particulares ou em grupo, no seu ritmo e necessidade.</p>
+                    </div>
+                    <div class="feature-item">
+                        <img src="images/icon-community.png" alt="Comunidade Vibrante">
+                        <h3>Comunidade Vibrante</h3>
+                        <p>Conecte-se com outros amantes da música e inspire-se.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <script src="js/script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <section id="instruments" class="section-padded section-dark">
+            <div class="container">
+                <h2>Explore Nossos Instrumentos</h2>
+                <div class="instrument-grid">
+                    <div class="instrument-card">
+                        <img src="images/guitar.jpg" alt="Violão">
+                        <h3>Violão</h3>
+                        <p>Comece a dedilhar suas primeiras melodias.</p>
+                    </div>
+                    <div class="instrument-card">
+                        <img src="images/piano.jpg" alt="Teclado/Piano">
+                        <h3>Teclado/Piano</h3>
+                        <p>Domine o mundo das teclas e harmonias.</p>
+                    </div>
+                    <div class="instrument-card">
+                        <img src="images/drums.jpg" alt="Bateria">
+                        <h3>Bateria</h3>
+                        <p>Encontre o ritmo que pulsa em você.</p>
+                    </div>
+                    <div class="instrument-card">
+                        <img src="images/flute.jpg" alt="Flauta">
+                        <h3>Flauta</h3>
+                        <p>Deixe sua melodia suave encantar.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="entry.html" class="btn btn-secondary">Quero Aprender!</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="section-padded">
+            <div class="container">
+                <h2>Histórias Que Inspiram</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <p>"Nunca pensei que aprender violão seria tão fácil e divertido. A IntruMusic me deu essa oportunidade!"</p>
+                        <h4>Ana Clara, Aluna de Violão</h4>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"O acesso aos instrumentos e o suporte dos professores fazem toda a diferença. Sou grato à IntruMusic."</p>
+                        <h4>Lucas Silva, Aluno de Teclado</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 IntruMusic. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
 </body>
 </html>

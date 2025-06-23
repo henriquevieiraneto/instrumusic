@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - IntruMusic</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Criar Sua Conta</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Nome Completo</label>
+                    <input type="text" id="register-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">E-mail</label>
+                    <input type="email" id="register-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Senha</label>
+                    <input type="password" id="register-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirmar Senha</label>
+                    <input type="password" id="register-confirm-password" name="confirm-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Cadastrar</button>
+                <p class="alt-action">Já tem uma conta? <a href="login.html">Faça Login aqui</a></p>
+            </form>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
