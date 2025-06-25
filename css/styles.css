@@ -643,6 +643,11 @@ footer .social-links a:hover {
     margin-top: 40px;
 }
 
+.guitarra{
+    margin-bottom: 100px
+}
+
+
 /* Responsividade Básica */
 @media (max-width: 768px) {
     .navbar {

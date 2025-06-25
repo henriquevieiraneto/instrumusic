@@ -1,6 +1,6 @@
 // server.js
 const express = require('express'); // Importa o Express.js
-const app = express(); // Cria uma instância do aplicativo Express
+const app = express(); // Cria uma  ância do aplicativo Express
 const PORT = process.env.PORT || 3000; // Define a porta do servidor, usando a variável de ambiente ou 3000 por padrão
 
 // Middleware para parsear JSON no corpo das requisições (importante para receber dados do frontend)
