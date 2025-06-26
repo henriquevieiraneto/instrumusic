@@ -235,7 +235,7 @@ ul {
 
 
 .feature-item p{
-    color: #0075f1;
+    color: #dfd9d9;
 }
 .feature-item:hover {
     transform: translateY(-10px);
@@ -353,13 +353,13 @@ footer .social-links a:hover {
 }
 
 .entry-box h2 {
-    color: var(--color-dark);
+    color: #FFF;
     margin-bottom: 20px;
     font-size: 1.8em;
 }
 
 .entry-box p {
-    color: var(--color-gray);
+    color: #dfd9d9;
     margin-bottom: 30px;
 }
 
@@ -660,6 +660,22 @@ footer .social-links a:hover {
 
 .depoimentos-body{
     background: var(--color-dark)
+}
+.instrumentos-body{
+    background: var(--color-dark)
+}
+.instrumentos-body h2{
+    color: #FFF;
+}
+
+.card{
+    background-color: #333 !important;
+}
+.card-title{
+    color: #ffffff!important;
+}
+.card-text{
+    color: #dfd9d9;
 }
 
 /* Responsividade Básica */
