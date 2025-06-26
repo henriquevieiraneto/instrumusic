@@ -3,12 +3,12 @@
 
 /* Variáveis de Cores */
 :root {
-    --color-primary: #007bff; /* Azul */
-    --color-secondary: #6c757d; /* Cinza claro para botões */
-    --color-dark: #212529; /* Preto/Cinza Escuro para texto e fundos */
-    --color-light: #f8f9fa; /* Branco para fundos e texto claro */
-    --color-gray: #495057; /* Cinza para textos e bordas */
-    --color-border: #dee2e6; /* Cinza para bordas de elementos */
+    --color-primary: #0075f1; 
+    --color-secondary: #6c757d;
+    --color-dark: #212529; 
+    --color-light: #1F1F1F; 
+    --color-gray: #495057; 
+    --color-border: #dee2e6;
 }
 
 /* Reset básico e tipografia */
@@ -219,8 +219,12 @@ ul {
     margin-top: 40px;
 }
 
+#features h2{
+    color: rgb(212, 212, 212);
+}
+
 .feature-item {
-    background-color: #fff;
+    background-color: #333;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -228,6 +232,11 @@ ul {
     transition: transform 0.3s ease;
 }
 
+
+
+.feature-item p{
+    color: #0075f1;
+}
 .feature-item:hover {
     transform: translateY(-10px);
 }
@@ -239,7 +248,7 @@ ul {
 }
 
 .feature-item h3 {
-    color: var(--color-primary);
+    color: #e2dfdf;
     margin-bottom: 10px;
 }
 
@@ -290,7 +299,7 @@ ul {
 }
 
 .testimonial-card {
-    background-color: #fff;
+    background-color: #3f3d3d;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -301,15 +310,18 @@ ul {
     font-style: italic;
     font-size: 1.1em;
     margin-bottom: 15px;
-    color: var(--color-dark);
+    color: #FFF;
 }
 
 .testimonial-card h4 {
-    color: var(--color-primary);
+    color: #f0f0f0;
     font-weight: 600;
     font-size: 1em;
 }
 
+#testimonials h2{
+    color: #FFF;
+}
 /* Footer */
 footer {
     background-color: var(--color-dark);
@@ -380,7 +392,7 @@ footer .social-links a:hover {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(to right, var(--color-dark), var(--color-gray)); /* Fundo escuro com gradiente */
+    background: linear-gradient(to right, var(--color-dark), var(--color-gray)); 
     padding: 20px;
 }
 
@@ -395,11 +407,10 @@ footer .social-links a:hover {
 }
 
 .login-box h2 {
-    color: var(--color-dark);
     margin-bottom: 30px;
     font-size: 1.8em;
+    color: #FFF;
 }
-
 .form-group {
     margin-bottom: 20px;
     text-align: left;
@@ -408,7 +419,7 @@ footer .social-links a:hover {
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    color: var(--color-dark);
+    color: #FFF;
     font-weight: 600;
 }
 
@@ -647,6 +658,9 @@ footer .social-links a:hover {
     margin-bottom: 100px
 }
 
+.depoimentos-body{
+    background: var(--color-dark)
+}
 
 /* Responsividade Básica */
 @media (max-width: 768px) {
