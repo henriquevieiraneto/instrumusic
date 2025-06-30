@@ -566,7 +566,7 @@ footer .social-links a:hover {
 .dashboard-main h1 {
     text-align: center;
     margin-bottom: 40px;
-    color: var(--color-dark);
+    color:  white;
 }
 
 .dashboard-section {
@@ -677,6 +677,16 @@ footer .social-links a:hover {
 .card-text{
     color: #dfd9d9;
 }
+
+.body-bateria, .body-flauta, .body-guitarra, .body-teclado, .body-trompete, .body-violino {
+    background: var(--color-dark)
+}
+
+.body-bateria ,.body-flauta,.body-guitarra, .body-teclado, .body-trompete, .body-violino h2, p, li{
+    color: #ffffff;
+}
+
+
 
 /* Responsividade Básica */
 @media (max-width: 768px) {
