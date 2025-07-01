@@ -11,7 +11,8 @@
 
 Para rodar o <Instrumusic>, Instale o Live server(extensão do vscode)
 
-<img src="readme-imgs/extensao-live-server.png" alt="Extensão do live server "> <img src="readme-imgs/botao-live-server.png" alt="botão do live server"> 
+<img src="readme-imgs/extensao-live-server.png" alt="Extensão do live server ">
+
 ## 🤝 Colaboradores
 
 Pessoas que colaboraram para a criação do site:
