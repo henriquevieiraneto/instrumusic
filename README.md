@@ -10,10 +10,7 @@
 ## 🚀 Como rodar o projeto <Instrumusic>
 
 Para rodar o <Instrumusic>, Instale o Live server(extensão do vscode)
-
-:
-
-
+<img src="readme-imgs/image.png" alt="botão do live server">
 ## 🤝 Colaboradores
 
 Pessoas que colaboraram para a criação do site:
