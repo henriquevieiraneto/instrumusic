@@ -5,7 +5,7 @@
 
 Nosso site é focado em ajudar as pessoas a tocar qualquer instrumento musical. Você escolhe o seu estilo e instrumento. Tudo é totalmente gratuito! Dentro da plataforma, você pode selecionar o horário em que deseja aprender e o local disponível para o aprendizado.
 
-"
+
 
 ## 🚀 Como rodar o projeto <Instrumusic>
 
