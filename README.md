@@ -7,15 +7,16 @@ Nosso site é focado em ajudar as pessoas a tocar qualquer instrumento musical. 
 
 
 
-## 🚀 Como rodar o projeto <Instrumusic>
+## 🚀 Como rodar o projeto
 
-Para rodar o <Instrumusic>, Instale o Live server(extensão do vscode)
+Para rodar o site Instrumusic, Instale o Live server(extensão do vscode)
 
 <img src="readme-imgs/extensao-live-server.png" alt="Extensão do live server ">
 
 ## 🤝 Colaboradores
 
 Pessoas que colaboraram para a criação do site:
+
 
 <table>
   <tr>
@@ -53,7 +54,7 @@ Pessoas que colaboraram para a criação do site:
     </td>
   </tr>
 </table>
+
 ## 📝 Licença
 
-Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais detalhes.
-   
+Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE) para mais detalhes.
