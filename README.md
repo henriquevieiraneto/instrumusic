@@ -1,87 +1,60 @@
 # Instrumusic
 
 
-<img src="images/img-pag-inicial.png" alt="Imagem da tela inicial do site">
+<img src="readme-imgs/img-pag-inicial.png" alt="Imagem da tela inicial do site">
+
+ Nosso site se baseia em ajudar as pessoas a tocar qualquer instrumento musical voce quem escolhe seu estilo e seu instrumento é totalmente gratuito dentro do nosso site voce pode escolher o horario em que voce deseja aprender a tocar seu instrumento e o local disponivel para aprendizado. 
 
 
 
+## 🚀 Como rodar o projeto <Instrumusic>
 
+Para rodar o <Instrumusic>, Instale o Live server(extensão do vscode)
 
-## 🚀 Instalando <nome_do_projeto>
+:
 
-Para instalar o <nome_do_projeto>, siga estas etapas:
-
-Linux e macOS:
-
-```
-<comando_de_instalação>
-```
-
-Windows:
-
-```
-<comando_de_instalação>
-```
-
-## ☕ Usando <nome_do_projeto>
-
-Para usar <nome_do_projeto>, siga estas etapas:
-
-```
-<exemplo_de_uso>
-```
-
-Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Forneça uma referência de opções para pontos de bônus!
-
-## 📫 Contribuindo para <nome_do_projeto>
-
-Para contribuir com <nome_do_projeto>, siga estas etapas:
-
-1. Bifurque este repositório.
-2. Crie um branch: `git checkout -b <nome_branch>`.
-3. Faça suas alterações e confirme-as: `git commit -m '<mensagem_commit>'`
-4. Envie para o branch original: `git push origin <nome_do_projeto> / <local>`
-5. Crie a solicitação de pull.
-
-Como alternativa, consulte a documentação do GitHub em [como criar uma solicitação pull](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
 ## 🤝 Colaboradores
 
-Agradecemos às seguintes pessoas que contribuíram para este projeto:
+Pessoas que colaboraram para a criação do site:
 
 <table>
   <tr>
     <td align="center">
-      <a href="#" title="defina o título do link">
-        <img src="https://avatars3.githubusercontent.com/u/31936044" width="100px;" alt="Foto do Iuri Silva no GitHub"/><br>
+      <a href="https://github.com/07victorsz" title="Link do github do Victor">
+        <img src="readme-imgs/foto-victor.jpg" width="100px;" alt="Foto do Victor de Souza no GitHub"/><br>
         <sub>
-          <b>Iuri Silva</b>
+          <b>Victor</b>
         </sub>
       </a>
     </td>
     <td align="center">
-      <a href="#" title="defina o título do link">
-        <img src="https://s2.glbimg.com/FUcw2usZfSTL6yCCGj3L3v3SpJ8=/smart/e.glbimg.com/og/ed/f/original/2019/04/25/zuckerberg_podcast.jpg" width="100px;" alt="Foto do Mark Zuckerberg"/><br>
+      <a href="https://github.com/henriquevieiraneto" title="Link do github do Henrique">
+        <img src="readme-imgs/foto-henrique.png" width="100px;" alt="Foto do Henrique no GitHub"/><br>
         <sub>
-          <b>Mark Zuckerberg</b>
+          <b>Henrique</b>
         </sub>
       </a>
     </td>
     <td align="center">
-      <a href="#" title="defina o título do link">
-        <img src="https://miro.medium.com/max/360/0*1SkS3mSorArvY9kS.jpg" width="100px;" alt="Foto do Steve Jobs"/><br>
+      <a href="https://github.com/07victorsz" title="Link do github do Victor">
+        <img src="readme-imgs/foto-ettham.png" width="100px;" alt="Foto do Ettham no GitHub"/><br>
         <sub>
-          <b>Steve Jobs</b>
+          <b>Ettham</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Carati32" title="Link do github do Bruno">
+        <img src="readme-imgs/foto-bruno.jpg" width="100px;" alt="Foto do Bruno no GitHub"/><br>
+        <sub>
+          <b>Bruno</b>
         </sub>
       </a>
     </td>
   </tr>
 </table>
-
-## 😄 Seja um dos contribuidores
-
-Quer fazer parte desse projeto? Clique [AQUI](CONTRIBUTING.md) e leia como contribuir.
-
 ## 📝 Licença
 
 Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais detalhes.
+   
