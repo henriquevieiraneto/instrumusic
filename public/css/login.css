@@ -15,7 +15,7 @@
             <input type="email" id="email" name="email" placeholder="E-mail" required>
             <input type="password" id="password" name="password" placeholder="Senha" required>
             
-            <a href="#" class="forgot-password text-dim">Esqueceu sua senha?</a>
+            <a href="# " class="forgot-password text-dim">Esqueceu sua senha?</a>
             
             <button type="submit" class="btn btn-primary btn-full-width mt-20">Entrar</button>
         </form>
@@ -33,4 +33,77 @@
     </div>
     <script src="public/js/script.js"></script>
 </body>
-</html>
+</html>a/* public/css/login.css - Estilo Específico dos Formulários de Login e Cadastro */
+
+/* 1. CENTRALIZAÇÃO E CONTEINER PRINCIPAL (CRUCIAL PARA O LAYOUT) */
+.form-center {
+    min-height: 100vh;
+    display:flex;
+    justify-content:center; /* Centraliza horizontalmente */
+    align-items:center;     /* Centraliza verticalmente */
+    padding:20px;
+}
+
+.form-container {
+    background-color: var(--color-medium-bg);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px; 
+    text-align: center;
+    margin: auto; 
+}
+
+/* 2. ESTILO DOS INPUTS E TEXTOS DENTRO DO FORM */
+.form-container h2 { 
+    margin-bottom: 20px; 
+    font-weight: 600; 
+    text-align: left; /* Alinha o título do formulário */
+}
+
+.form-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--color-dark-bg);
+    color: var(--color-text-light);
+    font-size: 1em;
+}
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 0.9em;
+    margin-bottom: 15px; /* Espaçamento após o link de esqueci a senha */
+}
+
+.social-login-divider {
+    text-align: center;
+    border-bottom: 1px solid var(--color-light-bg);
+    line-height: 0.1em;
+    margin: 20px 0;
+}
+.social-login-divider span {
+    background: var(--color-medium-bg);
+    padding: 0 10px;
+    color: var(--color-text-dim);
+    font-size: 0.8em;
+}
+
+.form-container p {
+    margin-top: 20px; 
+    font-size: 0.9em;
+    padding-top: 10px;
+    border-top: 1px solid var(--color-light-bg);
+    line-height: normal; 
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 25px;
+    }
+}
