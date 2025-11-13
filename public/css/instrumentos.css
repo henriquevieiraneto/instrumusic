@@ -1,0 +1,43 @@
+/* public/css/instrumentos.css - Estilo Específico da Página de Instrumentos */
+
+.instruments-section {
+    padding-top: 50px; 
+}
+
+.instrument-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.instrument-card {
+    background-color: var(--color-medium-bg);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.instrument-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(255, 0, 51, 0.2); 
+}
+
+.instrument-card img {
+    width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+/* Media Queries para responsividade do Grid */
+@media (max-width: 900px) {
+    .instrument-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .instrument-grid {
+        grid-template-columns: 1fr;
+    }
+}

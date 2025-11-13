@@ -1,96 +1,43 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InstruMusic</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Dashboard | InstruMusic</title>
+    <link rel="stylesheet" href="public/css/styles.css">
+    <link rel="stylesheet" href="public/css/dashboard.css">
 </head>
-<body class="dashboard-body">
-    <header class="dashboard-header">
-        <div class="logo">InstruMusic</div>
-        <nav class="dashboard-nav">
-            <ul>
-                <li><a href="#">Meu Progresso</a></li>
-                <li><a href="#">Agendar Aula</a></li>
-                <li><a href="#">Explorar Música</a></li>
-                <li><a href="#">Suporte</a></li>
-                <li><a href="#" id="logout-btn">Sair</a></li>
-            </ul>
+<body>
+    <header class="main-header header-public">
+        <div class="logo"><a href="index.html">InstruMusic</a></div>
+        <nav class="main-nav">
+            <a href="#" class="nav-item">Meus Cursos</a>
+            <a href="#" class="nav-item">Progresso</a>
+            <a href="#" class="nav-item">Perfil</a>
         </nav>
+        <button class="btn btn-secondary btn-small" id="logoutBtn">Sair</button>
     </header>
 
-    <main class="dashboard-main">
-        <div class="container">
-            <h1>Bem-vindo(a), <span id="dashboard-username">[Nome do Aluno]</span>!</h1>
-
-            <section id="my-progress" class="dashboard-section">
-                <h2>Seu Progresso</h2>
-                <div class="progress-info">
-                    <p><strong>Instrumento Escolhido:</strong> Violão</p>
-                    <p><strong>Próxima Aula:</strong> 25/07/2025 às 18:00 - Centro Comunitário (Sala 3)</p>
-                    <p><strong>Material de Apoio:</strong> <a href="#" class="link-btn">Ver Partituras Iniciais</a></p>
-                </div>
-            </section>
-
-            <section id="schedule-class" class="dashboard-section">
-                <h2>Agendar Nova Aula</h2>
-                <div class="form-group">
-                    <label for="instrument-select">Qual instrumento você deseja aprender?</label>
-                    <select id="instrument-select">
-                        <option value="">Selecione um instrumento</option>
-                        <option value="violao">Violão</option>
-                        <option value="teclado">Teclado/Piano</option>
-                        <option value="bateria">Bateria</option>
-                        <option value="flauta">Flauta</option>
-                        <option value="violino">Violino</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="lesson-type">Tipo de Aula:</label>
-                    <select id="lesson-type">
-                        <option value="particular">Particular</option>
-                        <option value="grupo">Em Grupo</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="lesson-date">Data Preferencial:</label>
-                    <input type="date" id="lesson-date">
-                </div>
-                <div class="form-group">
-                    <label for="lesson-time">Hora Preferencial:</label>
-                    <input type="time" id="lesson-time">
-                </div>
-                <button class="btn btn-primary">Buscar Horários Disponíveis</button>
-                <p class="info-message">Após a busca, você verá os professores e locais disponíveis.</p>
-            </section>
-
-            <section id="explore-music" class="dashboard-section">
-                <h2>Explore a Música</h2>
-                <div class="explore-grid">
-                    <div class="explore-item">
-                        <h3>Gêneros Musicais</h3>
-                        <p>Descubra o universo do Rock, Jazz, Clássica e muito mais!</p>
-                        <a href="#" class="link-btn">Ver Gêneros</a>
-                    </div>
-                    <div class="explore-item">
-                        <h3>Teoria Musical Básica</h3>
-                        <p>Entenda notas, acordes e ritmos de forma simples.</p>
-                        <a href="#" class="link-btn">Aprender Teoria</a>
-                    </div>
-                    <div class="explore-item">
-                        <h3>Histórias Que Inspiram</h3>
-                        <p>Veja vídeos e depoimentos de outros alunos e músicos.</p>
-                        <a href="#" class="link-btn">Assista Agora</a>
-                    </div>
-                </div>
-            </section>
+    <main class="content-section dashboard-section">
+        <h2 class="section-title">Bem-vindo(a) de volta!</h2>
+        <div class="dashboard-widgets">
+            <div class="widget">
+                <h3>Última Aula</h3>
+                <p>Guitarra: Acordes C, G e D</p>
+                <a href="#" class="text-primary">Continuar</a>
+            </div>
+            <div class="widget">
+                <h3>Seu Progresso</h3>
+                <p>75% concluído em Violino.</p>
+                <a href="#" class="text-primary">Ver Detalhes</a>
+            </div>
+            <div class="widget">
+                <h3>Instrumento do Mês</h3>
+                <p>Flauta: Desconto de 10% nas aulas.</p>
+                <a href="#" class="btn btn-secondary">Resgatar</a>
+            </div>
         </div>
     </main>
-
-    <script src="js/script.js"></script>
+    <script src="public/js/script.js"></script>
 </body>
 </html>

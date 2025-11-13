@@ -1,0 +1,121 @@
+/* public/css/styles.css - Base Global, Variáveis e Estrutura Comum */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --color-dark-bg: #222222;
+    --color-medium-bg: #333333;
+    --color-light-bg: #444444;
+    --color-text-light: #ffffff;
+    --color-text-dim: #cccccc;
+    --color-primary: #ff0033; /* Vermelho vibrante */
+    --color-secondary: #007bff; /* Azul */
+    --font-family: 'Poppins', sans-serif;
+}
+
+/* Reset Básico */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--color-dark-bg);
+    color: var(--color-text-light);
+    line-height: 1.6;
+}
+
+/* Utilitários e Links */
+.text-primary { color: var(--color-primary) !important; }
+.text-dim { color: var(--color-text-dim) !important; }
+.mt-10 { margin-top: 10px !important; }
+.mt-20 { margin-top: 20px !important; }
+
+a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--color-primary);
+}
+
+/* --- Cabeçalho e Navegação Comum --- */
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    width: 100%;
+    z-index: 100;
+}
+
+/* Header para páginas que não são a Home (com fundo sólido) */
+.header-public {
+    position: relative; 
+    background-color: var(--color-medium-bg);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.logo { font-size: 1.5em; font-weight: 700; }
+.main-nav ul { list-style: none; display: flex; }
+.main-nav ul li { margin: 0 15px; }
+.main-nav .nav-item { margin-left: 20px; }
+
+/* --- Estilos de Botões Comuns --- */
+
+.btn {
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-small { padding: 8px 15px; font-size: 0.9em; }
+.btn-full-width { width: 100%; display: block; }
+
+.btn-primary { background-color: var(--color-secondary); color: var(--color-text-light); }
+.btn-primary:hover { background-color: #0056b3; }
+
+.btn-secondary { background-color: var(--color-primary); color: var(--color-text-light); border: 2px solid var(--color-primary); }
+.btn-secondary:hover { background-color: transparent; }
+
+.btn-social {
+    background-color: var(--color-light-bg);
+    margin-bottom: 10px;
+    text-align: left;
+}
+.btn-social i { margin-right: 15px; width: 20px; text-align: center; }
+
+/* --- Seções de Conteúdo Comuns --- */
+
+.content-section {
+    padding: 80px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+/* --- Footer --- */
+footer {
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid var(--color-medium-bg);
+    color: var(--color-text-dim);
+    font-size: 0.8em;
+}
+
+/* --- Media Queries Comuns --- */
+@media (max-width: 600px) {
+    .main-header { padding: 15px; flex-direction: column; }
+    .main-nav { margin-top: 10px; }
+    .main-nav ul { flex-direction: column; align-items: center; }
+}

@@ -1,77 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InstruMusic</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>InstruMusic: Aprenda, Crie, Transforme!</title>
+    <link rel="stylesheet" href="public/css/styles.css"> 
+    <link rel="stylesheet" href="public/css/index.css"> 
 </head>
 <body>
-    <header class="hero">
-        <div class="hero-overlay"></div>
-        <nav class="navbar">
-            <div class="logo">InstruMusic</div>
-            <ul class="nav-links">
-                <li><a href="#about">Sobre</a></li>
+    <header class="main-header">
+        <div class="logo">InstruMusic</div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Sobre</a></li>
                 <li><a href="instrumentos.html">Instrumentos</a></li>
                 <li><a href="depoimentos.html">Depoimentos</a></li>
-                <li><a href="entry.html" class="btn btn-primary">Login / Cadastro</a></li>
             </ul>
         </nav>
+        <a href="entry.html" class="btn btn-primary">Login / Cadastro</a>
+    </header>
+
+    <main class="hero-section hero-home">
         <div class="hero-content">
             <h1>InstruMusic: Aprenda, Crie, Transforme!</h1>
             <p>Sua jornada musical gratuita começa aqui.</p>
-            <a href="entry.html" class="btn btn-secondary">Comece a Aprender</a>
+            <a href="instrumentos.html" class="btn btn-secondary">Comece a Aprender</a>
         </div>
-    </header>
-
-    <main>
-        <section id="features" class="section-padded">
-            <div class="container">
-                <h2>Por Que Escolher a InstruMusic?</h2>
-                <div class="feature-grid">
-                    <div class="feature-item">
-                        <img src="images/presente-icon.jpg" alt="Aulas Gratuitas">
-                        <h3>Aulas Gratuitas</h3>
-                        <p>Educação musical de qualidade, sem custos para você.</p>
-                    </div>
-                    <div class="feature-item">
-                        <img src="images/nota-musical.png" alt="Instrumentos Disponíveis">
-                        <h3>Instrumentos Disponíveis</h3>
-                        <p>Nós fornecemos o instrumento para você praticar e aprender.</p>
-                    </div>
-                    <div class="feature-item">
-                        <img src="images/Lampada.png" alt="Aulas Personalizadas">
-                        <h3>Aulas Personalizadas</h3>
-                        <p>Aulas particulares ou em grupo, no seu ritmo e necessidade.</p>
-                    </div>
-                    <div class="feature-item">
-                        <img src="images/icon-community.jpg" alt="Comunidade Vibrante">
-                        <h3>Comunidade Vibrante</h3>
-                        <p>Conecte-se com outros amantes da música e inspire-se.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-
-
     </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 InstruMusic. Todos os direitos reservados.</p>
-            <div class="social-links">
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/script.js"></script>
+    
+    <script src="public/js/script.js"></script>
 </body>
 </html>

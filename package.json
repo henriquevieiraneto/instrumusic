@@ -1,16 +1,26 @@
 {
   "name": "instrumusic",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Um site de aprendizado musical Full Stack (Node.js/Express/MySQL).",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "express",
+    "node",
+    "javascript",
+    "mysql"
+  ],
+  "author": "Gerado por Gemini",
   "license": "ISC",
   "dependencies": {
-    "cypress": "^14.5.2",
-    "express": "^5.1.0"
+    "express": "^4.19.2",
+    "cors": "^2.8.5",         
+    "mysql2": "^3.9.7"        
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }

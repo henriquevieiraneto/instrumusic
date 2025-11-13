@@ -1,41 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InstruMusic</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Criar Conta | InstruMusic</title>
+    <link rel="stylesheet" href="public/css/styles.css">
+    <link rel="stylesheet" href="public/css/login.css">
 </head>
-<body class="login-body">
-    <div class="login-container">
-        <div class="login-box">
-            <h2>Criar Sua Conta</h2>
-            <form id="register-form">
-                <div class="form-group">
-                    <label for="register-name">Nome Completo</label>
-                    <input type="text" id="register-name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-email">E-mail</label>
-                    <input type="email" id="register-email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-password">Senha</label>
-                    <input type="password" id="register-password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-confirm-password">Confirmar Senha</label>
-                    <input type="password" id="register-confirm-password" name="confirm-password" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-full">Cadastrar</button>
-                <p class="alt-action">Já tem uma conta? <a href="login.html">Faça Login aqui</a></p>
-                <p class="back-home"><a href="index.html">Voltar para a Página Inicial</a></p>
-            </form>
-        </div>
+<body>
+    <div class="form-container form-center">
+        <h2>Criar Sua Conta</h2>
+        <form id="registerForm"> 
+            <input type="text" id="name" name="name" placeholder="Nome Completo" required>
+            <input type="email" id="email" name="email" placeholder="E-mail" required>
+            <input type="password" id="password" name="password" placeholder="Senha" required> 
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar Senha" required>
+            
+            <button type="submit" class="btn btn-secondary btn-full-width mt-20">Cadastrar</button>
+            
+            <p class="mt-20">Já tem uma conta? <a href="login.html" class="text-primary">Faça Login aqui</a></p>
+        </form>
     </div>
-    <script src="js/script.js"></script>
+    <script src="public/js/script.js"></script>
 </body>
 </html>

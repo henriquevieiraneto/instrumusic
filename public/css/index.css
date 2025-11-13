@@ -1,0 +1,39 @@
+/* public/css/index.css - Estilo Específico da Página Inicial */
+
+.main-header {
+    /* Sobrepõe o estilo absoluto apenas na Home */
+    position: absolute; 
+}
+
+.hero-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-home {
+    /* Imagem de fundo e overlay para contraste */
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/jovem-bonita-tocando-violao-dentro-de-casa_23-2149140607.avif') no-repeat center center/cover;
+    background-attachment: fixed;
+}
+
+.hero-content h1 {
+    font-size: 3.5em;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: var(--color-text-dim);
+}
+
+@media (max-width: 600px) {
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+}

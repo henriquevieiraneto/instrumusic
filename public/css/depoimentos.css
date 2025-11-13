@@ -1,0 +1,45 @@
+/* public/css/depoimentos.css - Estilo Específico da Página de Depoimentos */
+
+.testimonials-section {
+    padding-top: 50px; 
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.testimonial-card {
+    background-color: var(--color-light-bg);
+    padding: 25px;
+    border-radius: 6px;
+    text-align: left;
+    height: 100%; /* Garante que todos os cards tenham a mesma altura na linha */
+}
+
+.testimonial-card p {
+    font-style: italic;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+
+.testimonial-card cite {
+    display: block;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+/* Media Queries para responsividade do Grid */
+@media (max-width: 900px) {
+    .testimonial-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,53 @@
+/* public/css/entry.css - Estilo Específico da Página de Entrada (entry.html) */
+
+/* Container principal para centralizar e estilizar o bloco de entrada */
+.form-center {
+    min-height: 100vh; /* Ocupa a altura total da viewport */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    padding: 20px;           /* Padding seguro em telas pequenas */
+    flex-direction: column;  /* Garante que os filhos se empilhem */
+}
+
+.form-container {
+    background-color: var(--color-medium-bg);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px; /* Largura máxima padrão para formulários */
+    text-align: center;
+    /* Remover margin: auto; pois o flexbox já centraliza */
+}
+
+.form-container h2 { 
+    margin-bottom: 15px; 
+    font-weight: 600; 
+}
+
+.form-container p {
+    color: var(--color-text-dim);
+    margin-bottom: 30px; 
+    font-size: 1.1em;
+}
+
+/* Estilo para os botões dentro do form-container da página de entrada */
+.form-container .btn {
+    margin-top: 10px;    /* Espaço em cima dos botões */
+    margin-bottom: 10px; /* Espaço embaixo dos botões */
+}
+
+/* Estilo para o link "Voltar para a Página Inicial" */
+.form-container .text-dim {
+    display: block;      /* Garante que o link ocupe sua própria linha */
+    margin-top: 30px;    /* Espaço acima do link */
+    font-size: 0.9em;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 25px;
+    }
+}

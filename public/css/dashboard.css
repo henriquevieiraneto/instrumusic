@@ -1,0 +1,59 @@
+/* public/css/dashboard.css - Estilo Específico da Página Dashboard */
+
+.dashboard-section {
+    padding-top: 50px; /* Garante que não bata no header */
+}
+
+.dashboard-widgets {
+    display: grid;
+    /* Três colunas iguais para telas grandes */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px;
+    text-align: left;
+}
+
+.widget {
+    background-color: var(--color-medium-bg);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.widget:hover {
+    transform: translateY(-3px);
+}
+
+.widget h3 {
+    color: var(--color-primary);
+    margin-bottom: 10px;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.widget p {
+    color: var(--color-text-dim);
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.widget a {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+/* --- Media Queries (Responsividade do Grid) --- */
+
+@media (max-width: 900px) {
+    .dashboard-widgets {
+        /* Duas colunas em tablets */
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-widgets {
+        /* Uma coluna em celulares */
+        grid-template-columns: 1fr;
+    }
+}
