@@ -16,9 +16,10 @@
   "author": "Gerado por Gemini",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2",
-    "cors": "^2.8.5",         
-    "mysql2": "^3.9.7"        
+    "cors": "^2.8.5",
+    "cypress": "^15.6.0",
+    "express": "^4.21.2",
+    "mysql2": "^3.15.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

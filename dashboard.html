@@ -11,8 +11,9 @@
     <header class="main-header header-public">
         <div class="logo"><a href="index.html">InstruMusic</a></div>
         <nav class="main-nav">
+            <a href="dashboard.html" class="nav-item">Dashboard</a>
             <a href="#" class="nav-item">Meus Cursos</a>
-            <a href="#" class="nav-item">Progresso</a>
+            <a href="progresso.html" class="nav-item">Progresso</a>
             <a href="#" class="nav-item">Perfil</a>
         </nav>
         <button class="btn btn-secondary btn-small" id="logoutBtn">Sair</button>
@@ -20,24 +21,29 @@
 
     <main class="content-section dashboard-section">
         <h2 class="section-title">Bem-vindo(a) de volta!</h2>
+        
         <div class="dashboard-widgets">
+            
             <div class="widget">
                 <h3>Última Aula</h3>
                 <p>Guitarra: Acordes C, G e D</p>
                 <a href="#" class="text-primary">Continuar</a>
             </div>
+            
             <div class="widget">
                 <h3>Seu Progresso</h3>
                 <p>75% concluído em Violino.</p>
-                <a href="#" class="text-primary">Ver Detalhes</a>
+                <a href="progresso.html" class="text-primary">Ver Detalhes</a>
             </div>
+            
             <div class="widget">
-                <h3>Instrumento do Mês</h3>
-                <p>Flauta: Desconto de 10% nas aulas.</p>
-                <a href="#" class="btn btn-secondary">Resgatar</a>
+                <h3>Destaque do Mês</h3>
+                <p>Flauta: Comece a aprender este instrumento gratuitamente!</p>
+                <a href="public/instrumentos/flauta.html" class="btn btn-secondary">Aprender Agora</a>
             </div>
         </div>
     </main>
+    
     <script src="public/js/script.js"></script>
 </body>
 </html>
