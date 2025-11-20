@@ -4,19 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InstruMusic: Aprenda, Crie, Transforme!</title>
-    <link rel="stylesheet" href="../public/css/styles.css">
-    <link rel="stylesheet" href="../public/css/index.css">
+
+    <!-- Correto: volta 1 nível (pages → public) -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
     <header class="main-header">
         <div class="logo">InstruMusic</div>
+
         <nav class="main-nav">
             <ul>
-                <li><a href="#">Sobre</a></li>
+                <li><a href="index.html">Sobre</a></li>
                 <li><a href="instrumentos.html">Instrumentos</a></li>
                 <li><a href="depoimentos.html">Depoimentos</a></li>
             </ul>
         </nav>
+
+        <!-- Correto: o entry.html também está em pages -->
         <a href="entry.html" class="btn btn-primary">Login / Cadastro</a>
     </header>
 
@@ -24,10 +29,16 @@
         <div class="hero-content">
             <h1>InstruMusic: Aprenda, Crie, Transforme!</h1>
             <p>Sua jornada musical gratuita começa aqui.</p>
+
+            <!-- Correto -->
             <a href="instrumentos.html" class="btn btn-secondary">Comece a Aprender</a>
         </div>
     </main>
     
-    <script src="../public/js/script.js"></script>
+    <!-- CORRIGIDO:
+         js está em public/js/
+         pages → (volta 1 nível) → public/js/script.js
+    -->
+    <script src="../js/script.js"></script>
 </body>
 </html>

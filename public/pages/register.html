@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Conta | InstruMusic</title>
-    <link rel="stylesheet" href="../public/css/styles.css">
-    <link rel="stylesheet" href="../public/css/login.css">
+
+    <!-- CORRETO -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
     <div class="form-container form-center">
         <h2>Criar Sua Conta</h2>
+
         <form id="registerForm">
             <input type="text" id="name" name="name" placeholder="Nome Completo" required>
             <input type="email" id="email" name="email" placeholder="E-mail" required>
@@ -18,9 +21,15 @@
 
             <button type="submit" class="btn btn-secondary btn-full-width mt-20">Cadastrar</button>
 
-            <p class="mt-20">Já tem uma conta? <a href="login.html" class="text-primary">Faça Login aqui</a></p>
+            <p class="mt-20">
+                Já tem uma conta?
+                <!-- CORRETO: está na mesma pasta -->
+                <a href="login.html" class="text-primary">Faça Login aqui</a>
+            </p>
         </form>
     </div>
-    <script src="../public/js/script.js"></script>
+
+    <!-- CORRETO -->
+    <script src="../js/script.js"></script>
 </body>
 </html>

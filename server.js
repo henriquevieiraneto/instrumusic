@@ -11,9 +11,9 @@ const port = 3000;
 // ATENÇÃO: SUBSTITUA PELA SUA SENHA REAL DO MYSQL!
 const dbConfig = {
     host: 'localhost',
-    user: 'root', 
+    user: 'root',
     password: 'senai', // <-- CORRIJA ISSO!
-    database: 'instrumusic_db' 
+    database: 'instrumusic_db'
 };
 
 let dbPool;
@@ -40,24 +40,22 @@ app.use(cors());
 app.use(express.json());
 
 // Middleware para servir arquivos estáticos da pasta 'public'
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // --- Rotas para as Páginas HTML na Raiz ---
 
 // Rota principal (GET /) - Envia o index.html da raiz
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'pages', 'index.html'));
 });
 
 // Rota curinga para servir qualquer HTML na raiz
-app.get('/:page.html', (req, res) => {
-    const filePath = path.join(__dirname, `${req.params.page}.html`);
-    
-    // Verifica se o arquivo HTML existe antes de tentar enviar (Tratamento de erro 404)
+app.get('/:page', (req, res) => {
+    const filePath = path.join(__dirname, 'public', 'pages', `${req.params.page}.html`);
+
     if (fs.existsSync(filePath)) {
         res.sendFile(filePath);
     } else {
-        // Se o arquivo não existir na raiz, retorna 404
         res.status(404).send('404 | Página não encontrada.');
     }
 });
@@ -70,7 +68,7 @@ app.post('/api/register', async (req, res) => {
     if (!name || !email || !password) {
         return res.status(400).json({ success: false, message: 'Dados incompletos.' });
     }
-    
+
     // Verifica se a conexão com o DB foi estabelecida
     if (!dbPool) {
         return res.status(503).json({ success: false, message: 'Serviço de banco de dados indisponível.' });
@@ -79,7 +77,7 @@ app.post('/api/register', async (req, res) => {
     try {
         // ATENÇÃO: A senha não está hasheada. Em produção, use bcrypt.
         const query = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';
-        await dbPool.execute(query, [name, email, password]); 
+        await dbPool.execute(query, [name, email, password]);
 
         res.status(201).json({ success: true, message: 'Usuário registrado com sucesso!' });
     } catch (error) {
@@ -99,7 +97,7 @@ app.post('/api/login', async (req, res) => {
     if (!email || !password) {
         return res.status(400).json({ success: false, message: 'E-mail e senha são obrigatórios.' });
     }
-    
+
     if (!dbPool) {
         return res.status(503).json({ success: false, message: 'Serviço de banco de dados indisponível.' });
     }
@@ -116,9 +114,9 @@ app.post('/api/login', async (req, res) => {
         // Compara a senha (SEM HASHING)
         if (password === user.password) {
             // Sucesso no login
-            res.status(200).json({ 
-                success: true, 
-                message: 'Login bem-sucedido!', 
+            res.status(200).json({
+                success: true,
+                message: 'Login bem-sucedido!',
                 user: { id: user.id, name: user.name, email: user.email },
                 redirect: '/dashboard.html'
             });

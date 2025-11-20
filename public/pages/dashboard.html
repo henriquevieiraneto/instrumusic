@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | InstruMusic</title>
     
-    <link rel="stylesheet" href="../public/css/styles.css">
-    <link rel="stylesheet" href="../public/css/dashboard.css">
+    <!-- Correto: pages → (volta 1 nível) → public/css -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body>
     <header class="main-header header-public">
-        <div class="logo"><a href="../index.html">InstruMusic</a></div>
+        <div class="logo">
+            <!-- Correto: volta para pages/index.html -->
+            <a href="index.html">InstruMusic</a>
+        </div>
 
         <nav class="main-nav">
             <a href="dashboard.html" class="nav-item">Dashboard</a>
@@ -42,11 +46,13 @@
             <div class="widget">
                 <h3>Destaque do Mês</h3>
                 <p>Flauta: Comece a aprender este instrumento gratuitamente!</p>
-                <a href="../public/instrumentos/flauta.html" class="btn btn-secondary">Aprender Agora</a>
+
+                <a href="../instrumentos/flauta.html" class="btn btn-secondary">Aprender Agora</a>
             </div>
         </div>
     </main>
 
-    <script src="../public/js/script.js"></script>
+    <!-- Correto: pages → (volta) public/js -->
+    <script src="../js/script.js"></script>
 </body>
 </html>

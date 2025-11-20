@@ -4,7 +4,7 @@
   "description": "Um site de aprendizado musical Full Stack (Node.js/Express/MySQL).",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node --watch server.js",
     "dev": "nodemon server.js"
   },
   "keywords": [
