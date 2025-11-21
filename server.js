@@ -9,13 +9,16 @@ const app = express();
 // 1. A porta deve vir do ambiente (Railway) ou usar 3000 como fallback local
 const port = process.env.PORT || 3000;
 
-// 2. Configuração do Banco de Dados usando Variáveis de Ambiente
+// 2. Configuração do Banco de Dados usando Variáveis de Ambiente do Railway
 const dbConfig = {
+    // Usamos process.env para que o Railway injete as credenciais corretas
     host: process.env.MYSQLHOST || 'localhost',
     user: process.env.MYSQLUSER || 'root',
-    password: process.env.MYSQLPASSWORD || 'senai',
+    password: process.env.MYSQLPASSWORD || 'local_password', 
     database: process.env.MYSQLDATABASE || 'instrumusic_db',
-    port: process.env.MYSQLPORT || 3306
+    port: process.env.MYSQLPORT || 3306,
+    // Adiciona SSL/TLS se necessário para conexões externas (o MySQL Workbench usa)
+    ssl: { rejectUnauthorized: false } 
 };
 
 let dbPool;
@@ -26,7 +29,8 @@ async function initializeDatabase() {
         await dbPool.getConnection();
         console.log('✅ Conexão com o banco de dados estabelecida com sucesso!');
     } catch (error) {
-        console.error('❌ Erro ao conectar ao banco de dados:', error.message);
+        // Loga o erro crítico, mas permite que o servidor tente iniciar (para servir estáticos)
+        console.error('❌ ERRO CRÍTICO: Falha ao conectar/testar o banco de dados:', error.message);
     }
 }
 
@@ -35,20 +39,24 @@ initializeDatabase();
 // --- Configuração do Middleware ---
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public'))); // Serve arquivos estáticos
 
-// --- Rotas para as Páginas HTML ---
+// 3. Middleware para servir arquivos estáticos (CSS, JS, Imagens, Instrumentos HTML)
+// Isso garante que links como public/css/styles.css funcionem.
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
-// Rota principal
+// --- Rotas para as Páginas HTML (Localizadas em public/pages) ---
+
+// Rota principal (GET /)
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages', 'index.html'));
 });
 
-// Rota curinga para outras páginas
+// Rota curinga para servir qualquer HTML (login, register, dashboard, etc.)
+// Ex: localhost:3000/login.html
 app.get('/:page', (req, res) => {
-    // Impede que tentem acessar arquivos fora da pasta pages
-    const pageName = req.params.page.replace(/[^a-zA-Z0-9_-]/g, '');
-    const filePath = path.join(__dirname, 'public', 'pages', `${pageName}.html`);
+    // Adiciona um .html se não tiver
+    const pageName = req.params.page.endsWith('.html') ? req.params.page : `${req.params.page}.html`;
+    const filePath = path.join(__dirname, 'public', 'pages', pageName);
 
     if (fs.existsSync(filePath)) {
         res.sendFile(filePath);
@@ -59,24 +67,24 @@ app.get('/:page', (req, res) => {
 
 // --- Rotas de API (Backend) ---
 
-// Cadastro
+// POST /api/register (Cadastro)
 app.post('/api/register', async (req, res) => {
     const { name, email, password } = req.body;
     if (!name || !email || !password) return res.status(400).json({ success: false, message: 'Dados incompletos.' });
-    if (!dbPool) return res.status(503).json({ success: false, message: 'Banco de dados indisponível.' });
+    if (!dbPool) return res.status(503).json({ success: false, message: 'Banco de dados indisponível. Verifique a conexão.' });
 
     try {
         const query = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';
         await dbPool.execute(query, [name, email, password]);
         res.status(201).json({ success: true, message: 'Usuário registrado!' });
     } catch (error) {
-        console.error('Erro cadastro:', error);
+        console.error('❌ Erro no registro de usuário:', error.message); // Log mais limpo para produção
         if (error.code === 'ER_DUP_ENTRY') return res.status(409).json({ success: false, message: 'E-mail já cadastrado.' });
-        res.status(500).json({ success: false, message: 'Erro interno.' });
+        res.status(500).json({ success: false, message: `Erro interno no servidor: ${error.message}` });
     }
 });
 
-// Login
+// POST /api/login (Login)
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ success: false, message: 'Preencha todos os campos.' });
@@ -91,17 +99,18 @@ app.post('/api/login', async (req, res) => {
                 success: true,
                 message: 'Login realizado!',
                 user: { id: user.id, name: user.name, email: user.email },
-                redirect: '/dashboard' // Corrigido para rota sem .html se preferir, ou mantenha .html
+                redirect: '/dashboard.html'
             });
         } else {
             res.status(401).json({ success: false, message: 'Credenciais inválidas.' });
         }
     } catch (error) {
-        console.error('Erro login:', error);
-        res.status(500).json({ success: false, message: 'Erro interno.' });
+        console.error('❌ Erro no login:', error.message);
+        res.status(500).json({ success: false, message: `Erro interno no servidor: ${error.message}` });
     }
 });
 
+// --- Inicialização do Servidor ---
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
 });
