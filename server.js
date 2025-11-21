@@ -1,57 +1,54 @@
 // server.js
 const express = require('express');
 const path = require('path');
-const fs = require('fs'); // Módulo nativo para verificar se o arquivo existe
+const fs = require('fs');
 const cors = require('cors');
-const mysql = require('mysql2/promise'); // Usamos o mysql2 com promises
+const mysql = require('mysql2/promise');
 const app = express();
-const port = 3000;
 
-// --- Configuração do Banco de Dados MySQL ---
-// ATENÇÃO: SUBSTITUA PELA SUA SENHA REAL DO MYSQL!
+// 1. A porta deve vir do ambiente (Railway) ou usar 3000 como fallback local
+const port = process.env.PORT || 3000;
+
+// 2. Configuração do Banco de Dados usando Variáveis de Ambiente
 const dbConfig = {
-    host: 'localhost',
-    user: 'root',
-    password: 'senai', // <-- CORRIJA ISSO!
-    database: 'instrumusic_db'
+    host: process.env.MYSQLHOST || 'localhost',
+    user: process.env.MYSQLUSER || 'root',
+    password: process.env.MYSQLPASSWORD || 'senai',
+    database: process.env.MYSQLDATABASE || 'instrumusic_db',
+    port: process.env.MYSQLPORT || 3306
 };
 
 let dbPool;
+
 async function initializeDatabase() {
     try {
         dbPool = mysql.createPool(dbConfig);
-        // Tenta fazer uma query simples (GET CONNECTION) para confirmar a conexão
         await dbPool.getConnection();
-        console.log('✅ MySQL Pool de conexões criado e conexão testada com sucesso!');
+        console.log('✅ Conexão com o banco de dados estabelecida com sucesso!');
     } catch (error) {
-        // Se houver um erro aqui (geralmente senha ou DB inexistente), o log ajudará a depurar.
-        console.error('❌ ERRO CRÍTICO: Falha ao conectar/testar o banco de dados:', error.message);
-        // O servidor continuará rodando para servir o frontend, mas as rotas de API falharão.
+        console.error('❌ Erro ao conectar ao banco de dados:', error.message);
     }
 }
+
 initializeDatabase();
 
 // --- Configuração do Middleware ---
-
-// Habilita CORS para todas as rotas
 app.use(cors());
-
-// Permite que o Express processe dados JSON do corpo da requisição
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public'))); // Serve arquivos estáticos
 
-// Middleware para servir arquivos estáticos da pasta 'public'
-app.use(express.static(path.join(__dirname, 'public')));
+// --- Rotas para as Páginas HTML ---
 
-// --- Rotas para as Páginas HTML na Raiz ---
-
-// Rota principal (GET /) - Envia o index.html da raiz
+// Rota principal
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages', 'index.html'));
 });
 
-// Rota curinga para servir qualquer HTML na raiz
+// Rota curinga para outras páginas
 app.get('/:page', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'pages', `${req.params.page}.html`);
+    // Impede que tentem acessar arquivos fora da pasta pages
+    const pageName = req.params.page.replace(/[^a-zA-Z0-9_-]/g, '');
+    const filePath = path.join(__dirname, 'public', 'pages', `${pageName}.html`);
 
     if (fs.existsSync(filePath)) {
         res.sendFile(filePath);
@@ -60,84 +57,51 @@ app.get('/:page', (req, res) => {
     }
 });
 
-// --- Rotas de API (Autenticação) ---
+// --- Rotas de API (Backend) ---
 
-// POST /api/register (Cadastro de Novo Usuário)
+// Cadastro
 app.post('/api/register', async (req, res) => {
     const { name, email, password } = req.body;
-    if (!name || !email || !password) {
-        return res.status(400).json({ success: false, message: 'Dados incompletos.' });
-    }
-
-    // Verifica se a conexão com o DB foi estabelecida
-    if (!dbPool) {
-        return res.status(503).json({ success: false, message: 'Serviço de banco de dados indisponível.' });
-    }
+    if (!name || !email || !password) return res.status(400).json({ success: false, message: 'Dados incompletos.' });
+    if (!dbPool) return res.status(503).json({ success: false, message: 'Banco de dados indisponível.' });
 
     try {
-        // ATENÇÃO: A senha não está hasheada. Em produção, use bcrypt.
         const query = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';
         await dbPool.execute(query, [name, email, password]);
-
-        res.status(201).json({ success: true, message: 'Usuário registrado com sucesso!' });
+        res.status(201).json({ success: true, message: 'Usuário registrado!' });
     } catch (error) {
-        console.error('Erro ao registrar usuário:', error.message);
-        // Tratamento para e-mail duplicado (código de erro comum do MySQL)
-        if (error.code === 'ER_DUP_ENTRY') {
-            return res.status(409).json({ success: false, message: 'Este e-mail já está cadastrado.' });
-        }
-        res.status(500).json({ success: false, message: 'Erro interno no servidor.' });
+        console.error('Erro cadastro:', error);
+        if (error.code === 'ER_DUP_ENTRY') return res.status(409).json({ success: false, message: 'E-mail já cadastrado.' });
+        res.status(500).json({ success: false, message: 'Erro interno.' });
     }
 });
 
-
-// POST /api/login (Login de Usuário)
+// Login
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
-    if (!email || !password) {
-        return res.status(400).json({ success: false, message: 'E-mail e senha são obrigatórios.' });
-    }
-
-    if (!dbPool) {
-        return res.status(503).json({ success: false, message: 'Serviço de banco de dados indisponível.' });
-    }
+    if (!email || !password) return res.status(400).json({ success: false, message: 'Preencha todos os campos.' });
+    if (!dbPool) return res.status(503).json({ success: false, message: 'Banco de dados indisponível.' });
 
     try {
-        // Busca o usuário pelo e-mail
         const [rows] = await dbPool.execute('SELECT id, name, email, password FROM users WHERE email = ?', [email]);
         const user = rows[0];
 
-        if (!user) {
-            return res.status(401).json({ success: false, message: 'E-mail ou senha inválidos.' });
-        }
-
-        // Compara a senha (SEM HASHING)
-        if (password === user.password) {
-            // Sucesso no login
+        if (user && user.password === password) {
             res.status(200).json({
                 success: true,
-                message: 'Login bem-sucedido!',
+                message: 'Login realizado!',
                 user: { id: user.id, name: user.name, email: user.email },
-                redirect: '/dashboard.html'
+                redirect: '/dashboard' // Corrigido para rota sem .html se preferir, ou mantenha .html
             });
         } else {
-            // Senha incorreta
-            res.status(401).json({ success: false, message: 'E-mail ou senha inválidos.' });
+            res.status(401).json({ success: false, message: 'Credenciais inválidas.' });
         }
-
     } catch (error) {
-        console.error('Erro ao realizar login:', error.message);
-        res.status(500).json({ success: false, message: 'Erro interno no servidor.' });
+        console.error('Erro login:', error);
+        res.status(500).json({ success: false, message: 'Erro interno.' });
     }
 });
 
-
-// --- Inicialização do Servidor ---
 app.listen(port, () => {
-    console.log(`
-============================================
- Servidor InstruMusic rodando!
- Acesse: http://localhost:${port}
-============================================
-    `);
+    console.log(`Servidor rodando na porta ${port}`);
 });
