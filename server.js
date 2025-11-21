@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2/promise'); 
 const app = express();
 
 // 1. A porta deve vir do ambiente (Railway) ou usar 3000 como fallback local
@@ -11,14 +11,16 @@ const port = process.env.PORT || 3000;
 
 // 2. Configuração do Banco de Dados usando Variáveis de Ambiente do Railway
 const dbConfig = {
-    // Usamos process.env para que o Railway injete as credenciais corretas
     host: process.env.MYSQLHOST || 'localhost',
     user: process.env.MYSQLUSER || 'root',
     password: process.env.MYSQLPASSWORD || 'local_password', 
     database: process.env.MYSQLDATABASE || 'instrumusic_db',
-    port: process.env.MYSQLPORT || 3306,
-    // Adiciona SSL/TLS se necessário para conexões externas (o MySQL Workbench usa)
-    ssl: { rejectUnauthorized: false } 
+    
+    // CORREÇÃO CRÍTICA: Converte a porta para número inteiro
+    port: parseInt(process.env.MYSQLPORT || 3306, 10), 
+    
+    // Adiciona SSL/TLS se for um ambiente de nuvem (necessário para o Railway)
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined
 };
 
 let dbPool;
@@ -29,7 +31,7 @@ async function initializeDatabase() {
         await dbPool.getConnection();
         console.log('✅ Conexão com o banco de dados estabelecida com sucesso!');
     } catch (error) {
-        // Loga o erro crítico, mas permite que o servidor tente iniciar (para servir estáticos)
+        // Loga o erro, mas permite que o servidor tente iniciar (para servir estáticos)
         console.error('❌ ERRO CRÍTICO: Falha ao conectar/testar o banco de dados:', error.message);
     }
 }
@@ -40,8 +42,8 @@ initializeDatabase();
 app.use(cors());
 app.use(express.json());
 
-// 3. Middleware para servir arquivos estáticos (CSS, JS, Imagens, Instrumentos HTML)
-// Isso garante que links como public/css/styles.css funcionem.
+// 3. Middleware para servir arquivos estáticos (CSS, JS, Imagens)
+// Acessível via /public/css/styles.css
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // --- Rotas para as Páginas HTML (Localizadas em public/pages) ---
@@ -52,9 +54,8 @@ app.get('/', (req, res) => {
 });
 
 // Rota curinga para servir qualquer HTML (login, register, dashboard, etc.)
-// Ex: localhost:3000/login.html
 app.get('/:page', (req, res) => {
-    // Adiciona um .html se não tiver
+    // Garante que a requisição termine em .html
     const pageName = req.params.page.endsWith('.html') ? req.params.page : `${req.params.page}.html`;
     const filePath = path.join(__dirname, 'public', 'pages', pageName);
 
@@ -78,7 +79,7 @@ app.post('/api/register', async (req, res) => {
         await dbPool.execute(query, [name, email, password]);
         res.status(201).json({ success: true, message: 'Usuário registrado!' });
     } catch (error) {
-        console.error('❌ Erro no registro de usuário:', error.message); // Log mais limpo para produção
+        console.error('❌ Erro no registro de usuário:', error.message);
         if (error.code === 'ER_DUP_ENTRY') return res.status(409).json({ success: false, message: 'E-mail já cadastrado.' });
         res.status(500).json({ success: false, message: `Erro interno no servidor: ${error.message}` });
     }
