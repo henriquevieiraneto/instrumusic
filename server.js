@@ -11,6 +11,7 @@ const port = process.env.PORT || 3000;
 
 // 2. Configuração do Banco de Dados usando Variáveis de Ambiente do Railway
 const dbConfig = {
+    // Railway injeta estes valores
     host: process.env.MYSQLHOST || 'localhost',
     user: process.env.MYSQLUSER || 'root',
     password: process.env.MYSQLPASSWORD || 'local_password', 
@@ -43,7 +44,7 @@ app.use(cors());
 app.use(express.json());
 
 // 3. Middleware para servir arquivos estáticos (CSS, JS, Imagens)
-// Acessível via /public/css/styles.css
+// Isso garante que links como /public/css/styles.css funcionem
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // --- Rotas para as Páginas HTML (Localizadas em public/pages) ---
@@ -55,7 +56,7 @@ app.get('/', (req, res) => {
 
 // Rota curinga para servir qualquer HTML (login, register, dashboard, etc.)
 app.get('/:page', (req, res) => {
-    // Garante que a requisição termine em .html
+    // Adiciona o .html se não tiver (para URLs limpas)
     const pageName = req.params.page.endsWith('.html') ? req.params.page : `${req.params.page}.html`;
     const filePath = path.join(__dirname, 'public', 'pages', pageName);
 
@@ -79,7 +80,7 @@ app.post('/api/register', async (req, res) => {
         await dbPool.execute(query, [name, email, password]);
         res.status(201).json({ success: true, message: 'Usuário registrado!' });
     } catch (error) {
-        console.error('❌ Erro no registro de usuário:', error.message);
+        console.error('❌ Erro no registro de usuário:', error.message); 
         if (error.code === 'ER_DUP_ENTRY') return res.status(409).json({ success: false, message: 'E-mail já cadastrado.' });
         res.status(500).json({ success: false, message: `Erro interno no servidor: ${error.message}` });
     }
