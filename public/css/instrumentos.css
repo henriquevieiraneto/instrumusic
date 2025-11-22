@@ -1,43 +1,133 @@
-/* public/css/instrumentos.css - Estilo Específico da Página de Instrumentos */
+/* public/css/instrumentos.css */
 
+/* Seções de Instrumentos */
 .instruments-section {
-    padding-top: 50px; 
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .instrument-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
 }
 
 .instrument-card {
-    background-color: var(--color-medium-bg);
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
     padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .instrument-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(255, 0, 51, 0.2); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .instrument-card img {
-    width: 100%;
-    max-height: 180px;
-    object-fit: contain;
+    max-width: 100%; /* Garante que a imagem não transborde */
+    height: 180px;   /* Altura fixa para uniformidade */
+    object-fit: contain; /* Reduz a imagem sem cortar ou distorcer */
+    border-radius: 5px;
     margin-bottom: 15px;
 }
 
-/* Media Queries para responsividade do Grid */
-@media (max-width: 900px) {
-    .instrument-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.instrument-card h3 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+    color: var(--primary-color);
 }
-@media (max-width: 600px) {
-    .instrument-grid {
-        grid-template-columns: 1fr;
+
+.instrument-card p {
+    font-size: 0.9em;
+    color: var(--text-light-color);
+    text-align: center;
+}
+
+
+/* --- Detalhes do Instrumento (para guitarra.html, bateria.html, etc.) --- */
+.instrument-detail {
+    max-width: 900px; /* Largura máxima para o conteúdo */
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Centraliza o texto */
+}
+
+.instrument-detail .instrument-image-large {
+    max-width: 70%;  /* Diminui o tamanho da imagem para 70% da largura do container */
+    height: auto;     /* Mantém a proporção */
+    margin-bottom: 30px; /* Espaço abaixo da imagem */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.instrument-detail h1 {
+    color: var(--primary-color);
+    font-size: 2.8em;
+    margin-bottom: 20px;
+}
+
+.instrument-detail p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    text-align: justify; /* Justifica o texto para melhor leitura */
+}
+
+.instrument-detail h2 {
+    color: var(--secondary-color);
+    font-size: 2.2em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.instrument-detail .course-list {
+    list-style: none; /* Remove marcadores de lista */
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.instrument-detail .course-list li {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-size: 1.05em;
+    color: var(--text-light-color);
+    text-align: left; /* Alinha os itens da lista à esquerda */
+}
+
+.instrument-detail .btn {
+    margin-top: 20px;
+}
+
+/* Responsividade Básica */
+@media (max-width: 768px) {
+    .instrument-detail {
+        margin: 20px auto;
+        padding: 20px;
+    }
+    .instrument-detail h1 {
+        font-size: 2.2em;
+    }
+    .instrument-detail h2 {
+        font-size: 1.8em;
+    }
+    .instrument-detail .instrument-image-large {
+        max-width: 90%;
     }
 }
