@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil | InstruMusic</title>
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="/public/css/dashboard.css">
+</head>
+<body>
+    <header class="main-header header-public">
+        <div class="logo"><a href="index.html">InstruMusic</a></div>
+        <nav class="main-nav">
+            <a href="meus-cursos.html" class="nav-item">Meus Cursos</a>
+            <a href="progresso.html" class="nav-item">Progresso</a>
+            <a href="perfil.html" class="nav-item">Perfil</a>
+        </nav>
+        <button class="btn btn-secondary btn-small" id="logoutBtn">Sair</button>
+    </header>
+
+    <main class="content-section dashboard-section">
+        <h2 class="section-title">Dados do Usuário</h2>
+        
+        <div class="dashboard-widgets" style="grid-template-columns: 1fr;">
+            <div class="widget" style="max-width: 500px; margin: 0 auto; text-align: left;">
+                <h3>Informações Pessoais</h3>
+                <p>Nome: [Nome do Usuário]</p>
+                <p>E-mail: [Email do Usuário]</p>
+                <p>Membro desde: [Data de Cadastro]</p>
+                <hr style="margin: 15px 0; border-top: 1px solid var(--color-light-bg);">
+                
+                <h3>Preferências</h3>
+                <p>Instrumento Principal: Guitarra</p>
+                <p>Tipo de Ensino: Presencial</p>
+                <a href="#" class="btn btn-primary btn-small mt-10">Editar Perfil</a>
+            </div>
+        </div>
+    </main>
+    <script src="/public/js/script.js"></script>
+</body>
+</html>
