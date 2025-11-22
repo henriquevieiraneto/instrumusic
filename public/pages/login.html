@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | InstruMusic</title>
-
-    <!-- CORRETO -->
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="/public/css/login.css">
 </head>
 <body>
     <div class="form-container form-center">
         <h2>Fazer Login</h2>
-
         <form id="loginForm">
             <input type="email" id="email" name="email" placeholder="E-mail" required>
             <input type="password" id="password" name="password" placeholder="Senha" required>
@@ -22,14 +19,9 @@
             <button type="submit" class="btn btn-primary btn-full-width mt-20">Entrar</button>
         </form>
 
-        <p class="mt-20">
-            Não tem uma conta?
-            <!-- CORRETO: register.html está na MESMA pasta -->
-            <a href="register.html" class="text-primary">Cadastre-se aqui</a>
-        </p>
+        <p class="mt-20">Não tem uma conta? <a href="register.html" class="text-primary">Cadastre-se aqui</a></p>
     </div>
-
-    <!-- CORRETO -->
-    <script src="../js/script.js"></script>
+    
+    <script src="/public/js/script.js"></script>
 </body>
 </html>
