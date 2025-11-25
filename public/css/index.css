@@ -72,3 +72,13 @@
         font-size: 1em;
     }
 }
+
+.login-btn {
+    padding: 8px 18px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    display: inline-block;
+  }
+  
