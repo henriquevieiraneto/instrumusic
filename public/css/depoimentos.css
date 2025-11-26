@@ -1,45 +1,40 @@
-/* public/css/depoimentos.css - Estilo Específico da Página de Depoimentos */
-
-.testimonials-section {
-    padding-top: 50px; 
-}
-
-.testimonial-grid {
+.testimonials-glass {
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #1f1f1f, #2b2b2b);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .testimonials-glass .container {
+    max-width: 1100px;
+    width: 100%;
+  }
+  
+  .testimonials-glass .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
-
-.testimonial-card {
-    background-color: var(--color-light-bg);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  
+  .testimonials-glass .card {
     padding: 25px;
-    border-radius: 6px;
-    text-align: left;
-    height: 100%; /* Garante que todos os cards tenham a mesma altura na linha */
-}
-
-.testimonial-card p {
-    font-style: italic;
-    margin-bottom: 15px;
-    font-size: 0.95em;
-}
-
-.testimonial-card cite {
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    transition: transform .25s;
+  }
+  
+  .testimonials-glass .card:hover {
+    transform: translateY(-6px);
+  }
+  
+  .testimonials-glass .author {
     display: block;
-    font-size: 0.85em;
-    font-weight: 600;
-    color: var(--color-primary);
-}
-
-/* Media Queries para responsividade do Grid */
-@media (max-width: 900px) {
-    .testimonial-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .testimonial-grid {
-        grid-template-columns: 1fr;
-    }
-}
+    margin-top: 15px;
+    font-weight: bold;
+    color: #ff4d6d;
+  }
+  

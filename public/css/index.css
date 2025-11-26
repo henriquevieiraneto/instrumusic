@@ -1,3 +1,5 @@
+/* public/css/index.css - Estilo Específico da Página Inicial */
+
 /* ========================= */
 /* SLIDESHOW DE FUNDO        */
 /* ========================= */
@@ -7,39 +9,76 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh; /* Ocupa a altura total da tela */
     overflow: hidden;
-    z-index: -1; /* fica atrás do conteúdo */
+    z-index: 1; 
+    background-color: var(--color-dark-bg); 
 }
 
 .slideshow img {
-    position: absolute;
+    position: absolute; /* ESSENCIAL: Tira a imagem do fluxo normal e permite que se sobreponha */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    opacity: 0;           /* escondida por padrão */
+    object-fit: cover; /* Garante que a imagem preencha a tela */
+    opacity: 0;           /* CHAVE: Esconde todas as imagens por padrão */
     transition: opacity 1s ease-in-out;
+    filter: brightness(0.5); /* Escurece para o texto ser legível */
 }
 
 .slideshow img.active {
-    opacity: 1;           /* imagem ativa aparece */
+    opacity: 1;           /* CHAVE: Mostra apenas a imagem ativa */
 }
+
+/* --- Hero Section (Conteúdo Central) --- */
 
 .hero-section {
     position: relative;
-    width: 100%;
-    height: 100vh; /* ocupa a tela inteira */
+    height: 100vh;
     display: flex;
-    align-items: center;      /* centraliza verticalmente */
-    justify-content: center;  /* centraliza horizontalmente */
-    text-align: center;       /* centraliza o texto */
-    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .hero-content {
     position: relative;
-    z-index: 10; /* garante que fique acima do slideshow */
-    color: white; 
+    z-index: 10; /* Garante que o texto fique acima do slideshow */
+    padding: 0 50px;
 }
+
+.hero-content h1 {
+    font-size: 3.5em;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: var(--color-text-dim);
+}
+
+/* Responsividade do Conteúdo Principal */
+@media (max-width: 600px) {
+    .hero-content {
+        padding: 0 20px;
+    }
+    .hero-content h1 {
+        font-size: 2.2em;
+    }
+    .hero-content p {
+        font-size: 1em;
+    }
+}
+
+.login-btn {
+    padding: 8px 18px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    display: inline-block;
+  }
+  

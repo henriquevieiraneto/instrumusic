@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Progresso | InstruMusic</title>
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="/public/css/dashboard.css">
+    <style>
+        /* Estilos específicos para a página de progresso, se dashboard.css não tiver barras de progresso */
+        .progress-indicator {
+            background-color: var(--color-light-bg);
+            border-radius: 5px;
+            height: 10px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: var(--color-primary);
+            transition: width 0.5s ease;
+        }
+        .progress-card {
+            padding: 20px;
+            background-color: var(--color-medium-bg);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .progress-card h3 {
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+        .progress-card p {
+            font-size: 0.9em;
+            color: var(--color-text-dim);
+            margin-bottom: 5px;
+        }
+        .grid-progress {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header header-public">
+        <div class="logo"><a href="index.html">InstruMusic</a></div>
+        <nav class="main-nav">
+            <a href="meus-cursos.html" class="nav-item">Meus Cursos</a>
+            <a href="progresso.html" class="nav-item active">Progresso</a>
+            <a href="perfil.html" class="nav-item">Perfil</a>
+        </nav>
+        <button class="btn btn-secondary btn-small" id="logoutBtn">Sair</button>
+    </header>
+
+    <main class="content-section dashboard-section">
+        <h2 class="section-title">Acompanhamento de Progresso</h2>
+        
+        <div class="grid-progress">
+            
+            <div class="progress-card">
+                <h3>Guitarra Elétrica: Nível Básico</h3>
+                <p>Módulos Completos: 6 de 10</p>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 60%;"></div> 
+                </div>
+                <p class="mt-10">60% Concluído</p>
+                <a href="/public/instrumentos/guitarra.html" class="btn btn-secondary btn-small mt-10">Revisar Aulas</a>
+            </div>
+            
+            <div class="progress-card">
+                <h3>Violino Clássico: Arco e Postura</h3>
+                <p>Módulos Completos: 3 de 4</p>
+                <div class="progress-indicator">
+                    <div class="progress-bar" style="width: 75%;"></div> 
+                </div>
+                <p class="mt-10">75% Concluído</p>
+                <a href="/public/instrumentos/violino.html" class="btn btn-secondary btn-small mt-10">Próxima Etapa</a>
+            </div>
+            
+            <div class="progress-card">
+                <h3>Metas da Semana</h3>
+                <p>Prática de Escalas: <span class="text-primary">4/7 dias</span></p>
+                <p>Aula ao Vivo: <span class="text-primary">Concluída</span></p>
+                <p>Nível Geral de Habilidade: <span class="text-primary">7/10</span></p>
+                <a href="perfil.html" class="btn btn-primary btn-small mt-10">Ver Certificados</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
+    </footer>
+    <script src="/public/js/script.js"></script>
+</body>
+</html>
