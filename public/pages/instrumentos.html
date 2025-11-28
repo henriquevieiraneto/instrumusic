@@ -4,10 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explore Nossos Instrumentos | InstruMusic</title>
-    <link rel="stylesheet" href="/public/css/styles.css">
-    <link rel="stylesheet" href="/public/css/instrumentos.css">
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #eee;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fundo animado */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        /* HEADER */
+        .main-header {
+            background-color: rgba(18,18,18,0.85);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(6px);
+        }
+
+        .logo a {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-decoration: none;
+        }
+
+        .main-nav a {
+            margin-left: 15px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #ffffff;
+            color: #121212;
+        }
+
+        .btn-primary:hover {
+            background-color: #ffffff;
+        }
+
+        .btn-secondary {
+            background-color: #555;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #777;
+        }
+
+        /* MAIN CONTENT */
+        .content-section {
+            flex-grow: 1;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #ffffff;
+            font-weight: 700;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .instrument-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .instrument-card {
+            background-color: rgba(41,41,41,0.85);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            color: #eee;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .instrument-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.45);
+        }
+
+        .instrument-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .instrument-card h3 {
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: rgba(18,18,18,0.85);
+            padding: 20px 0;
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+            margin-top: auto;
+            backdrop-filter: blur(6px);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .main-nav {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .content-section {
+                padding: 30px 15px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Fundo de partículas -->
+    <canvas id="particles-js"></canvas>
+
     <header class="main-header header-public">
         <div class="logo"><a href="index.html">InstruMusic</a></div>
         <nav class="main-nav">
@@ -18,38 +189,32 @@
 
     <main class="content-section instruments-section">
         <h2 class="section-title">Explore Nossos Instrumentos</h2>
-        
         <div class="instrument-grid">
             <a href="../instrumentos/guitarra.html" class="instrument-card"> 
                 <img src="/public/img/guitarra.png" alt="Guitarra Vermelha">
                 <h3>Guitarra</h3>
                 <p>Domine os riffs com estilo!</p>
             </a>
-
             <a href="../instrumentos/bateria.html" class="instrument-card">
                 <img src="/public/img/bateria.webp" alt="Bateria Acústica">
                 <h3>Bateria</h3>
                 <p>Entre no ritmo com energia!</p>
             </a>
-            
             <a href="../instrumentos/teclado.html" class="instrument-card">
                 <img src="/public/img/teclado.png" alt="Teclado/Sintetizador">
                 <h3>Teclado</h3>
                 <p>Toque harmonias e melodias únicas.</p>
             </a>
-
             <a href="../instrumentos/violino.html" class="instrument-card">
                 <img src="/public/img/violino.png" alt="Violino Clássico">
                 <h3>Violino</h3>
                 <p>Emocione com notas clássicas e intensas.</p>
             </a>
-            
             <a href="../instrumentos/flauta.html" class="instrument-card">
                 <img src="../img/flauta.webp" alt="Flauta Transversal">
                 <h3>Flauta</h3>
                 <p>Sopre suavidade com delicadeza.</p>
             </a>
-
             <a href="../instrumentos/trompete.html" class="instrument-card">
                 <img src="/public/img/trompete.png" alt="Trompete Dourado">
                 <h3>Trompete</h3>
@@ -61,6 +226,68 @@
     <footer>
         <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
     </footer>
-    <script src="/public/js/script.js"></script>
+
+    <!-- Script de partículas brancas -->
+    <script>
+        const canvas = document.getElementById('particles-js');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if(this.x < 0) this.x = width;
+                if(this.x > width) this.x = 0;
+                if(this.y < 0) this.y = height;
+                if(this.y > height) this.y = 0;
+
+                this.draw();
+            }
+        }
+
+        function init() {
+            for(let i = 0; i < particleCount; i++){
+                particles.push(new Particle());
+            }
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for(let i = 0; i < particles.length; i++){
+                particles[i].update();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        init();
+    </script>
 </body>
 </html>

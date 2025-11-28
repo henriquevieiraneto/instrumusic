@@ -4,10 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem-vindo(a) | InstruMusic</title>
-    <link rel="stylesheet" href="/public/css/styles.css">
-    <link rel="stylesheet" href="/public/css/entry.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: #1e1e1e;
+            color: #eee;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: rgba(30,30,30,0.85);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .form-container h2 {
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .form-container p {
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #ffffff;
+            color: #1e1e1e;
+        }
+
+        .btn-primary:hover {
+            background-color: #ffffff;
+        }
+
+        .btn-secondary {
+            background-color: #1e1e1e;
+            color: #fdfdfd;
+            border: 2px solid #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #ffffff;
+            color: #1e1e1e;
+        }
+
+        .text-dim {
+            display: block;
+            margin-top: 20px;
+            color: #bbb;
+            text-decoration: none;
+        }
+
+        .text-dim:hover {
+            color: #f39c12;
+        }
+    </style>
 </head>
 <body>
+    <canvas id="particles-js"></canvas>
+
     <div class="form-container form-center">
         <h2>Bem-vindo à InstruMusic!</h2>
         <p>Escolha como você quer começar sua jornada musical.</p>
@@ -17,7 +113,67 @@
         
         <a href="index.html" class="text-dim">Voltar para a Página Inicial</a>
     </div>
-    
-    <script src="/public/js/script.js"></script>
+
+    <script>
+        const canvas = document.getElementById('particles-js');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 80;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if(this.x < 0) this.x = width;
+                if(this.x > width) this.x = 0;
+                if(this.y < 0) this.y = height;
+                if(this.y > height) this.y = 0;
+
+                this.draw();
+            }
+        }
+
+        function init() {
+            for(let i = 0; i < particleCount; i++){
+                particles.push(new Particle());
+            }
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for(let i = 0; i < particles.length; i++){
+                particles[i].update();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        init();
+    </script>
 </body>
 </html>

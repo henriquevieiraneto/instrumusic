@@ -4,73 +4,406 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Depoimentos | InstruMusic</title>
-    <link rel="stylesheet" href="/public/css/styles.css"> 
-    <link rel="stylesheet" href="/public/css/depoimentos.css"> 
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #eee;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fundo animado */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        /* HEADER */
+        .main-header {
+            background-color: rgba(18,18,18,0.85);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(6px);
+        }
+
+        .logo a {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-decoration: none;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+
+        .main-nav a {
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            color: #eee;
+        }
+
+        .main-nav a:hover {
+            background-color: rgba(243,156,18,0.3);
+        }
+
+        /* BOTÃO criar depoimento */
+        .btn-create {
+            background-color: #e63946;
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .btn-create:hover {
+            background-color: #d62839;
+        }
+
+        /* SEÇÃO DE DEPOIMENTOS */
+        .testimonials-glass {
+            flex-grow: 1;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .card {
+            background-color: rgba(41,41,41,0.85);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: left;
+            color: #eee;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            backdrop-filter: blur(6px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .card .author {
+            display: block;
+            margin-top: 10px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* MODAL */
+        #modalDepoimento {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #modalDepoimento div {
+            background: #1c1c1c;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            color: white;
+        }
+
+        #modalDepoimento input, #modalDepoimento textarea {
+            width:100%;
+            padding:8px;
+            margin:8px 0;
+            border-radius:6px;
+            border:none;
+        }
+
+        #modalDepoimento button {
+            cursor:pointer;
+            border-radius: 8px;
+            border:none;
+            padding:10px 20px;
+            margin-top:10px;
+        }
+
+        #modalDepoimento button.cancel {
+            background:none;
+            color:#bbb;
+            margin-left:10px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: rgba(18,18,18,0.85);
+            padding: 20px 0;
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+            margin-top: auto;
+            backdrop-filter: blur(6px);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .testimonials-glass {
+                padding: 30px 15px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Fundo de partículas -->
+    <canvas id="particles-js"></canvas>
+
     <header class="main-header header-public">
         <div class="logo"><a href="index.html">InstruMusic</a></div>
-         <nav class="main-nav">
+        <nav class="main-nav">
             <ul>
                 <li><a href="sobre.html">Sobre</a></li>
                 <li><a href="instrumentos.html">Instrumentos</a></li>
                 <li><a href="depoimentos.html">Depoimentos</a></li>
-             </ul>
+            </ul>
         </nav>
     </header>
 
+    <div style="text-align: center; margin: 40px 0;">
+        <button class="btn-create" onclick="abrirFormularioDepoimento()">Criar Depoimento</button>
+    </div>
+
     <section class="testimonials-glass">
         <div class="container">
-          <div class="grid">
-            <!-- CARD -->
-            <div class="card">
-              <p>"Em apenas três meses, consegui tocar minha primeira música completa na guitarra..."</p>
-              <span class="author">— Lucas S., Aluno de Guitarra</span>
+            <div class="grid" id="gridDepoimentos">
+                <!-- Depoimentos fixos -->
+                <div class="card">
+                  <p>"Em apenas três meses, consegui tocar minha primeira música completa na guitarra..."</p>
+                  <span class="author">— Lucas S., Aluno de Guitarra</span>
+                </div>
+                <div class="card">
+                  <p>"Eu achava que nunca teria coordenação para a bateria, mas os exercícios progressivos me ajudaram muito..."</p>
+                  <span class="author">— Marina B., Aluna de Bateria</span>
+                </div>
+                <div class="card">
+                  <p>"As aulas de teclado foram fundamentais para eu entender teoria musical..."</p>
+                  <span class="author">— Rafael C., Aluno de Teclado</span>
+                </div>
+                <div class="card">
+                  <p>"Sempre quis tocar violino, mas o custo era alto. Com a InstruMusic realizei meu sonho..."</p>
+                  <span class="author">— Sofia P., Aluna de Violino</span>
+                </div>
+                <div class="card">
+                  <p>"A qualidade do material didático é superior. Consigo revisar as lições sempre que preciso..."</p>
+                  <span class="author">— Eduardo L., Aluno de Flauta</span>
+                </div>
+                <div class="card">
+                  <p>"Como músico sênior, procurei algo para aprender um novo instrumento..."</p>
+                  <span class="author">— João V., Aluno de Trompete</span>
+                </div>
+                <div class="card">
+                  <p>"O melhor investimento de tempo que fiz. Minha evolução foi visível..."</p>
+                  <span class="author">— Ana K., Aluna de Guitarra</span>
+                </div>
+                <div class="card">
+                  <p>"As dicas de improvisação no teclado abriram minha mente para o jazz..."</p>
+                  <span class="author">— Pedro F., Aluno de Teclado</span>
+                </div>
             </div>
-      
-            <div class="card">
-              <p>"Eu achava que nunca teria coordenação para a bateria, mas os exercícios progressivos me ajudaram muito..."</p>
-              <span class="author">— Marina B., Aluna de Bateria</span>
-            </div>
-      
-            <div class="card">
-              <p>"As aulas de teclado foram fundamentais para eu entender teoria musical..."</p>
-              <span class="author">— Rafael C., Aluno de Teclado</span>
-            </div>
-      
-            <div class="card">
-              <p>"Sempre quis tocar violino, mas o custo era alto. Com a InstruMusic realizei meu sonho..."</p>
-              <span class="author">— Sofia P., Aluna de Violino</span>
-            </div>
-      
-            <div class="card">
-              <p>"A qualidade do material didático é superior. Consigo revisar as lições sempre que preciso..."</p>
-              <span class="author">— Eduardo L., Aluno de Flauta</span>
-            </div>
-      
-            <div class="card">
-              <p>"Como músico sênior, procurei algo para aprender um novo instrumento..."</p>
-              <span class="author">— João V., Aluno de Trompete</span>
-            </div>
-      
-            <div class="card">
-              <p>"O melhor investimento de tempo que fiz. Minha evolução foi visível..."</p>
-              <span class="author">— Ana K., Aluna de Guitarra</span>
-            </div>
-      
-            <div class="card">
-              <p>"As dicas de improvisação no teclado abriram minha mente para o jazz..."</p>
-              <span class="author">— Pedro F., Aluno de Teclado</span>
-            </div>
-          </div>
         </div>
-      </section>
-      
+    </section>
+
+    <!-- MODAL -->
+    <div id="modalDepoimento">
+        <div>
+            <h2>Novo Depoimento</h2>
+            <label>Nome:</label>
+            <input id="nomeDep">
+            <label>Instrumento:</label>
+            <input id="instDep">
+            <label>Depoimento:</label>
+            <textarea id="textoDep" rows="4"></textarea>
+            <button onclick="enviarDepoimento()" style="background-color:#e63946; color:white;">Enviar</button>
+            <button onclick="fecharFormularioDepoimento()" class="cancel">Cancelar</button>
+        </div>
+    </div>
 
     <footer>
         <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
     </footer>
 
-    <script src="/public/js/script.js"></script>
+    <!-- Script de partículas brancas -->
+    <script>
+        const canvas = document.getElementById('particles-js');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if(this.x < 0) this.x = width;
+                if(this.x > width) this.x = 0;
+                if(this.y < 0) this.y = height;
+                if(this.y > height) this.y = 0;
+
+                this.draw();
+            }
+        }
+
+        function init() {
+            for(let i = 0; i < particleCount; i++){
+                particles.push(new Particle());
+            }
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for(let i = 0; i < particles.length; i++){
+                particles[i].update();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        init();
+    </script>
+
+    <!-- Script do modal -->
+    <script>
+        function abrirFormularioDepoimento() {
+            document.getElementById("modalDepoimento").style.display = "flex";
+        }
+
+        function fecharFormularioDepoimento() {
+            document.getElementById("modalDepoimento").style.display = "none";
+        }
+
+        function enviarDepoimento() {
+            const nome = document.getElementById("nomeDep").value;
+            const instrumento = document.getElementById("instDep").value;
+            const texto = document.getElementById("textoDep").value;
+
+            if (!nome || !instrumento || !texto) {
+                alert("Preencha todos os campos!");
+                return;
+            }
+
+            adicionarDepoimentoNaPagina(nome, instrumento, texto);
+            fecharFormularioDepoimento();
+
+            document.getElementById("nomeDep").value = "";
+            document.getElementById("instDep").value = "";
+            document.getElementById("textoDep").value = "";
+        }
+
+        function adicionarDepoimentoNaPagina(nome, instrumento, texto) {
+            const grid = document.getElementById("gridDepoimentos");
+
+            const novoCard = document.createElement("div");
+            novoCard.className = "card";
+            novoCard.innerHTML = `
+                <p>"${texto}"</p>
+                <span class="author">— ${nome}, Aluno(a) de ${instrumento}</span>
+            `;
+
+            grid.appendChild(novoCard);
+
+            novoCard.style.opacity = "0";
+            setTimeout(() => {
+                novoCard.style.transition = "0.5s";
+                novoCard.style.opacity = "1";
+            }, 50);
+        }
+    </script>
 </body>
 </html>
