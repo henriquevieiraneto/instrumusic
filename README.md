@@ -22,7 +22,7 @@ Pessoas que colaboraram para a criação do site:
   <tr>
     <td align="center">
       <a href="https://github.com/07victorsz" title="Link do github do Victor">
-        <img src="readme-imgs/foto-victor.jpg" width="100px;" alt="Foto do Victor de Souza no GitHub"/><br>
+        <img src="public/readme-imgs/foto-victor.jpg" width="100px;" alt="Foto do Victor de Souza no GitHub"/><br>
         <sub>
           <b>Victor</b>
         </sub>
@@ -30,15 +30,15 @@ Pessoas que colaboraram para a criação do site:
     </td>
     <td align="center">
       <a href="https://github.com/henriquevieiraneto" title="Link do github do Henrique">
-        <img src="readme-imgs/foto-henrique.png" width="100px;" alt="Foto do Henrique no GitHub"/><br>
+        <img src="public/readme-imgs/foto-henrique.png" width="100px;" alt="Foto do Henrique no GitHub"/><br>
         <sub>
           <b>Henrique</b>
         </sub>
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/07victorsz" title="Link do github do Victor">
-        <img src="readme-imgs/foto-ettham.png" width="100px;" alt="Foto do Ettham no GitHub"/><br>
+      <a href="https://github.com/Ettham" title="Link do github do Victor">
+        <img src="public/readme-imgs/foto-ettham.png" width="100px;" alt="Foto do Ettham no GitHub"/><br>
         <sub>
           <b>Ettham</b>
         </sub>
@@ -46,7 +46,7 @@ Pessoas que colaboraram para a criação do site:
     </td>
     <td align="center">
       <a href="https://github.com/Carati32" title="Link do github do Bruno">
-        <img src="readme-imgs/foto-bruno.jpg" width="100px;" alt="Foto do Bruno no GitHub"/><br>
+        <img src="public/readme-imgs/foto-bruno.jpg" width="100px;" alt="Foto do Bruno no GitHub"/><br>
         <sub>
           <b>Bruno</b>
         </sub>
