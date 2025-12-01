@@ -1,7 +1,7 @@
 # Instrumusic
 
 
-<img src="readme-imgs/img-pag-inicial.png" alt="Imagem da tela inicial do site">
+<img src="public/readme-imgs/img-pag-inicial.png" alt="Imagem da tela inicial do site">
 
 Nosso site é focado em ajudar as pessoas a tocar qualquer instrumento musical. Você escolhe o seu estilo e instrumento. Tudo é totalmente gratuito! Dentro da plataforma, você pode selecionar o horário em que deseja aprender e o local disponível para o aprendizado.
 
@@ -11,7 +11,7 @@ Nosso site é focado em ajudar as pessoas a tocar qualquer instrumento musical. 
 
 Para rodar o site Instrumusic, Instale o Live server(extensão do vscode)
 
-<img src="readme-imgs/extensao-live-server.png" alt="Extensão do live server ">
+<img src="public/readme-imgs/extensao-live-server.png " alt="Extensão do live server ">
 
 ## 🤝 Colaboradores
 
