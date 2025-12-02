@@ -4,10 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Conta | InstruMusic</title>
-    <link rel="stylesheet" href="/public/css/styles.css">
-    <link rel="stylesheet" href="/public/css/login.css">
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #1e1e1e;
+            color: #eee;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Fundo animado */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        /* Formulário centralizado */
+        .form-container {
+            background-color: rgba(30,30,30,0.85);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .btn {
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .btn-secondary {
+            background-color: #ffffff;
+            color: #1e1e1e;
+        }
+
+        .btn-secondary:hover {
+            background-color: #ffffff;
+        }
+
+        .btn-full-width {
+            width: 100%;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .text-primary {
+            color: #f39c12;
+            text-decoration: none;
+        }
+
+        .text-primary:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Fundo de partículas -->
+    <canvas id="particles-js"></canvas>
+
     <div class="form-container form-center">
         <h2>Criar Sua Conta</h2>
         <form id="registerForm"> 
@@ -21,7 +134,70 @@
             <p class="mt-20">Já tem uma conta? <a href="login.html" class="text-primary">Faça Login aqui</a></p>
         </form>
     </div>
-    
+
+    <!-- Script de partículas brancas -->
+    <script>
+        const canvas = document.getElementById('particles-js');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if(this.x < 0) this.x = width;
+                if(this.x > width) this.x = 0;
+                if(this.y < 0) this.y = height;
+                if(this.y > height) this.y = 0;
+
+                this.draw();
+            }
+        }
+
+        function init() {
+            for(let i = 0; i < particleCount; i++){
+                particles.push(new Particle());
+            }
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for(let i = 0; i < particles.length; i++){
+                particles[i].update();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        init();
+    </script>
+
     <script src="/public/js/script.js"></script>
 </body>
 </html>

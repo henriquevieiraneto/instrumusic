@@ -1,36 +1,542 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sobre Nós | InstruMusic</title>
-    <link rel="stylesheet" href="/public/css/styles.css">
-    <link rel="stylesheet" href="/public/css/dashboard.css"> 
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #eee;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fundo animado */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        /* HEADER TRANSPARENTE DE VERDADE */
+        .main-header {
+            background: transparent !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            box-shadow: none !important;
+            border: none !important;
+            outline: none !important;
+            filter: none !important;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* LINKS DO HEADER EM BRANCO */
+        .main-header a {
+            color: #ffffff !important;
+        }
+
+
+        .logo a {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-decoration: none;
+            font-family: 'Segoe UI Black', 'Segoe UI', sans-serif;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .main-nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .main-nav ul li a:hover,
+        .main-nav ul li a:focus {
+            background-color: #ffffff;
+            color: #121212;
+        }
+
+        .btn-primary {
+            
+            color: #121212;
+            padding: 10px 18px;
+            font-weight: 700;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: #ffffff;
+        }
+
+        /* MAIN CONTENT */
+        .content-section {
+            flex-grow: 1;
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #ffffff;
+            font-weight: 700;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* Sobre - nossa missão */
+        .about-content {
+            background-color: rgba(41,41,41,0.85);
+            border-radius: 12px;
+            padding: 30px 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
+            text-align: justify;
+            font-size: 1.15em;
+            line-height: 1.8;
+            color: #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 800px;
+            margin: 0 auto;
+            backdrop-filter: blur(4px);
+        }
+
+        .about-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
+        }
+        
+        /* --- NOVO CSS: EXPLORE MUSIC --- */
+
+        /* Estilização Geral da Seção */
+        .music-explore-section {
+            background-color: transparent; /* Fundo transparente para ver as partículas */
+            padding: 60px 20px;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Título Principal */
+        .music-explore-section h2 {
+            color: #87cefa; 
+            font-size: 1.8em;
+            font-weight: 300;
+            margin: 0 auto 30px auto;
+            text-align: center;
+            max-width: 1000px;
+        }
+
+        /* Container que define o layout em colunas */
+        .music-explore-container {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            max-width: 1000px; 
+            margin: 0 auto;
+        }
+
+        /* Estilização de cada Card (Coluna) */
+        .music-card {
+            flex: 1; 
+            background-color: rgba(41,41,41,0.85); /* Fundo com transparência */
+            border: 1px solid #444;
+            border-left: 5px solid #007bff; 
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(4px); /* Suaviza o fundo atrás do card */
+        }
+
+        /* Efeito de Hover nos Cards */
+        .music-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.7);
+            border-left-color: #87cefa;
+        }
+
+        /* Títulos dos Cards */
+        .music-card h3 {
+            color: #87cefa; 
+            margin-top: 0;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Parágrafos de descrição */
+        .music-card p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #bbb;
+            margin-bottom: 25px;
+        }
+
+        /* Links (Botões de Ação) */
+        .music-card a {
+            color: #ffffff; 
+            background-color: #007bff;
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: background-color 0.2s;
+        }
+
+        .music-card a:hover {
+            background-color: #0056b3;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        /* Responsividade para cards */
+        @media (max-width: 768px) {
+            .music-explore-container {
+                flex-direction: column;
+            }
+        }
+        
+        /* --- NOVO CSS: FOOTER ESTILIZADO --- */
+
+        .main-footer {
+            background-color: rgba(18,18,18,0.85); /* Volta para cor sólida com transparência para não cobrir o fundo animado */
+            color: #ccc;
+            padding: 40px 20px 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            border-top: 5px solid #007bff;
+            position: relative; /* Garante que fique acima das partículas */
+            z-index: 1;
+            margin-top: 50px; /* Adiciona espaço acima do rodapé */
+            backdrop-filter: blur(6px);
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto;
+            flex-wrap: wrap; 
+            gap: 30px;
+        }
+
+        .footer-section {
+            min-width: 180px; 
+            flex: 1;
+        }
+
+        /* Títulos das Seções do Rodapé */
+        .footer-section h4 {
+            color: #87cefa; 
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .footer-section p, .footer-section a {
+            font-size: 0.9em;
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Links Sociais */
+        .social-links {
+            display: flex; 
+            gap: 15px; 
+        }
+
+        .social-links a {
+            background-color: #333;
+            color: #87cefa;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        /* FOOTER ORIGINAL - REMOVIDO / SUBSTITUÍDO */
+        footer {
+            display: none; /* Esconde o footer original simples */
+        }
+
+
+        /* Responsividade Geral */
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .content-section {
+                padding: 30px 15px;
+                max-width: 95%;
+            }
+
+            .about-content {
+                padding: 20px 15px;
+                font-size: 1em;
+            }
+            
+            /* Responsividade para o rodapé */
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-section {
+                margin-bottom: 20px;
+                min-width: 100%;
+            }
+
+            .footer-section h4 {
+                border-bottom: none;
+                padding-bottom: 0;
+                text-align: center;
+            }
+
+            .social-links {
+                margin-top: 10px;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header class="main-header header-public">
+    <canvas id="particles-js"></canvas>
+    <header class="main-header header-public header-transparent">
         <div class="logo"><a href="index.html">InstruMusic</a></div>
+    
         <nav class="main-nav">
             <ul>
-                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="sobre.html" aria-current="page">Sobre</a></li>
                 <li><a href="instrumentos.html">Instrumentos</a></li>
                 <li><a href="depoimentos.html">Depoimentos</a></li>
             </ul>
         </nav>
+    
         <a href="entry.html" class="btn btn-primary">Login / Cadastro</a>
     </header>
-
+    
+    
+    
     <main class="content-section">
         <h2 class="section-title">Nossa Missão</h2>
-        
-        <div class="about-content" style="max-width: 800px; margin: 0 auto; text-align: justify;">
+        <div class="about-content">
             <p>A InstruMusic é uma organização que possibilita pessoas a partir dos 6 anos de idade aprender a tocar diversos instrumentos. Através de uma parceria com a prefeitura ou estado, pretendemos trazer diversos benefícios como idas a shows, concertos e etc. Disponibilizaremos instrumentos, salas para prática fora do horário de aula, aulas online e, caso o aluno opte por ensino presencial, lanches no local.</p>
         </div>
     </main>
-    
-    <footer>
-        <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
+
+    <section class="music-explore-section">
+        <h2 class="section-title">Comece a Explorar!</h2>
+        <div class="music-explore-container">
+            
+            <div class="music-card">
+                <h3>Gêneros Musicais</h3>
+                <p>Descubra o universo do Rock, Jazz, Clássica e muito mais!</p>
+                <a href="../pages/generos.html">Ver Gêneros</a>
+            </div>
+
+            <div class="music-card">
+                <h3>Teoria Musical Básica</h3>
+                <p>Entenda notas, acordes e ritmos de forma simples.</p>
+                <a href="../pages/teoria.html">Aprender Teoria</a>
+            </div>
+
+            <div class="music-card">
+                <h3>Histórias Que Inspiram</h3>
+                <p>Veja vídeos e depoimentos de outros alunos e músicos.</p>
+                <a href="../pages/depoimentos.html">Assista Agora</a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            
+            <div class="footer-section">
+                <h4>InstruMusic</h4>
+                <p>A plataforma definitiva para sua jornada musical.</p>
+                <p>Todos os direitos reservados &copy; 2025.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="sobre.html">Sobre a Plataforma</a></li>
+                    <li><a href="instrumentos.html">Nossos Instrumentos</a></li>
+                    <li><a href="teoria.html">Aprender Teoria</a></li>
+                    <li><a href="generos.html">Gêneros Musicais</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contato</h4>
+                <p>Email: <a href="mailto:contato@instrumusic.com">contato@instrumusic.com</a></p>
+                <p>Telefone: (11) 98765-4321</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Siga-nos</h4>
+                <div class="social-links">
+                    <a href="#" title="Facebook">FB</a>
+                    <a href="#" title="Instagram">IG</a>
+                    <a href="#" title="YouTube">YT</a>
+                    <a href="#" title="Twitter/X">X</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            Política de Privacidade | Termos de Serviço
+        </div>
     </footer>
-    <script src="/public/js/script.js"></script>
+    <script>
+        // Partículas animadas simples
+        const canvas = document.getElementById('particles-js');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if(this.x < 0) this.x = width;
+                if(this.x > width) this.x = 0;
+                if(this.y < 0) this.y = height;
+                if(this.y > height) this.y = 0;
+
+                this.draw();
+            }
+        }
+
+        function init() {
+            for(let i = 0; i < particleCount; i++){
+                particles.push(new Particle());
+            }
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for(let i = 0; i < particles.length; i++){
+                particles[i].update();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        init();
+    </script>
 </body>
 </html>

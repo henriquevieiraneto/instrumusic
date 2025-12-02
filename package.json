@@ -18,7 +18,11 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
+<<<<<<< HEAD
     "cypress": "^15.7.1",
+=======
+    "cypress": "^15.7.0",
+>>>>>>> 49ad4995546dfb73e32814835c982ed0a6d825b3
     "express": "^4.22.1",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",

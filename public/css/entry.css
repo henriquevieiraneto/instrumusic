@@ -1,53 +1,95 @@
-/* public/css/entry.css - Estilo Específico da Página de Entrada (entry.html) */
+/* ===============================
+   public/css/entry.css
+   Estilo da Página de Entrada (entry.html)
+=============================== */
 
-/* Container principal para centralizar e estilizar o bloco de entrada */
+/* Container principal */
 .form-center {
-    min-height: 100vh; /* Ocupa a altura total da viewport */
+    min-height: 100vh;
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
-    padding: 20px;           /* Padding seguro em telas pequenas */
-    flex-direction: column;  /* Garante que os filhos se empilhem */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    flex-direction: column;
+    background: linear-gradient(145deg, #1d1d1d, #2a2a2a);
+    animation: fadeInPage 0.5s ease-in-out;
 }
 
+/* Caixa do formulário */
 .form-container {
-    background-color: var(--color-medium-bg);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
     padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 14px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
     width: 100%;
-    max-width: 400px; /* Largura máxima padrão para formulários */
+    max-width: 400px;
     text-align: center;
-    /* Remover margin: auto; pois o flexbox já centraliza */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: 0.3s ease;
 }
 
+/* Efeito ao pairar */
+.form-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* Título */
 .form-container h2 { 
     margin-bottom: 15px; 
-    font-weight: 600; 
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.5px;
 }
 
+/* Descrição */
 .form-container p {
     color: var(--color-text-dim);
-    margin-bottom: 30px; 
+    margin-bottom: 30px;
     font-size: 1.1em;
 }
 
-/* Estilo para os botões dentro do form-container da página de entrada */
+/* Botões dentro do formulário */
 .form-container .btn {
-    margin-top: 10px;    /* Espaço em cima dos botões */
-    margin-bottom: 10px; /* Espaço embaixo dos botões */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: 0.25s ease;
 }
 
-/* Estilo para o link "Voltar para a Página Inicial" */
+/* Suavização de hover */
+.form-container .btn:hover {
+    transform: scale(1.03);
+}
+
+/* Link "Voltar para a Página Inicial" */
 .form-container .text-dim {
-    display: block;      /* Garante que o link ocupe sua própria linha */
-    margin-top: 30px;    /* Espaço acima do link */
+    display: block;
+    margin-top: 30px;
     font-size: 0.9em;
+    opacity: 0.8;
+    transition: 0.25s ease;
 }
 
-/* Responsividade para telas menores */
+.form-container .text-dim:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+/* Animação sutil de entrada da página */
+@keyframes fadeInPage {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsividade */
 @media (max-width: 600px) {
     .form-container {
-        padding: 25px;
+        padding: 28px;
+        border-radius: 12px;
     }
 }
