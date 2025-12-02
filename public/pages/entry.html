@@ -16,14 +16,14 @@
             min-height: 100vh;
             background: #1e1e1e;
             color: #eee;
-            position: relative;
             overflow-x: hidden;
+            position: relative;
         }
 
+        /* Fundo animado */
         #particles-js {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
@@ -33,87 +33,107 @@
         }
 
         @keyframes gradientBG {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
+        /* Caixa do formulário */
         .form-container {
-            max-width: 400px;
-            margin: 100px auto;
-            background: rgba(30,30,30,0.85);
-            padding: 30px;
-            border-radius: 12px;
+            max-width: 380px;
+            margin: 120px auto 40px auto;
+            background: rgba(30,30,30,0.88);
+            padding: 32px;
+            border-radius: 14px;
             text-align: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+            backdrop-filter: blur(6px);
         }
 
         .form-container h2 {
-            margin-bottom: 15px;
-            color: #ffffff;
+            margin-bottom: 12px;
         }
 
         .form-container p {
             margin-bottom: 25px;
+            color: #ddd;
+            font-size: 0.95rem;
         }
 
+        /* Botões */
         .btn {
             display: block;
             width: 100%;
             padding: 12px;
-            margin: 10px 0;
+            margin: 12px 0;
             border: none;
             border-radius: 8px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.25s ease;
+            font-size: 0.95rem;
         }
 
         .btn-primary {
-            background-color: #ffffff;
+            background: #fff;
             color: #1e1e1e;
         }
 
         .btn-primary:hover {
-            background-color: #ffffff;
+            background: #f2f2f2;
         }
 
         .btn-secondary {
-            background-color: #1e1e1e;
-            color: #fdfdfd;
-            border: 2px solid #ffffff;
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
         }
 
         .btn-secondary:hover {
-            background-color: #ffffff;
+            background: #fff;
             color: #1e1e1e;
         }
 
+        /* Link inferior */
         .text-dim {
             display: block;
             margin-top: 20px;
             color: #bbb;
             text-decoration: none;
+            font-size: 0.9rem;
         }
 
         .text-dim:hover {
             color: #f39c12;
+        }
+
+        /* Responsivo */
+        @media (max-width: 480px) {
+            .form-container {
+                margin-top: 80px;
+                padding: 25px;
+            }
+
+            .btn {
+                padding: 11px;
+            }
         }
     </style>
 </head>
 <body>
     <canvas id="particles-js"></canvas>
 
-    <div class="form-container form-center">
+    <div class="form-container">
         <h2>Bem-vindo à InstruMusic!</h2>
         <p>Escolha como você quer começar sua jornada musical.</p>
         
-        <a href="login.html" class="btn btn-primary btn-full-width">Fazer Login</a>
-        <a href="register.html" class="btn btn-secondary btn-full-width">Criar Conta (Cadastre-se)</a>
+        <a href="login.html" class="btn btn-primary">Fazer Login</a>
+        <a href="register.html" class="btn btn-secondary">Criar Conta (Cadastre-se)</a>
         
         <a href="index.html" class="text-dim">Voltar para a Página Inicial</a>
     </div>
 
+    <!-- Script partículas -->
     <script>
         const canvas = document.getElementById('particles-js');
         const ctx = canvas.getContext('2d');
@@ -136,7 +156,7 @@
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fillStyle = 'rgba(255,255,255,0.7)';
                 ctx.fill();
             }
 
@@ -144,17 +164,17 @@
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                if(this.x < 0) this.x = width;
-                if(this.x > width) this.x = 0;
-                if(this.y < 0) this.y = height;
-                if(this.y > height) this.y = 0;
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
 
                 this.draw();
             }
         }
 
         function init() {
-            for(let i = 0; i < particleCount; i++){
+            for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
             animate();
@@ -162,9 +182,7 @@
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            for(let i = 0; i < particles.length; i++){
-                particles[i].update();
-            }
+            particles.forEach(p => p.update());
             requestAnimationFrame(animate);
         }
 

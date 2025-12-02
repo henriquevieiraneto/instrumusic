@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explore Nossos Instrumentos | InstruMusic</title>
+
     <style>
-        /* Reset básico */
+        /* RESET */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* BASE */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #eee;
@@ -23,11 +25,10 @@
             position: relative;
         }
 
-        /* Fundo animado */
+        /* BACKGROUND ANIMADO */
         #particles-js {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
@@ -37,27 +38,28 @@
         }
 
         @keyframes gradientBG {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* HEADER */
+        /* HEADER TRANSPARENTE */
         .main-header {
-            background-color: rgba(18,18,18,0.85);
+            background: transparent !important;
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.7);
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(6px);
+        }
+
+        .main-header a {
+            color: #fff !important;
         }
 
         .logo a {
-            color: #ffffff;
             font-weight: 700;
             font-size: 1.8rem;
             text-decoration: none;
@@ -67,18 +69,19 @@
             margin-left: 15px;
             padding: 8px 12px;
             border-radius: 5px;
-            text-decoration: none;
             font-weight: 600;
+            text-decoration: none;
             transition: background 0.3s ease;
         }
 
+        /* BOTÕES */
         .btn-primary {
-            background-color: #ffffff;
+            background-color: #ce0606;
             color: #121212;
         }
 
         .btn-primary:hover {
-            background-color: #ffffff;
+            background-color: #e6e6e6;
         }
 
         .btn-secondary {
@@ -90,25 +93,25 @@
             background-color: #777;
         }
 
-        /* MAIN CONTENT */
+        /* CONTEÚDO */
         .content-section {
             flex-grow: 1;
             padding: 40px 20px;
             max-width: 1200px;
             margin: 0 auto;
-            position: relative;
             z-index: 1;
         }
 
         .section-title {
             font-size: 2rem;
             margin-bottom: 30px;
-            color: #ffffff;
             font-weight: 700;
             text-align: center;
+            color: #fff;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
 
+        /* GRID DOS INSTRUMENTOS */
         .instrument-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -120,8 +123,8 @@
             border-radius: 12px;
             padding: 20px;
             text-align: center;
-            color: #eee;
             text-decoration: none;
+            color: #eee;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             backdrop-filter: blur(4px);
         }
@@ -133,14 +136,13 @@
 
         .instrument-card img {
             width: 100%;
-            height: auto;
             border-radius: 8px;
             margin-bottom: 15px;
         }
 
         .instrument-card h3 {
             margin-bottom: 10px;
-            color: #ffffff;
+            color: #fff;
         }
 
         /* FOOTER */
@@ -155,7 +157,7 @@
             backdrop-filter: blur(6px);
         }
 
-        /* Responsividade */
+        /* RESPONSIVIDADE */
         @media (max-width: 768px) {
             .main-header {
                 flex-direction: column;
@@ -175,8 +177,9 @@
         }
     </style>
 </head>
+
 <body>
-    <!-- Fundo de partículas -->
+
     <canvas id="particles-js"></canvas>
 
     <header class="main-header header-public">
@@ -189,37 +192,45 @@
 
     <main class="content-section instruments-section">
         <h2 class="section-title">Explore Nossos Instrumentos</h2>
+
         <div class="instrument-grid">
-            <a href="../instrumentos/guitarra.html" class="instrument-card"> 
+
+            <a href="../instrumentos/guitarra.html" class="instrument-card">
                 <img src="/public/img/guitarra.png" alt="Guitarra Vermelha">
                 <h3>Guitarra</h3>
                 <p>Domine os riffs com estilo!</p>
             </a>
+
             <a href="../instrumentos/bateria.html" class="instrument-card">
                 <img src="/public/img/bateria.webp" alt="Bateria Acústica">
                 <h3>Bateria</h3>
                 <p>Entre no ritmo com energia!</p>
             </a>
+
             <a href="../instrumentos/teclado.html" class="instrument-card">
                 <img src="/public/img/teclado.png" alt="Teclado/Sintetizador">
                 <h3>Teclado</h3>
                 <p>Toque harmonias e melodias únicas.</p>
             </a>
+
             <a href="../instrumentos/violino.html" class="instrument-card">
                 <img src="/public/img/violino.png" alt="Violino Clássico">
                 <h3>Violino</h3>
                 <p>Emocione com notas clássicas e intensas.</p>
             </a>
+
             <a href="../instrumentos/flauta.html" class="instrument-card">
-                <img src="../img/flauta.webp" alt="Flauta Transversal">
+                <img src="/public/img/flauta.webp" alt="Flauta Transversal">
                 <h3>Flauta</h3>
                 <p>Sopre suavidade com delicadeza.</p>
             </a>
+
             <a href="../instrumentos/trompete.html" class="instrument-card">
                 <img src="/public/img/trompete.png" alt="Trompete Dourado">
                 <h3>Trompete</h3>
                 <p>Encha o ar com sons vibrantes!</p>
             </a>
+
         </div>
     </main>
 
@@ -227,7 +238,7 @@
         <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- Script de partículas brancas -->
+    <!-- ANIMAÇÃO DE PARTÍCULAS -->
     <script>
         const canvas = document.getElementById('particles-js');
         const ctx = canvas.getContext('2d');
@@ -240,6 +251,10 @@
 
         class Particle {
             constructor() {
+                this.reset();
+            }
+
+            reset() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
                 this.radius = Math.random() * 2 + 1;
@@ -258,17 +273,17 @@
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                if(this.x < 0) this.x = width;
-                if(this.x > width) this.x = 0;
-                if(this.y < 0) this.y = height;
-                if(this.y > height) this.y = 0;
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
 
                 this.draw();
             }
         }
 
         function init() {
-            for(let i = 0; i < particleCount; i++){
+            for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
             animate();
@@ -276,9 +291,7 @@
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            for(let i = 0; i < particles.length; i++){
-                particles[i].update();
-            }
+            particles.forEach(p => p.update());
             requestAnimationFrame(animate);
         }
 
@@ -289,5 +302,6 @@
 
         init();
     </script>
+
 </body>
 </html>

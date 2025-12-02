@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | InstruMusic</title>
+
     <style>
         /* Reset básico */
         * {
@@ -38,38 +39,51 @@
         }
 
         @keyframes gradientBG {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* Formulário centralizado */
+        /* Formulário */
         .form-container {
-            background-color: rgba(30,30,30,0.85);
-            padding: 40px 30px;
+            background-color: rgba(30, 30, 30, 0.85);
+            padding: 35px 28px;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             backdrop-filter: blur(6px);
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
             text-align: center;
             z-index: 1;
         }
 
         h2 {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             color: #ffffff;
+            font-size: 1.6rem;
         }
 
         input[type="email"],
         input[type="password"] {
             width: 100%;
             padding: 12px;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             border-radius: 8px;
             border: none;
-            outline: none;
             font-size: 1rem;
+            outline: none;
+        }
+
+        .forgot-password {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #bbb;
+        }
+
+        .forgot-password:hover {
+            color: #ffffff;
         }
 
         .btn {
@@ -80,7 +94,7 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 1rem;
-            transition: background 0.3s ease;
+            transition: opacity 0.3s;
         }
 
         .btn-primary {
@@ -89,65 +103,56 @@
         }
 
         .btn-primary:hover {
-            background-color: #ffffff;
-        }
-
-        .btn-full-width {
-            width: 100%;
+            opacity: 0.9;
         }
 
         .mt-20 {
             margin-top: 20px;
         }
 
-        .forgot-password {
-            display: block;
-            margin-bottom: 15px;
-            text-decoration: none;
-            color: #bbb;
-            font-size: 0.9rem;
-        }
-
-        .forgot-password:hover {
-            color: #ffffff;
-        }
-
         .text-primary {
             color: #ffffff;
             text-decoration: none;
+            font-weight: 600;
         }
 
         .text-primary:hover {
             text-decoration: underline;
         }
 
-        /* Responsividade */
+        /* Responsivo */
         @media (max-width: 480px) {
             .form-container {
-                padding: 30px 20px;
+                padding: 28px 20px;
             }
         }
     </style>
 </head>
+
 <body>
-    <!-- Fundo de partículas -->
+
+    <!-- Fundo animado -->
     <canvas id="particles-js"></canvas>
 
-    <div class="form-container form-center">
+    <div class="form-container">
         <h2>Fazer Login</h2>
+
         <form id="loginForm">
             <input type="email" id="email" name="email" placeholder="E-mail" required>
             <input type="password" id="password" name="password" placeholder="Senha" required>
-            
+
             <a href="#" class="forgot-password">Esqueceu sua senha?</a>
-            
-            <button type="submit" class="btn btn-primary btn-full-width mt-20">Entrar</button>
+
+            <button type="submit" class="btn btn-primary mt-20">Entrar</button>
         </form>
 
-        <p class="mt-20">Não tem uma conta? <a href="register.html" class="text-primary">Cadastre-se aqui</a></p>
+        <p class="mt-20">
+            Não tem uma conta?
+            <a href="register.html" class="text-primary">Cadastre-se aqui</a>
+        </p>
     </div>
 
-    <!-- Script de partículas brancas -->
+    <!-- Partículas -->
     <script>
         const canvas = document.getElementById('particles-js');
         const ctx = canvas.getContext('2d');
@@ -170,7 +175,7 @@
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
                 ctx.fill();
             }
 
@@ -178,17 +183,17 @@
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                if(this.x < 0) this.x = width;
-                if(this.x > width) this.x = 0;
-                if(this.y < 0) this.y = height;
-                if(this.y > height) this.y = 0;
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
 
                 this.draw();
             }
         }
 
         function init() {
-            for(let i = 0; i < particleCount; i++){
+            for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
             animate();
@@ -196,13 +201,11 @@
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            for(let i = 0; i < particles.length; i++){
-                particles[i].update();
-            }
+            particles.forEach(p => p.update());
             requestAnimationFrame(animate);
         }
 
-        window.addEventListener('resize', () => {
+        window.addEventListener("resize", () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         });

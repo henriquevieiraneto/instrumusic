@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Depoimentos | InstruMusic</title>
+
     <style>
-        /* Reset básico */
+        /* RESET */
         * {
             margin: 0;
             padding: 0;
@@ -23,44 +24,45 @@
             position: relative;
         }
 
-        /* Fundo animado */
+        /* FUNDO ANIMADO */
         #particles-js {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
             background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
             background-size: 400% 400%;
-            animation: gradientBG 20s ease infinite;
+            animation: gradientBG 18s ease infinite;
         }
 
         @keyframes gradientBG {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* HEADER */
+        /* HEADER REALMENTE TRANSPARENTE */
         .main-header {
-            background-color: rgba(18,18,18,0.85);
+            background: transparent;
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.7);
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(6px);
+        }
+
+        .main-header a {
+            color: #fff !important;
+            text-decoration: none;
+            font-weight: 600;
         }
 
         .logo a {
-            color: #ffffff;
-            font-weight: 700;
             font-size: 1.8rem;
-            text-decoration: none;
+            font-weight: 700;
         }
 
         .main-nav ul {
@@ -72,17 +74,14 @@
         .main-nav a {
             padding: 8px 12px;
             border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
             transition: background 0.3s ease;
-            color: #eee;
         }
 
         .main-nav a:hover {
-            background-color: rgba(243,156,18,0.3);
+            background-color: rgba(243, 156, 18, 0.3);
         }
 
-        /* BOTÃO criar depoimento */
+        /* BOTÃO CRIAR DEPOIMENTO */
         .btn-create {
             background-color: #e63946;
             color: white;
@@ -91,21 +90,20 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 1rem;
-            transition: background 0.3s;
+            transition: 0.3s;
         }
 
         .btn-create:hover {
             background-color: #d62839;
         }
 
-        /* SEÇÃO DE DEPOIMENTOS */
+        /* SEÇÃO PRINCIPAL */
         .testimonials-glass {
             flex-grow: 1;
             padding: 40px 20px;
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
-            z-index: 1;
         }
 
         .container {
@@ -115,7 +113,7 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 25px;
             width: 100%;
         }
@@ -128,19 +126,19 @@
             color: #eee;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             backdrop-filter: blur(6px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.55);
         }
 
-        .card .author {
-            display: block;
+        .author {
             margin-top: 10px;
             font-weight: 600;
-            color: #ffffff;
+            color: #fff;
+            display: block;
         }
 
         /* MODAL */
@@ -160,68 +158,64 @@
             padding: 30px;
             border-radius: 12px;
             width: 90%;
-            max-width: 400px;
-            color: white;
+            max-width: 420px;
         }
 
-        #modalDepoimento input, #modalDepoimento textarea {
-            width:100%;
-            padding:8px;
-            margin:8px 0;
-            border-radius:6px;
-            border:none;
+        #modalDepoimento input,
+        #modalDepoimento textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: none;
+            font-size: 0.95rem;
         }
 
         #modalDepoimento button {
-            cursor:pointer;
+            cursor: pointer;
             border-radius: 8px;
-            border:none;
-            padding:10px 20px;
-            margin-top:10px;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 12px;
         }
 
         #modalDepoimento button.cancel {
-            background:none;
-            color:#bbb;
-            margin-left:10px;
+            background: none;
+            color: #bbb;
+            margin-left: 10px;
         }
 
-        /* FOOTER */
+        /* RODAPÉ */
         footer {
             background-color: rgba(18,18,18,0.85);
             padding: 20px 0;
             text-align: center;
-            color: #999;
-            font-size: 0.9em;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+            color: #aaa;
+            font-size: 0.9rem;
             margin-top: auto;
-            backdrop-filter: blur(6px);
         }
 
-        /* Responsividade */
+        /* RESPONSIVIDADE */
         @media (max-width: 768px) {
             .main-header {
                 flex-direction: column;
-                gap: 15px;
+                gap: 12px;
             }
 
             .main-nav ul {
                 flex-direction: column;
-                gap: 10px;
                 align-items: center;
-            }
-
-            .testimonials-glass {
-                padding: 30px 15px;
+                gap: 10px;
             }
         }
     </style>
 </head>
+
 <body>
-    <!-- Fundo de partículas -->
+
     <canvas id="particles-js"></canvas>
 
-    <header class="main-header header-public">
+    <header class="main-header">
         <div class="logo"><a href="index.html">InstruMusic</a></div>
         <nav class="main-nav">
             <ul>
@@ -239,39 +233,48 @@
     <section class="testimonials-glass">
         <div class="container">
             <div class="grid" id="gridDepoimentos">
-                <!-- Depoimentos fixos -->
+
+                <!-- DEPOIMENTOS FIXOS -->
                 <div class="card">
-                  <p>"Em apenas três meses, consegui tocar minha primeira música completa na guitarra..."</p>
-                  <span class="author">— Lucas S., Aluno de Guitarra</span>
+                    <p>"Em apenas três meses, consegui tocar minha primeira música completa na guitarra..."</p>
+                    <span class="author">— Lucas S., Aluno de Guitarra</span>
                 </div>
+
                 <div class="card">
-                  <p>"Eu achava que nunca teria coordenação para a bateria, mas os exercícios progressivos me ajudaram muito..."</p>
-                  <span class="author">— Marina B., Aluna de Bateria</span>
+                    <p>"Eu achava que nunca teria coordenação para bateria, mas os exercícios progressivos me ajudaram muito..."</p>
+                    <span class="author">— Marina B., Aluna de Bateria</span>
                 </div>
+
                 <div class="card">
-                  <p>"As aulas de teclado foram fundamentais para eu entender teoria musical..."</p>
-                  <span class="author">— Rafael C., Aluno de Teclado</span>
+                    <p>"As aulas de teclado foram fundamentais para entender teoria musical..."</p>
+                    <span class="author">— Rafael C., Aluno de Teclado</span>
                 </div>
+
                 <div class="card">
-                  <p>"Sempre quis tocar violino, mas o custo era alto. Com a InstruMusic realizei meu sonho..."</p>
-                  <span class="author">— Sofia P., Aluna de Violino</span>
+                    <p>"Sempre quis tocar violino, mas o custo era alto. Com a InstruMusic realizei meu sonho..."</p>
+                    <span class="author">— Sofia P., Aluna de Violino</span>
                 </div>
+
                 <div class="card">
-                  <p>"A qualidade do material didático é superior. Consigo revisar as lições sempre que preciso..."</p>
-                  <span class="author">— Eduardo L., Aluno de Flauta</span>
+                    <p>"A qualidade do material didático é superior. Consigo revisar as lições sempre que preciso..."</p>
+                    <span class="author">— Eduardo L., Aluno de Flauta</span>
                 </div>
+
                 <div class="card">
-                  <p>"Como músico sênior, procurei algo para aprender um novo instrumento..."</p>
-                  <span class="author">— João V., Aluno de Trompete</span>
+                    <p>"Como músico sênior, procurei algo novo para aprender. Excelente plataforma..."</p>
+                    <span class="author">— João V., Aluno de Trompete</span>
                 </div>
+
                 <div class="card">
-                  <p>"O melhor investimento de tempo que fiz. Minha evolução foi visível..."</p>
-                  <span class="author">— Ana K., Aluna de Guitarra</span>
+                    <p>"O melhor investimento que fiz. Minha evolução foi muito rápida!"</p>
+                    <span class="author">— Ana K., Aluna de Guitarra</span>
                 </div>
+
                 <div class="card">
-                  <p>"As dicas de improvisação no teclado abriram minha mente para o jazz..."</p>
-                  <span class="author">— Pedro F., Aluno de Teclado</span>
+                    <p>"As dicas de improvisação no teclado abriram minha mente para o jazz..."</p>
+                    <span class="author">— Pedro F., Aluno de Teclado</span>
                 </div>
+
             </div>
         </div>
     </section>
@@ -280,14 +283,18 @@
     <div id="modalDepoimento">
         <div>
             <h2>Novo Depoimento</h2>
+
             <label>Nome:</label>
             <input id="nomeDep">
+
             <label>Instrumento:</label>
             <input id="instDep">
+
             <label>Depoimento:</label>
             <textarea id="textoDep" rows="4"></textarea>
-            <button onclick="enviarDepoimento()" style="background-color:#e63946; color:white;">Enviar</button>
-            <button onclick="fecharFormularioDepoimento()" class="cancel">Cancelar</button>
+
+            <button style="background:#e63946; color:white;" onclick="enviarDepoimento()">Enviar</button>
+            <button class="cancel" onclick="fecharFormularioDepoimento()">Cancelar</button>
         </div>
     </div>
 
@@ -295,30 +302,30 @@
         <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- Script de partículas brancas -->
+    <!-- SCRIPT PARTÍCULAS -->
     <script>
-        const canvas = document.getElementById('particles-js');
-        const ctx = canvas.getContext('2d');
+        const canvas = document.getElementById("particles-js");
+        const ctx = canvas.getContext("2d");
 
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+        let width = canvas.width = innerWidth;
+        let height = canvas.height = innerHeight;
 
         const particles = [];
-        const particleCount = 100;
+        const particleCount = 90;
 
         class Particle {
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
                 this.radius = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
+                this.speedX = Math.random() * 0.6 - 0.3;
+                this.speedY = Math.random() * 0.6 - 0.3;
             }
 
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fillStyle = "rgba(255,255,255,0.7)";
                 ctx.fill();
             }
 
@@ -326,39 +333,36 @@
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                if(this.x < 0) this.x = width;
-                if(this.x > width) this.x = 0;
-                if(this.y < 0) this.y = height;
-                if(this.y > height) this.y = 0;
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
 
                 this.draw();
             }
         }
 
         function init() {
-            for(let i = 0; i < particleCount; i++){
+            for (let i = 0; i < particleCount; i++)
                 particles.push(new Particle());
-            }
             animate();
         }
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            for(let i = 0; i < particles.length; i++){
-                particles[i].update();
-            }
+            particles.forEach(p => p.update());
             requestAnimationFrame(animate);
         }
 
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
+        onresize = () => {
+            width = canvas.width = innerWidth;
+            height = canvas.height = innerHeight;
+        };
 
         init();
     </script>
 
-    <!-- Script do modal -->
+    <!-- SCRIPT MODAL -->
     <script>
         function abrirFormularioDepoimento() {
             document.getElementById("modalDepoimento").style.display = "flex";
@@ -369,41 +373,42 @@
         }
 
         function enviarDepoimento() {
-            const nome = document.getElementById("nomeDep").value;
-            const instrumento = document.getElementById("instDep").value;
-            const texto = document.getElementById("textoDep").value;
+            const nome = nomeDep.value.trim();
+            const inst = instDep.value.trim();
+            const texto = textoDep.value.trim();
 
-            if (!nome || !instrumento || !texto) {
+            if (!nome || !inst || !texto) {
                 alert("Preencha todos os campos!");
                 return;
             }
 
-            adicionarDepoimentoNaPagina(nome, instrumento, texto);
+            adicionarDepoimento(nome, inst, texto);
             fecharFormularioDepoimento();
 
-            document.getElementById("nomeDep").value = "";
-            document.getElementById("instDep").value = "";
-            document.getElementById("textoDep").value = "";
+            nomeDep.value = "";
+            instDep.value = "";
+            textoDep.value = "";
         }
 
-        function adicionarDepoimentoNaPagina(nome, instrumento, texto) {
+        function adicionarDepoimento(nome, inst, texto) {
             const grid = document.getElementById("gridDepoimentos");
 
-            const novoCard = document.createElement("div");
-            novoCard.className = "card";
-            novoCard.innerHTML = `
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
                 <p>"${texto}"</p>
-                <span class="author">— ${nome}, Aluno(a) de ${instrumento}</span>
+                <span class="author">— ${nome}, Aluno(a) de ${inst}</span>
             `;
 
-            grid.appendChild(novoCard);
+            grid.appendChild(card);
 
-            novoCard.style.opacity = "0";
+            card.style.opacity = "0";
             setTimeout(() => {
-                novoCard.style.transition = "0.5s";
-                novoCard.style.opacity = "1";
+                card.style.transition = "0.5s";
+                card.style.opacity = "1";
             }, 50);
         }
     </script>
+
 </body>
 </html>

@@ -42,19 +42,29 @@
             100% {background-position: 0% 50%;}
         }
 
-        /* HEADER */
+        /* HEADER TRANSPARENTE DE VERDADE */
         .main-header {
-            background-color: rgba(18,18,18,0.85);
+            background: transparent !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            box-shadow: none !important;
+            border: none !important;
+            outline: none !important;
+            filter: none !important;
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.7);
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(6px);
         }
+
+        /* LINKS DO HEADER EM BRANCO */
+        .main-header a {
+            color: #ffffff !important;
+        }
+
 
         .logo a {
             color: #ffffff;
@@ -71,7 +81,7 @@
         }
 
         .main-nav ul li a {
-            color: #eee;
+            color: #ffffff;
             text-decoration: none;
             font-weight: 600;
             padding: 8px 12px;
@@ -86,7 +96,7 @@
         }
 
         .btn-primary {
-            background-color: #ffffff;
+            
             color: #121212;
             padding: 10px 18px;
             font-weight: 700;
@@ -139,20 +149,197 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
         }
+        
+        /* --- NOVO CSS: EXPLORE MUSIC --- */
 
-        /* FOOTER */
-        footer {
-            background-color: rgba(18,18,18,0.85);
-            padding: 20px 0;
+        /* Estilização Geral da Seção */
+        .music-explore-section {
+            background-color: transparent; /* Fundo transparente para ver as partículas */
+            padding: 60px 20px;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Título Principal */
+        .music-explore-section h2 {
+            color: #87cefa; 
+            font-size: 1.8em;
+            font-weight: 300;
+            margin: 0 auto 30px auto;
             text-align: center;
-            color: #999;
-            font-size: 0.9em;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
-            margin-top: auto;
+            max-width: 1000px;
+        }
+
+        /* Container que define o layout em colunas */
+        .music-explore-container {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            max-width: 1000px; 
+            margin: 0 auto;
+        }
+
+        /* Estilização de cada Card (Coluna) */
+        .music-card {
+            flex: 1; 
+            background-color: rgba(41,41,41,0.85); /* Fundo com transparência */
+            border: 1px solid #444;
+            border-left: 5px solid #007bff; 
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(4px); /* Suaviza o fundo atrás do card */
+        }
+
+        /* Efeito de Hover nos Cards */
+        .music-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.7);
+            border-left-color: #87cefa;
+        }
+
+        /* Títulos dos Cards */
+        .music-card h3 {
+            color: #87cefa; 
+            margin-top: 0;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Parágrafos de descrição */
+        .music-card p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #bbb;
+            margin-bottom: 25px;
+        }
+
+        /* Links (Botões de Ação) */
+        .music-card a {
+            color: #ffffff; 
+            background-color: #007bff;
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: background-color 0.2s;
+        }
+
+        .music-card a:hover {
+            background-color: #0056b3;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        /* Responsividade para cards */
+        @media (max-width: 768px) {
+            .music-explore-container {
+                flex-direction: column;
+            }
+        }
+        
+        /* --- NOVO CSS: FOOTER ESTILIZADO --- */
+
+        .main-footer {
+            background-color: rgba(18,18,18,0.85); /* Volta para cor sólida com transparência para não cobrir o fundo animado */
+            color: #ccc;
+            padding: 40px 20px 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            border-top: 5px solid #007bff;
+            position: relative; /* Garante que fique acima das partículas */
+            z-index: 1;
+            margin-top: 50px; /* Adiciona espaço acima do rodapé */
             backdrop-filter: blur(6px);
         }
 
-        /* Responsividade */
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto;
+            flex-wrap: wrap; 
+            gap: 30px;
+        }
+
+        .footer-section {
+            min-width: 180px; 
+            flex: 1;
+        }
+
+        /* Títulos das Seções do Rodapé */
+        .footer-section h4 {
+            color: #87cefa; 
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .footer-section p, .footer-section a {
+            font-size: 0.9em;
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Links Sociais */
+        .social-links {
+            display: flex; 
+            gap: 15px; 
+        }
+
+        .social-links a {
+            background-color: #333;
+            color: #87cefa;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        /* FOOTER ORIGINAL - REMOVIDO / SUBSTITUÍDO */
+        footer {
+            display: none; /* Esconde o footer original simples */
+        }
+
+
+        /* Responsividade Geral */
         @media (max-width: 768px) {
             .main-header {
                 flex-direction: column;
@@ -173,15 +360,36 @@
                 padding: 20px 15px;
                 font-size: 1em;
             }
+            
+            /* Responsividade para o rodapé */
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-section {
+                margin-bottom: 20px;
+                min-width: 100%;
+            }
+
+            .footer-section h4 {
+                border-bottom: none;
+                padding-bottom: 0;
+                text-align: center;
+            }
+
+            .social-links {
+                margin-top: 10px;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Fundo de partículas -->
     <canvas id="particles-js"></canvas>
-
-    <header class="main-header header-public">
+    <header class="main-header header-public header-transparent">
         <div class="logo"><a href="index.html">InstruMusic</a></div>
+    
         <nav class="main-nav">
             <ul>
                 <li><a href="sobre.html" aria-current="page">Sobre</a></li>
@@ -189,9 +397,12 @@
                 <li><a href="depoimentos.html">Depoimentos</a></li>
             </ul>
         </nav>
+    
         <a href="entry.html" class="btn btn-primary">Login / Cadastro</a>
     </header>
-
+    
+    
+    
     <main class="content-section">
         <h2 class="section-title">Nossa Missão</h2>
         <div class="about-content">
@@ -199,10 +410,72 @@
         </div>
     </main>
 
-    <footer>
-        <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
-    </footer>
+    <section class="music-explore-section">
+        <h2 class="section-title">Comece a Explorar!</h2>
+        <div class="music-explore-container">
+            
+            <div class="music-card">
+                <h3>Gêneros Musicais</h3>
+                <p>Descubra o universo do Rock, Jazz, Clássica e muito mais!</p>
+                <a href="../pages/generos.html">Ver Gêneros</a>
+            </div>
 
+            <div class="music-card">
+                <h3>Teoria Musical Básica</h3>
+                <p>Entenda notas, acordes e ritmos de forma simples.</p>
+                <a href="../pages/teoria.html">Aprender Teoria</a>
+            </div>
+
+            <div class="music-card">
+                <h3>Histórias Que Inspiram</h3>
+                <p>Veja vídeos e depoimentos de outros alunos e músicos.</p>
+                <a href="../pages/depoimentos.html">Assista Agora</a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            
+            <div class="footer-section">
+                <h4>InstruMusic</h4>
+                <p>A plataforma definitiva para sua jornada musical.</p>
+                <p>Todos os direitos reservados &copy; 2025.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="sobre.html">Sobre a Plataforma</a></li>
+                    <li><a href="instrumentos.html">Nossos Instrumentos</a></li>
+                    <li><a href="teoria.html">Aprender Teoria</a></li>
+                    <li><a href="generos.html">Gêneros Musicais</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contato</h4>
+                <p>Email: <a href="mailto:contato@instrumusic.com">contato@instrumusic.com</a></p>
+                <p>Telefone: (11) 98765-4321</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Siga-nos</h4>
+                <div class="social-links">
+                    <a href="#" title="Facebook">FB</a>
+                    <a href="#" title="Instagram">IG</a>
+                    <a href="#" title="YouTube">YT</a>
+                    <a href="#" title="Twitter/X">X</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            Política de Privacidade | Termos de Serviço
+        </div>
+    </footer>
     <script>
         // Partículas animadas simples
         const canvas = document.getElementById('particles-js');
@@ -224,11 +497,11 @@
             }
 
             draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-    ctx.fill();
-}
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fill();
+            }
 
             update() {
                 this.x += this.speedX;

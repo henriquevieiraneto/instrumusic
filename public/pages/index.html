@@ -11,8 +11,9 @@
 
 <body>
 
-    <header class="main-header">
+    <header class="main-header transparent-header">
         <div class="logo">InstruMusic</div>
+
         <nav class="main-nav">
             <ul>
                 <li><a href="../pages/sobre.html">Sobre</a></li>
@@ -22,23 +23,22 @@
         </nav>
 
         <a class="login-btn" href="entry.html">Login / Cadastro</a>
-
     </header>
 
     <main class="hero-section hero-home">
 
         <div class="slideshow">
-            <img src="../img/p1.png" class="slide active">
-            <img src="../img/p2.png" class="slide">
-            <img src="../img/p3.png" class="slide">
-            <img src="../img/p4.png" class="slide">
-            <img src="../img/p5.png" class="slide">
-            <img src="../img/p6.png" class="slide">
+            <img src="../img/p1.png" class="slide active" alt="Slide 1">
+            <img src="../img/p2.png" class="slide" alt="Slide 2">
+            <img src="../img/p3.png" class="slide" alt="Slide 3">
+            <img src="../img/p4.png" class="slide" alt="Slide 4">
+            <img src="../img/p5.png" class="slide" alt="Slide 5">
+            <img src="../img/p6.png" class="slide" alt="Slide 6">
         </div>
 
         <div class="hero-content">
             <h1>InstruMusic: Aprenda, Crie, Transforme!</h1>
-            <p style="margin: 20px;">Sua jornada musical gratuita começa aqui.</p>
+            <p style="margin: 20px 0;">Sua jornada musical gratuita começa aqui.</p>
             <a href="/pages/instrumentos.html" class="btn btn-secondary">Comece a Aprender</a>
         </div>
 
@@ -54,8 +54,9 @@
             slides[index].classList.add("active");
         }
 
-        setInterval(mudarImagem, 2000);
+        setInterval(mudarImagem, 2500); // aumentei um pouco para melhor visualização
     </script>
+
     <script src="/public/js/script.js"></script>
 </body>
 </html>
