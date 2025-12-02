@@ -7,30 +7,33 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const port = process.env.PORT || 3000;
-const JWT_SECRET = process.env.JWT_SECRET || "super_secret_key";
+const port = 3000; // Porta local fixa
+const JWT_SECRET = "super_secret_key"; // Chave fixa local
 
 
+// 🔥 CONEXÃO DIRETA COM MYSQL LOCAL (SEM NUVEM)
 const db = mysql.createPool({
-    host: process.env.MYSQLHOST || 'localhost',
-    user: process.env.MYSQLUSER || 'root',
-    password: process.env.MYSQLPASSWORD || 'local_password',
-    database: process.env.MYSQLDATABASE || 'instrumusic_db',
-    port: parseInt(process.env.MYSQLPORT || 3306),
-    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : undefined
+    host: 'localhost',
+    user: 'root',
+    password: 'senai',
+    database: 'instrumusic_db',
+    port: 3306
 });
+
 
 app.use(cors());
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
+// Função para enviar HTML
 const sendHTML = (res, file) => {
     const filePath = path.join(__dirname, file);
     fs.existsSync(filePath) ? res.sendFile(filePath) : res.status(404).send("404");
 };
 
 
+// Rotas
 app.get("/", (req, res) => sendHTML(res, "public/pages/index.html"));
 
 app.get("/instrumentos/:file", (req, res) => {
@@ -43,6 +46,8 @@ app.get("/:page", (req, res) => {
     sendHTML(res, `public/pages/${f}`);
 });
 
+
+// 📌 Cadastro
 app.post("/api/register", async (req, res) => {
     const { name, email, password } = req.body;
     if (!name || !email || !password)
@@ -61,11 +66,13 @@ app.post("/api/register", async (req, res) => {
         if (err.code === "ER_DUP_ENTRY")
             return res.status(409).json({ success: false, message: "E-mail já cadastrado." });
 
+        console.error(err);
         res.status(500).json({ success: false, message: "Erro interno." });
     }
 });
 
 
+// 📌 Login
 app.post("/api/login", async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password)
@@ -93,9 +100,11 @@ app.post("/api/login", async (req, res) => {
             user: { id: user.id, name: user.name, email: user.email }
         });
     } catch (err) {
+        console.error(err);
         res.status(500).json({ success: false, message: "Erro interno." });
     }
 });
+
 
 app.listen(port, () => {
     console.log(`🚀 Servidor rodando em: http://localhost:${port}`);
