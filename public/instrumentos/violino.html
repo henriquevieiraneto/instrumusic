@@ -108,7 +108,8 @@
 
         .instrument-image-large {
             display: block;
-            max-width: 100%;
+            max-width: 600px;
+            width: 100%;
             margin: 0 auto 30px auto;
             border-radius: 12px;
         }
@@ -117,16 +118,20 @@
 <body>
     <canvas id="particles-js"></canvas>
 
-    <header class="main-header">
+    <header class="main-header" style="background: transparent; border-bottom: none;">
         <a href="../pages/index.html" class="logo">InstruMusic</a>
         <nav class="main-nav">
+            <a href="#" class="nav-item">Meus Cursos</a>
+            <a href="../pages/progresso.html" class="nav-item">Progresso</a>
+            <a href="../pages/perfil.html" class="nav-item">Perfil</a>
             <a href="../pages/login.html" class="btn btn-secondary btn-small">Login</a>
             <a href="../pages/register.html" class="btn btn-primary btn-small">Criar Conta</a>
         </nav>
     </header>
+    
 
     <main class="content-section instrument-detail">
-        <img src="../img/violino.png" alt="Violino Clássico" class="instrument-image-large" style="width: 800px;">
+        <img src="/public/img/violino.png" alt="Violino Clássico" class="instrument-image-large">
 
         <h1>Aprenda a tocar Violino</h1>
         <p>O violino é a voz orquestral por excelência, capaz de evocar emoções profundas. Nossos instrutores guiam você através da postura correta, técnica de arco, afinação e a rica literatura musical. Emocione com notas clássicas e intensas.</p>
@@ -166,28 +171,30 @@
             }
             draw() {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = 'rgba(255,255,255,0.7)';
                 ctx.fill();
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if(this.x < 0) this.x = width;
-                if(this.x > width) this.x = 0;
-                if(this.y < 0) this.y = height;
-                if(this.y > height) this.y = 0;
+
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+
                 this.draw();
             }
         }
 
         function init() {
-            for(let i=0;i<particleCount;i++) particles.push(new Particle());
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
             animate();
         }
 
         function animate() {
-            ctx.clearRect(0,0,width,height);
+            ctx.clearRect(0, 0, width, height);
             particles.forEach(p => p.update());
             requestAnimationFrame(animate);
         }
@@ -199,5 +206,6 @@
 
         init();
     </script>
+
 </body>
 </html>

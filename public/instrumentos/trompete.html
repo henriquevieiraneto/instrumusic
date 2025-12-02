@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trompete | InstruMusic</title>
+
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #1e1e1e;
@@ -15,10 +21,13 @@
             overflow-x: hidden;
         }
 
+        /* Fundo animado */
         #particles-js {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            height: 100%;
             z-index: -1;
             background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
             background-size: 400% 400%;
@@ -31,6 +40,7 @@
             100% {background-position:0% 50%;}
         }
 
+        /* Header */
         header.main-header {
             display: flex;
             justify-content: space-between;
@@ -47,89 +57,126 @@
         }
 
         nav.main-nav a {
-            margin-left: 15px;
+            margin-left: 18px;
             color: #eee;
             text-decoration: none;
+            font-size: 0.95rem;
         }
 
-        nav.main-nav a.btn {
-            margin-left: 10px;
-        }
-
-        main.content-section {
-            max-width: 1000px;
-            margin: 80px auto 50px auto;
-            padding: 20px;
-            background: rgba(30,30,30,0.85);
-            border-radius: 12px;
-        }
-
-        main h1, main h2 {
-            color: #fff;
-        }
-
-        main p {
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .course-list {
-            margin-left: 20px;
-            margin-bottom: 20px;
-        }
-
+        /* Botões globais */
         .btn {
             display: inline-block;
-            padding: 12px 20px;
+            padding: 10px 18px;
             border-radius: 8px;
-            border: none;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
             text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-small {
+            padding: 8px 14px;
+            font-size: 0.85rem;
         }
 
         .btn-secondary {
-            background-color: #1e1e1e;
-            color: #fff;
-            border: 2px solid #fff;
+            background-color: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
         }
 
         .btn-secondary:hover {
-            background-color: #fff;
+            background-color: #ffffff;
             color: #1e1e1e;
         }
 
-        footer {
-            text-align: center;
-            padding: 15px;
-            color: #bbb;
+        .btn-primary {
+            background-color: #ff4141;
+            color: #fff;
         }
 
+        .btn-primary:hover {
+            background-color: #ff6565;
+        }
+
+        /* Conteúdo */
+        main.content-section {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 25px;
+            background: rgba(30,30,30,0.85);
+            border-radius: 12px;
+        }
+
+        main h1 {
+            color: #fff;
+            margin: 20px 0;
+            font-size: 2rem;
+        }
+
+        main h2 {
+            color: #fff;
+            margin-top: 28px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        main p {
+            line-height: 1.7;
+            margin-bottom: 18px;
+            font-size: 1rem;
+        }
+
+        ul.course-list {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Imagem */
         .instrument-image-large {
             display: block;
             max-width: 100%;
             margin: 0 auto 30px auto;
             border-radius: 12px;
         }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #bbb;
+            margin-top: 40px;
+        }
     </style>
 </head>
+
 <body>
     <canvas id="particles-js"></canvas>
 
-    <header class="main-header">
+    <header class="main-header" style="background: transparent; border-bottom: none;">
         <a href="../pages/index.html" class="logo">InstruMusic</a>
         <nav class="main-nav">
+            <a href="#" class="nav-item">Meus Cursos</a>
+            <a href="../pages/progresso.html" class="nav-item">Progresso</a>
+            <a href="../pages/perfil.html" class="nav-item">Perfil</a>
             <a href="../pages/login.html" class="btn btn-secondary btn-small">Login</a>
             <a href="../pages/register.html" class="btn btn-primary btn-small">Criar Conta</a>
         </nav>
     </header>
+    
 
     <main class="content-section instrument-detail">
-        <img src="/public/img/trompete.png" alt="Trompete Dourado" class="instrument-image-large">
+        <img src="../img/trompete.png" alt="Trompete Dourado" class="instrument-image-large">
 
         <h1>Aprenda a tocar Trompete</h1>
-        <p>O trompete é conhecido por seu som brilhante e poderoso, essencial em bandas de jazz, orquestras e música militar. Nossas aulas focam na técnica de embocadura, controle de respiração e uso das válvulas. Encha o ar com sons vibrantes!</p>
+        <p>
+            O trompete é conhecido por seu som brilhante e poderoso, presente no jazz, blues,
+            bandas marciais e orquestras.  
+            Nossas aulas trabalham embocadura, respiração, controle de pressão e domínio das válvulas —  
+            tudo para que você desenvolva potência, afinação e timbre profissional.
+        </p>
         
         <h2>Cursos Disponíveis</h2>
         <ul class="course-list">
@@ -139,7 +186,7 @@
             <li>Repertório para Bandas e Orquestras</li>
         </ul>
         
-        <a href="../pages/dashboard.html" class="btn btn-secondary mt-20">Acesse as Aulas de Trompete</a>
+        <a href="../pages/dashboard.html" class="btn btn-secondary">Acesse as Aulas de Trompete</a>
     </main>
 
     <footer>
@@ -166,28 +213,32 @@
             }
             draw() {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = 'rgba(255,255,255,0.7)';
                 ctx.fill();
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if(this.x < 0) this.x = width;
-                if(this.x > width) this.x = 0;
-                if(this.y < 0) this.y = height;
-                if(this.y > height) this.y = 0;
+
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+
                 this.draw();
             }
         }
 
         function init() {
-            for(let i=0;i<particleCount;i++) particles.push(new Particle());
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
             animate();
         }
 
         function animate() {
-            ctx.clearRect(0,0,width,height);
+            ctx.clearRect(0, 0, width, height);
             particles.forEach(p => p.update());
             requestAnimationFrame(animate);
         }
@@ -199,5 +250,6 @@
 
         init();
     </script>
+
 </body>
 </html>

@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guitarra | InstruMusic</title>
+
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #1e1e1e;
@@ -15,6 +21,7 @@
             overflow-x: hidden;
         }
 
+        /* Fundo animado */
         #particles-js {
             position: fixed;
             top: 0; left: 0;
@@ -26,78 +33,53 @@
         }
 
         @keyframes gradientBG {
-            0% {background-position:0% 50%;}
-            50% {background-position:100% 50%;}
-            100% {background-position:0% 50%;}
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
+        /* Header */
         header.main-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 30px;
-            background: rgba(30,30,30,0.9);
+            background: rgba(30, 30, 30, 0.9);
         }
 
         header a.logo {
             font-weight: bold;
             font-size: 1.5rem;
-            color: #ffffff;
+            color: #fff;
             text-decoration: none;
         }
 
         nav.main-nav a {
-            margin-left: 15px;
+            margin-left: 18px;
             color: #eee;
             text-decoration: none;
+            font-size: 0.95rem;
         }
 
-        nav.main-nav a.btn {
-            margin-left: 10px;
-        }
-
-        main.content-section {
-            max-width: 1000px;
-            margin: 80px auto 50px auto;
-            padding: 20px;
-            background: rgba(30,30,30,0.85);
-            border-radius: 12px;
-        }
-
-        main h1 {
-            color: #ffffff;
-            margin: 20px 0;
-        }
-
-        main p {
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        main h2 {
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-
-        .course-list {
-            margin-left: 20px;
-            margin-bottom: 20px;
-        }
-
+        /* Botões */
         .btn {
             display: inline-block;
-            padding: 12px 20px;
+            padding: 10px 18px;
             border-radius: 8px;
-            border: none;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
             text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-small {
+            padding: 8px 14px;
+            font-size: 0.85rem;
         }
 
         .btn-secondary {
-            background-color: #1e1e1e;
+            background-color: transparent;
             color: #ffffff;
             border: 2px solid #ffffff;
         }
@@ -107,27 +89,72 @@
             color: #1e1e1e;
         }
 
-        footer {
-            text-align: center;
-            padding: 15px;
-            color: #bbb;
+        .btn-primary {
+            background-color: #ff4141;
+            color: #fff;
         }
 
+        .btn-primary:hover {
+            background-color: #ff6565;
+        }
+
+        /* Conteúdo */
+        main.content-section {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 25px;
+            background: rgba(30, 30, 30, 0.85);
+            border-radius: 12px;
+        }
+
+        main h1 {
+            color: #ffffff;
+            margin: 20px 0;
+            font-size: 2rem;
+        }
+
+        main p {
+            line-height: 1.7;
+            margin-bottom: 18px;
+            font-size: 1rem;
+        }
+
+        main h2 {
+            margin-top: 28px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-size: 1.4rem;
+        }
+
+        ul.course-list {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Imagem */
         .instrument-image-large {
             display: block;
             max-width: 100%;
             margin: 0 auto 30px auto;
             border-radius: 12px;
         }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #bbb;
+            margin-top: 30px;
+        }
     </style>
 </head>
+
 <body>
     <canvas id="particles-js"></canvas>
 
-    <header class="main-header">
+    <header class="main-header" style="background: transparent; border-bottom: none;">
         <a href="../pages/index.html" class="logo">InstruMusic</a>
         <nav class="main-nav">
-            <a href="../pages/dashboard.html" class="nav-item">Dashboard</a>
             <a href="#" class="nav-item">Meus Cursos</a>
             <a href="../pages/progresso.html" class="nav-item">Progresso</a>
             <a href="../pages/perfil.html" class="nav-item">Perfil</a>
@@ -135,13 +162,18 @@
             <a href="../pages/register.html" class="btn btn-primary btn-small">Criar Conta</a>
         </nav>
     </header>
+    
 
     <main class="content-section instrument-detail">
         <img src="../img/guitarra.png" alt="Guitarra Vermelha" class="instrument-image-large">
 
         <h1>Aprenda a tocar Guitarra</h1>
-        <p>A guitarra é um dos instrumentos mais versáteis e populares do mundo, essencial em rock, blues e pop. Nossos cursos cobrem desde os acordes básicos até técnicas avançadas de solo. Domine os riffs com estilo!</p>
-        
+        <p>
+            A guitarra é um dos instrumentos mais versáteis e populares do mundo, essencial em rock, blues e pop.
+            Nossos cursos cobrem desde os acordes básicos até técnicas avançadas de solo.
+            Domine riffs incríveis com estilo!
+        </p>
+
         <h2>Cursos Disponíveis</h2>
         <ul class="course-list">
             <li>Iniciação ao Violão Elétrico: Acordes e Riffs Básicos</li>
@@ -149,8 +181,8 @@
             <li>Técnicas Avançadas (Bend, Vibrato, Tapping)</li>
             <li>História do Rock e a Guitarra</li>
         </ul>
-        
-        <a href="../pages/dashboard.html" class="btn btn-secondary mt-20">Acesse as Aulas de Guitarra</a>
+
+        <a href="../pages/dashboard.html" class="btn btn-secondary">Acesse as Aulas de Guitarra</a>
     </main>
 
     <footer>
@@ -177,28 +209,30 @@
             }
             draw() {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = 'rgba(255,255,255,0.7)';
                 ctx.fill();
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if(this.x < 0) this.x = width;
-                if(this.x > width) this.x = 0;
-                if(this.y < 0) this.y = height;
-                if(this.y > height) this.y = 0;
+
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+
                 this.draw();
             }
         }
 
         function init() {
-            for(let i=0;i<particleCount;i++) particles.push(new Particle());
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
             animate();
         }
 
         function animate() {
-            ctx.clearRect(0,0,width,height);
+            ctx.clearRect(0, 0, width, height);
             particles.forEach(p => p.update());
             requestAnimationFrame(animate);
         }
@@ -210,5 +244,6 @@
 
         init();
     </script>
+
 </body>
 </html>

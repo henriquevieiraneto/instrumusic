@@ -1,50 +1,9 @@
 /* public/css/sobre.css - Estilo Específico da Página Sobre */
 
-.about-content {
-    max-width: 800px; 
-    margin: 40px auto; /* Um pouco mais de margem vertical para dar "respiro" */
-    padding: 30px 25px; /* Um pouco mais de padding para conforto visual */
-    background-color: var(--color-medium-bg, #2c2c2c); /* fallback */
-    border-radius: 12px; /* bordas mais arredondadas */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35); /* sombra mais suave e profunda */
-    text-align: justify;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* fonte moderna e legível */
-    color: var(--color-text-light, #eee); /* fallback */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.about-content:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
-}
-
-.about-content p {
-    font-size: 1.15em;
-    line-height: 1.8;
-    margin-bottom: 1.8em;
-    color: var(--color-text-light, #eee);
-}
-
-/* Título dentro do bloco */
-.about-content h2, .about-content strong {
-    color: var(--color-primary, #f39c12);
-    font-size: 1.6em;
-    margin-bottom: 1rem;
-    display: block;
-    font-weight: 700;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .about-content {
-        padding: 20px 15px;
-        margin: 25px 15px;
-        max-width: 95%;
-        font-size: 1em;
-    }
-}
-/* Reset básico */
-* {
+/* =========================================================
+   RESET GLOBAL
+   ========================================================= */
+   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -52,7 +11,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #1e1e1e; /* fundo escuro */
+    background-color: #1e1e1e;
     color: #eee;
     line-height: 1.6;
     min-height: 100vh;
@@ -60,17 +19,23 @@ body {
     flex-direction: column;
 }
 
-/* HEADER */
+/* =========================================================
+   HEADER (Versão Transparente Aplicada Ao Final)
+   ========================================================= */
 .main-header {
-    background-color: #121212;
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.7);
     position: sticky;
     top: 0;
     z-index: 1000;
+
+    /* Transparente (sobrescreve as propriedades anteriores) */
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    backdrop-filter: none !important;
 }
 
 .logo a {
@@ -117,7 +82,9 @@ body {
     background-color: #d17e0a;
 }
 
-/* MAIN CONTENT */
+/* =========================================================
+   CONTEÚDO PRINCIPAL
+   ========================================================= */
 .content-section {
     flex-grow: 1;
     padding: 40px 20px;
@@ -134,11 +101,15 @@ body {
     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
-/* Sobre - nossa missão */
+/* =========================================================
+   BLOCO SOBRE (Descrição)
+   ========================================================= */
 .about-content {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px 25px;
     background-color: #292929;
     border-radius: 12px;
-    padding: 30px 25px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
     text-align: justify;
     font-size: 1.15em;
@@ -152,7 +123,22 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
 }
 
-/* FOOTER */
+.about-content p {
+    margin-bottom: 1.8em;
+}
+
+.about-content h2,
+.about-content strong {
+    color: var(--color-primary, #f39c12);
+    font-size: 1.6em;
+    margin-bottom: 1rem;
+    display: block;
+    font-weight: 700;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
 footer {
     background-color: #121212;
     padding: 20px 0;
@@ -163,8 +149,11 @@ footer {
     margin-top: auto;
 }
 
-/* Responsividade */
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
 @media (max-width: 768px) {
+
     .main-header {
         flex-direction: column;
         gap: 15px;
@@ -183,5 +172,7 @@ footer {
     .about-content {
         padding: 20px 15px;
         font-size: 1em;
+        margin: 25px 15px;
+        max-width: 95%;
     }
 }

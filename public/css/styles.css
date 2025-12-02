@@ -2,18 +2,23 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
+/* ===============================
+   VARIÁVEIS GLOBAIS
+================================== */
 :root {
     --color-dark-bg: #222222;
     --color-medium-bg: #333333;
     --color-light-bg: #444444;
     --color-text-light: #ffffff;
     --color-text-dim: #cccccc;
-    --color-primary: #ff0033; /* Vermelho vibrante */
-    --color-secondary: #007bff; /* Azul */
+    --color-primary: #ff0033;
+    --color-secondary: #007bff;
     --font-family: 'Poppins', sans-serif;
 }
 
-/* Reset Básico */
+/* ===============================
+   RESET BÁSICO
+================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -23,7 +28,9 @@ body {
     line-height: 1.6;
 }
 
-/* Utilitários e Links */
+/* ===============================
+   UTILITÁRIOS
+================================== */
 .text-primary { color: var(--color-primary) !important; }
 .text-dim { color: var(--color-text-dim) !important; }
 .mt-10 { margin-top: 10px !important; }
@@ -35,52 +42,109 @@ a {
     transition: color 0.3s ease;
 }
 
-a:hover {
-    color: var(--color-primary);
-}
+a:hover { color: var(--color-primary); }
 
-/* --- Cabeçalho e Navegação Comum (Padrão Desktop) --- */
-
+/* ===============================
+   HEADER PADRÃO
+================================== */
 .main-header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 50px;
-    width: 100%;
-    z-index: 100;
     flex-wrap: wrap;
+    z-index: 100;
 }
 
+/* Header público com fundo */
 .header-public {
-    position: relative; 
     background-color: var(--color-medium-bg);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
-.logo { font-size: 1.5em; font-weight: 700; }
-.main-nav ul { 
-    list-style: none; 
-    display: flex; 
-    padding: 0; 
-    margin: 0; 
-    flex-wrap: wrap; 
+/* Logo */
+.logo a,
+.logo {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
 }
-.main-nav ul li { margin: 0 15px; }
 
-/* --- Estilos de Botões Comuns --- */
+/* Menu */
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
 
+.main-nav ul li a {
+    font-weight: 500;
+    font-size: 18px;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a[aria-current="page"] {
+    color: #ffce3d;
+}
+
+/* ===============================
+   HEADER TRANSPARENTE PREMIUM
+================================== */
+
+.transparent-header,
+.main-header.header-public.transparent {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0);
+    backdrop-filter: blur(10px);
+    z-index: 999;
+}
+
+/* Botão login */
+.btn.btn-primary,
+.transparent-header .login-btn {
+    padding: 10px 22px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    font-weight: 600;
+    transition: 0.3s;
+    backdrop-filter: blur(6px);
+}
+
+.btn.btn-primary:hover,
+.transparent-header .login-btn:hover {
+    background: rgba(255,255,255,0.35);
+    transform: translateY(-2px);
+}
+
+/* ===============================
+   BOTÕES GERAIS
+================================== */
 .btn {
     padding: 10px 25px;
     border-radius: 5px;
     font-weight: 600;
     cursor: pointer;
     border: none;
-    transition: background-color 0.3s ease;
+    transition: 0.3s;
 }
 
 .btn-small { padding: 8px 15px; font-size: 0.9em; }
 
-/* --- Footer --- */
+/* ===============================
+   FOOTER
+================================== */
 footer {
     padding: 20px;
     text-align: center;
@@ -89,44 +153,50 @@ footer {
     font-size: 0.8em;
 }
 
-/* --- Media Queries Comuns (Ajuste de Mobile) --- */
+/* ===============================
+   RESPONSIVIDADE
+================================== */
 @media (max-width: 600px) {
-    .main-header { 
-        padding: 15px; 
-        flex-direction: column; 
-        align-items: center; /* Centraliza horizontalmente o bloco header */
+    .main-header {
+        padding: 15px;
+        flex-direction: column;
+        align-items: center;
     }
-    
-    .logo {
-        margin-bottom: 10px;
-    }
-    
+
+    .logo { margin-bottom: 10px; }
+
     .main-nav {
         width: 100%;
         margin-top: 10px;
-        order: 3; 
+        order: 3;
     }
-    
+
     .main-nav ul {
-        width: auto; 
-        flex-direction: column; 
-        align-items: center; /* Centraliza os links */
+        flex-direction: column;
+        align-items: center;
     }
-    
-    .main-nav ul li {
-        margin: 5px 0;
-    }
-    
-    /* Ajusta o botão Login/Cadastro para ocupar a largura total */
+
+    .main-nav ul li { margin: 5px 0; }
+
     .main-header .btn {
         width: 100%;
         text-align: center;
         margin-top: 15px;
-        order: 2; 
+        order: 2;
     }
-    
-    /* Ajusta o padding do conteúdo principal */
-    .content-section {
-        padding: 40px 20px; 
+}
+
+@media (max-width: 768px) {
+    .main-header.header-public {
+        padding: 12px 25px;
+    }
+
+    .main-nav ul { gap: 18px; }
+
+    .main-nav a { font-size: 16px; }
+
+    .btn.btn-primary {
+        padding: 8px 18px;
+        font-size: 15px;
     }
 }

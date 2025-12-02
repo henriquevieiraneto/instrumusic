@@ -1,47 +1,45 @@
 /* public/css/login.css - Estilo Específico dos Formulários de Login e Cadastro */
 
-/* 1. CENTRALIZAÇÃO E CONTEINER PRINCIPAL */
-.form-center {
-    /* CHAVE: Garante que o container flex ocupe a altura total da tela */
-    min-height: 100vh;
-    
-    /* Display flex centraliza os itens */
+/* =========================================================
+   1. CENTRALIZAÇÃO DO CONTAINER PRINCIPAL
+   ========================================================= */
+   .form-center {
+    min-height: 100vh; /* Ocupa a tela inteira */
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
-    
+    justify-content: center;
+    align-items: center;
     padding: 20px;
 }
 
+/* Caixa do formulário */
 .form-container {
-    /* Estilo visual da caixa */
     background-color: var(--color-medium-bg);
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     width: 100%;
-    max-width: 400px; 
-    
-    /* Garante que o conteúdo interno seja tratado como bloco */
-    display: block; 
-    
-    /* Garante que a caixa seja centralizada pelo flexbox */
-    margin: auto; 
+    max-width: 400px;
+
+    display: block;
+    margin: auto;
 }
 
-/* 2. ESTILO DOS COMPONENTES INTERNOS */
-
+/* =========================================================
+   2. ESTILO DOS COMPONENTES INTERNOS
+   ========================================================= */
 .form-container h2 { 
     margin-bottom: 20px; 
     font-weight: 600; 
-    text-align: left; /* Alinha o título "Fazer Login" / "Criar Conta" à esquerda */
-}
-
-/* Alinha o formulário para a esquerda */
-#loginForm, #registerForm {
     text-align: left;
 }
 
+/* Alinha formulários individualmente */
+#loginForm, 
+#registerForm {
+    text-align: left;
+}
+
+/* Inputs */
 .form-container input {
     width: 100%;
     padding: 12px;
@@ -53,21 +51,24 @@
     font-size: 1em;
 }
 
+/* Link "Esqueci minha senha" */
 .forgot-password {
     display: block;
     text-align: right;
     font-size: 0.9em;
-    margin-bottom: 20px; /* Adiciona espaço após o link */
+    margin-bottom: 20px;
 }
 
-/* 3. ESTILOS DOS BOTÕES SOCIAIS E DIVISOR */
-
+/* =========================================================
+   3. SOCIAL LOGIN + DIVISOR
+   ========================================================= */
 .social-login-divider {
     text-align: center;
     border-bottom: 1px solid var(--color-light-bg);
     line-height: 0.1em;
-    margin: 30px 0 20px 0; /* Espaçamento ao redor do divisor */
+    margin: 30px 0 20px 0;
 }
+
 .social-login-divider span {
     background: var(--color-medium-bg);
     padding: 0 10px;
@@ -76,22 +77,25 @@
 }
 
 .btn-social {
-    width: 100%; /* Botões de social media na largura total */
+    width: 100%;
     margin-bottom: 10px;
 }
 
-/* 4. ESTILO DO LINK DE CADASTRO/LOGIN NA PARTE INFERIOR */
-
+/* =========================================================
+   4. TEXTO INFERIOR (Login / Criar conta)
+   ========================================================= */
 .form-container p {
-    margin-top: 30px; 
+    margin-top: 30px;
     font-size: 0.9em;
     padding-top: 15px;
     border-top: 1px solid var(--color-light-bg);
     text-align: center;
-    line-height: normal; 
+    line-height: normal;
 }
 
-/* Responsividade para telas menores */
+/* =========================================================
+   5. RESPONSIVIDADE
+   ========================================================= */
 @media (max-width: 600px) {
     .form-container {
         padding: 25px;

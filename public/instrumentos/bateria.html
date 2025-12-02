@@ -4,100 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bateria | InstruMusic</title>
+
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #1e1e1e;
             color: #eee;
-            position: relative;
-            min-height: 100vh;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
+        /* Fundo animado */
         #particles-js {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            height: 100%;
             z-index: -1;
             background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
             background-size: 400% 400%;
-            animation: gradientBG 20s ease infinite;
+            animation: gradientBG 22s ease infinite;
         }
 
         @keyframes gradientBG {
-            0% {background-position:0% 50%;}
-            50% {background-position:100% 50%;}
-            100% {background-position:0% 50%;}
+            0% { background-position:0% 50%; }
+            50% { background-position:100% 50%; }
+            100% { background-position:0% 50%; }
         }
 
+        /* Header */
         header.main-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
+            padding: 12px 25px;
             background: rgba(30,30,30,0.9);
+            backdrop-filter: blur(6px);
         }
 
-        header a.logo {
+        header .logo {
+            font-size: 1.4rem;
             font-weight: bold;
-            font-size: 1.5rem;
             color: #fff;
             text-decoration: none;
         }
 
         nav.main-nav a {
-            margin-left: 15px;
+            margin-left: 12px;
             color: #eee;
             text-decoration: none;
+            font-size: 0.95rem;
         }
 
-        nav.main-nav a.btn {
-            margin-left: 10px;
-        }
-
-        main.content-section {
-            max-width: 1000px;
-            margin: 80px auto 50px auto;
-            padding: 20px;
-            background: rgba(30,30,30,0.85);
-            border-radius: 12px;
-        }
-
-        main h1 {
-            color: #fff;
-            margin: 20px 0;
-        }
-
-        main p {
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        main h2 {
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .course-list {
-            margin-left: 20px;
-            margin-bottom: 20px;
-        }
-
+        /* Botões */
         .btn {
             display: inline-block;
-            padding: 12px 20px;
+            padding: 10px 18px;
             border-radius: 8px;
-            border: none;
             font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
             text-decoration: none;
+            transition: 0.3s;
         }
 
         .btn-secondary {
-            background-color: #1e1e1e;
+            background-color: transparent;
             color: #fff;
             border: 2px solid #fff;
         }
@@ -107,52 +80,126 @@
             color: #1e1e1e;
         }
 
-        footer {
-            text-align: center;
-            padding: 15px;
-            color: #bbb;
+        .btn-primary {
+            background-color: #ffffff;
+            color: #1e1e1e;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.85;
+        }
+
+        /* Conteúdo */
+        main.content-section {
+            max-width: 900px;
+            margin: 60px auto 50px auto;
+            padding: 25px;
+            background: rgba(30,30,30,0.85);
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+        }
+
+        main h1 {
+            color: #fff;
+            margin: 15px 0;
+            font-size: 1.9rem;
+        }
+
+        main h2 {
+            margin-top: 28px;
+            margin-bottom: 12px;
+            color: #fff;
+            font-size: 1.3rem;
+        }
+
+        main p {
+            margin-bottom: 18px;
+            line-height: 1.55;
+        }
+
+        .course-list {
+            margin-left: 20px;
+            margin-bottom: 25px;
         }
 
         .instrument-image-large {
             display: block;
-            max-width: 100%;
-            margin: 0 auto 30px auto;
+            max-width: 92%;
+            margin: 0 auto 25px auto;
             border-radius: 12px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #bbb;
+            margin-top: 40px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            header.main-header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            nav.main-nav {
+                margin-top: 10px;
+            }
+            nav.main-nav a {
+                display: inline-block;
+                margin: 8px 10px 0 10px;
+            }
+            main.content-section {
+                padding: 18px;
+                margin: 40px 15px;
+            }
         }
     </style>
 </head>
+
 <body>
     <canvas id="particles-js"></canvas>
 
-    <header class="main-header">
+    <header class="main-header" style="background: transparent; border-bottom: none;">
         <a href="../pages/index.html" class="logo">InstruMusic</a>
+    
         <nav class="main-nav">
-            <a href="../pages/login.html" class="btn btn-secondary btn-small">Login</a>
-            <a href="../pages/register.html" class="btn btn-primary btn-small">Criar Conta</a>
+            <a href="#" class="nav-item">Meus Cursos</a>
+            <a href="../pages/progresso.html" class="nav-item">Progresso</a>
+            <a href="../pages/perfil.html" class="nav-item">Perfil</a>
+            <a href="../pages/login.html" class="btn btn-secondary">Login</a>
+            <a href="../pages/register.html" class="btn btn-primary">Criar Conta</a>
         </nav>
     </header>
+    
 
     <main class="content-section instrument-detail">
+        
         <img src="/public/img/bateria.webp" alt="Bateria Acústica" class="instrument-image-large">
 
         <h1>Aprenda a tocar Bateria</h1>
-        <p>A bateria é o coração de qualquer banda, fornecendo ritmo e energia. Nossos cursos abordam desde a coordenação básica até a criação de viradas complexas e a compreensão de diferentes estilos rítmicos. Entre no ritmo com energia!</p>
-        
+
+        <p>A bateria é o coração de toda banda, responsável pelo ritmo e pela energia da música.
+            Nos cursos você aprenderá desde coordenação básica até viradas avançadas, leitura de partituras
+            e execução de diferentes estilos rítmicos.</p>
+
         <h2>Cursos Disponíveis</h2>
         <ul class="course-list">
             <li>Ritmos Fundamentais: Rock, Pop e Blues</li>
             <li>Independência e Coordenação de Membros</li>
             <li>Técnicas de Bumbo Duplo e Viradas Avançadas</li>
-            <li>Como ler Partituras para Bateria</li>
+            <li>Leitura de Partituras para Bateria</li>
         </ul>
-        
-        <a href="../pages/dashboard.html" class="btn btn-secondary mt-20">Acesse as Aulas de Bateria</a>
+
+        <a href="../pages/dashboard.html" class="btn btn-secondary">Acesse as Aulas de Bateria</a>
+
     </main>
 
     <footer>
         <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
     </footer>
 
+    <!-- Partículas -->
     <script>
         const canvas = document.getElementById('particles-js');
         const ctx = canvas.getContext('2d');
@@ -173,28 +220,32 @@
             }
             draw() {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = 'rgba(255,255,255,0.7)';
                 ctx.fill();
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if(this.x < 0) this.x = width;
-                if(this.x > width) this.x = 0;
-                if(this.y < 0) this.y = height;
-                if(this.y > height) this.y = 0;
+
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+
                 this.draw();
             }
         }
 
         function init() {
-            for(let i=0;i<particleCount;i++) particles.push(new Particle());
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
             animate();
         }
 
         function animate() {
-            ctx.clearRect(0,0,width,height);
+            ctx.clearRect(0, 0, width, height);
             particles.forEach(p => p.update());
             requestAnimationFrame(animate);
         }
@@ -206,5 +257,6 @@
 
         init();
     </script>
+
 </body>
 </html>
