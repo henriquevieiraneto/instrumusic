@@ -16,7 +16,6 @@
             overflow-x: hidden;
         }
 
-        /* ===================== Fundo Animado ===================== */
         #particles-js {
             position: fixed;
             top: 0; left: 0;
@@ -24,7 +23,6 @@
             z-index: -1;
         }
 
-        /* ===================== Header ===================== */
         .header {
             width: 100%;
             padding: 15px 40px;
@@ -72,7 +70,6 @@
             cursor: pointer;
         }
 
-        /* ===================== Área Principal ===================== */
         main {
             padding-top: 120px;
             padding-bottom: 40px;
@@ -86,7 +83,6 @@
             font-weight: bold;
         }
 
-        /* ===================== CARDS TRANSPARENTES ===================== */
         .light-card {
             background: rgba(255,255,255,0.08);
             backdrop-filter: blur(12px);
@@ -106,47 +102,41 @@
             color: #fff;
         }
 
-        .light-card p {
+        /* ==============================
+           ESTILO DO GRÁFICO
+        ============================== */
+        .progress-item {
+            margin-bottom: 18px;
+        }
+
+        .progress-label {
+            font-size: 16px;
             margin-bottom: 6px;
-            color: #e7e7e7;
+            color: #ececec;
         }
 
-        .light-card a {
-            color: #4cc3ff;
-            text-decoration: none;
-        }
-
-        /* Inputs */
-        .light-card input,
-        .light-card select {
+        .progress-bar {
             width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.25);
-            margin-bottom: 12px;
-            background: rgba(0,0,0,0.45);
-            color: #fff;
+            height: 14px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Botão */
-        .btn-light {
-            background: rgba(255,255,255,0.25);
-            border: 1px solid rgba(255,255,255,0.4);
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 8px;
-            font-size: 16px;
-            color: #fff;
-            backdrop-filter: blur(8px);
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #00aaff, #66ddff);
+            width: 0;
+            animation: fillBar 1.7s ease forwards;
         }
 
-        .btn-light:hover {
-            background: rgba(255,255,255,0.35);
+        @keyframes fillBar {
+            from { width: 0; }
+            to { width: var(--value); }
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 18px;
@@ -158,24 +148,20 @@
 </head>
 <body>
 
-    <!-- Fundo Particles -->
     <canvas id="particles-js"></canvas>
 
-    <!-- Header -->
     <header class="header">
-        <a href="/public/index.html" class="logo">InstruMusic</a>
+        <a href="index.html" class="logo">InstruMusic</a>
 
         <nav>
-            <a href="/public/pages/cursos.html">Meus Cursos</a>
-            <a href="/public/pages/perfil.html">Perfil</a>
+            <a href="meus-cursos.html">Meus Cursos</a>
+            <a href="perfil.html">Perfil</a>
         </nav>
 
         <button class="btn-logout" onclick="window.location.href='/public/pages/login.html'">Sair</button>
     </header>
 
-    <!-- Conteúdo -->
     <main>
-    
 
         <!-- CARD 1 -->
         <div class="light-card">
@@ -188,26 +174,40 @@
             </p>
         </div>
 
-        <!-- CARD 2 -->
+        <!-- =============================
+             CARD 2 — GRÁFICO DE PROGRESSO
+        ============================== -->
         <div class="light-card">
-            <h3>Agendar Nova Aula</h3>
+            <h3>Progresso das Aulas</h3>
 
-            <select>
-                <option selected>Selecione um instrumento</option>
-                <option>Guitarra</option>
-                <option>Violão</option>
-                <option>Violino</option>
-                <option>Piano</option>
-            </select>
+            <div class="progress-item">
+                <div class="progress-label">Introdução ao Instrumento — 100%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="--value: 100%;"></div>
+                </div>
+            </div>
 
-            <select>
-                <option selected>Particular</option>
-                <option>Em Grupo</option>
-            </select>
+            <div class="progress-item">
+                <div class="progress-label">Acordes Básicos — 75%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="--value: 75%;"></div>
+                </div>
+            </div>
 
-            <input type="text" placeholder="dd/mm/aaaa">
+            <div class="progress-item">
+                <div class="progress-label">Ritmos Iniciais — 50%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="--value: 50%;"></div>
+                </div>
+            </div>
 
-            <button class="btn-light">Agendar</button>
+            <div class="progress-item">
+                <div class="progress-label">Dedilhado — 20%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="--value: 20%;"></div>
+                </div>
+            </div>
+
         </div>
     </main>
 
@@ -215,7 +215,6 @@
         © 2025 InstruMusic. Todos os direitos reservados.
     </footer>
 
-    <!-- Script Particles -->
     <script>
         const canvas = document.getElementById('particles-js');
         const ctx = canvas.getContext('2d');
