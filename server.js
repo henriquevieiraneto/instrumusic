@@ -96,7 +96,7 @@ app.post("/api/login", async (req, res) => {
             success: true,
             message: "Login realizado!",
             token,
-            redirect: "/dashboard.html",
+            redirect: "/progresso.html",
             user: { id: user.id, name: user.name, email: user.email }
         });
     } catch (err) {
