@@ -3,280 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Progresso | InstruMusic</title>
-
-    <link rel="stylesheet" href="/public/css/styles.css">
-    <link rel="stylesheet" href="/public/css/dashboard.css">
+    <title>Dashboard | InstruMusic</title>
 
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #1e1e1e;
-            color: #eee;
+            color: #fff;
             min-height: 100vh;
             overflow-x: hidden;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* ===================== Fundo animado ===================== */
+        /* ===================== Fundo Animado ===================== */
         #particles-js {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: -1;
-            background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
-            background-size: 400% 400%;
-            animation: gradientBG 22s ease infinite;
-        }
-
-        @keyframes gradientBG {
-            0% {background-position:0% 50%;}
-            50% {background-position:100% 50%;}
-            100% {background-position:0% 50%;}
         }
 
         /* ===================== Header ===================== */
-        .header-public {
+        .header {
             width: 100%;
-            padding: 12px 30px;
+            padding: 15px 40px;
+            background: rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+
             display: flex;
             justify-content: space-between;
             align-items: center;
-
             position: fixed;
-            top: 0; left: 0;
-
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            z-index: 900;
+            top: 0;
+            z-index: 20;
         }
 
-        .header-public .logo a {
-            color: #fff;
+        .logo {
             font-size: 22px;
+            font-weight: bold;
+            color: white;
             text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #cfcfcf;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #00aaff;
             font-weight: bold;
         }
 
-        .main-nav {
-            display: flex;
-            gap: 22px;
-        }
-
-        .nav-item {
-            color: #ccc;
-            text-decoration: none;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-
-        .nav-item:hover { color:#fff; }
-        .nav-item.active { color:#00aaff; font-weight:bold; }
-
-        /* ===================== Botões ===================== */
-        .btn-secondary,
-        .btn-primary {
+        .btn-logout {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
             padding: 8px 14px;
             border-radius: 8px;
+            color: white;
             cursor: pointer;
-            font-size: 0.9rem;
-            display: inline-block;
+        }
+
+        /* ===================== Área Principal ===================== */
+        main {
+            padding-top: 120px;
+            padding-bottom: 40px;
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* ===================== CARDS TRANSPARENTES ===================== */
+        .light-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            color: #fff;
+            padding: 24px;
+            width: 92%;
+            max-width: 900px;
+            margin: 0 auto 40px auto;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+        }
+
+        .light-card h3 {
+            margin-bottom: 12px;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .light-card p {
+            margin-bottom: 6px;
+            color: #e7e7e7;
+        }
+
+        .light-card a {
+            color: #4cc3ff;
             text-decoration: none;
         }
 
-        .btn-secondary {
-            background: rgba(255,255,255,0.12);
+        /* Inputs */
+        .light-card input,
+        .light-card select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
             border: 1px solid rgba(255,255,255,0.25);
+            margin-bottom: 12px;
+            background: rgba(0,0,0,0.45);
             color: #fff;
         }
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.22);
-        }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #00aaff, #0077ff);
+        /* Botão */
+        .btn-light {
+            background: rgba(255,255,255,0.25);
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 8px;
+            font-size: 16px;
             color: #fff;
-            border: none;
-        }
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #14bbff, #148bff);
+            backdrop-filter: blur(8px);
         }
 
-        /* ===================== Conteúdo ===================== */
-        .dashboard-section {
-            padding-top: 110px;
-            padding-bottom: 40px;
+        .btn-light:hover {
+            background: rgba(255,255,255,0.35);
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 26px;
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-
-        /* ===================== Cards de progresso ===================== */
-        .grid-progress {
-            display: grid;
-            gap: 20px;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            padding: 0 20px;
-        }
-
-        .progress-card {
-            padding: 18px;
-            background: rgba(255,255,255,0.06);
-            border-radius: 14px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.12);
-            transition: 0.3s ease;
-        }
-
-        .progress-card:hover {
-            transform: translateY(-3px);
-            background: rgba(255,255,255,0.1);
-        }
-
-        .progress-card h3 {
-            color: #00aaff;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .progress-card p {
-            font-size: 0.9rem;
-            margin-bottom: 6px;
-        }
-
-        /* ===== Progress bar ===== */
-        .progress-indicator {
-            background-color: rgba(255,255,255,0.15);
-            border-radius: 5px;
-            height: 9px;
-            overflow: hidden;
-            margin-top: 6px;
-        }
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #00aaff, #0077ff);
-            transition: width .5s;
-        }
-
+        /* Footer */
         footer {
             text-align: center;
-            padding: 25px;
+            padding: 18px;
             color: #aaa;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
     </style>
-</head>
 
+</head>
 <body>
 
+    <!-- Fundo Particles -->
     <canvas id="particles-js"></canvas>
 
-    <header class="main-header header-public">
-        <div class="logo"><a href="index.html">InstruMusic</a></div>
-        <nav class="main-nav">
-            <a href="meus-cursos.html" class="nav-item">Meus Cursos</a>
-            <a href="progresso.html" class="nav-item active">Progresso</a>
-            <a href="perfil.html" class="nav-item">Perfil</a>
+    <!-- Header -->
+    <header class="header">
+        <a href="/public/index.html" class="logo">InstruMusic</a>
+
+        <nav>
+            <a href="/public/pages/cursos.html">Meus Cursos</a>
+            <a href="/public/pages/perfil.html">Perfil</a>
         </nav>
-        <button class="btn-secondary" id="logoutBtn">Sair</button>
+
+        <button class="btn-logout" onclick="window.location.href='/public/pages/login.html'">Sair</button>
     </header>
 
-    <main class="content-section dashboard-section">
-        <h2 class="section-title">Acompanhamento de Progresso</h2>
+    <!-- Conteúdo -->
+    <main>
+    
 
-        <div class="grid-progress">
+        <!-- CARD 1 -->
+        <div class="light-card">
+            <h3>Seu Progresso</h3>
 
-            <div class="progress-card">
-                <h3>Guitarra Elétrica: Nível Básico</h3>
-                <p>Módulos Completos: 6 de 10</p>
-                <div class="progress-indicator">
-                    <div class="progress-bar" style="width: 60%;"></div> 
-                </div>
-                <p>60% Concluído</p>
-                <a href="/public/instrumentos/guitarra.html" class="btn-secondary mt-10">Revisar Aulas</a>
-            </div>
+            <p><strong>Instrumento Escolhido:</strong> Guitarra</p>
+            <p><strong>Próxima Aula:</strong> Técnica – Dedilhado</p>
+            <p><strong>Material de Apoio:</strong> 
+                <a href="/public/pages/materiais.html">Ver Partituras Iniciais</a>
+            </p>
+        </div>
 
-            <div class="progress-card">
-                <h3>Violino Clássico: Arco e Postura</h3>
-                <p>Módulos Completos: 3 de 4</p>
-                <div class="progress-indicator">
-                    <div class="progress-bar" style="width: 75%;"></div> 
-                </div>
-                <p>75% Concluído</p>
-                <a href="/public/instrumentos/violino.html" class="btn-secondary mt-10">Próxima Etapa</a>
-            </div>
+        <!-- CARD 2 -->
+        <div class="light-card">
+            <h3>Agendar Nova Aula</h3>
 
-            <div class="progress-card">
-                <h3>Metas da Semana</h3>
-                <p>Prática de Escalas: <span style="color:#00aaff">4/7 dias</span></p>
-                <p>Aula ao Vivo: <span style="color:#00aaff">Concluída</span></p>
-                <p>Nível Geral de Habilidade: <span style="color:#00aaff">7/10</span></p>
-                <a href="perfil.html" class="btn-primary mt-10">Ver Certificados</a>
-            </div>
+            <select>
+                <option selected>Selecione um instrumento</option>
+                <option>Guitarra</option>
+                <option>Violão</option>
+                <option>Violino</option>
+                <option>Piano</option>
+            </select>
 
+            <select>
+                <option selected>Particular</option>
+                <option>Em Grupo</option>
+            </select>
+
+            <input type="text" placeholder="dd/mm/aaaa">
+
+            <button class="btn-light">Agendar</button>
         </div>
     </main>
 
     <footer>
-        <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
+        © 2025 InstruMusic. Todos os direitos reservados.
     </footer>
 
-    <script src="/public/js/script.js"></script>
-
+    <!-- Script Particles -->
     <script>
         const canvas = document.getElementById('particles-js');
         const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
 
         const particles = [];
-        const particleCount = 80;
+        const total = 80;
 
         class Particle {
             constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.radius = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.r = Math.random() * 2 + 1;
+                this.sx = Math.random() * .5 - .25;
+                this.sy = Math.random() * .5 - .25;
             }
+
             draw() {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-                ctx.fillStyle = 'rgba(255,255,255,0.7)';
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(255,255,255,0.7)";
                 ctx.fill();
             }
+
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if(this.x < 0) this.x = width;
-                if(this.x > width) this.x = 0;
-                if(this.y < 0) this.y = height;
-                if(this.y > height) this.y = 0;
+                this.x += this.sx;
+                this.y += this.sy;
+
+                if (this.x < 0) this.x = w;
+                if (this.x > w) this.x = 0;
+                if (this.y < 0) this.y = h;
+                if (this.y > h) this.y = 0;
+
                 this.draw();
             }
         }
 
         function init() {
-            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+            for (let i = 0; i < total; i++) {
+                particles.push(new Particle());
+            }
             animate();
         }
 
         function animate() {
-            ctx.clearRect(0,0,width,height);
+            ctx.clearRect(0, 0, w, h);
             particles.forEach(p => p.update());
             requestAnimationFrame(animate);
         }
 
         window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
         });
 
         init();
