@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem-vindo(a) | InstruMusic</title>
+
     <style>
         * {
             margin: 0;
@@ -14,50 +15,47 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            background: #1e1e1e;
+            background: #0d0d0d;
             color: #eee;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Fundo animado */
+        /* Fundo animado translúcido igual às outras páginas */
         #particles-js {
             position: fixed;
             inset: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
-            background-size: 400% 400%;
-            animation: gradientBG 20s ease infinite;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(4px);
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Caixa do formulário */
+        /* Caixa do formulário estilo translucido aprimorado */
         .form-container {
             max-width: 380px;
-            margin: 120px auto 40px auto;
-            background: rgba(30,30,30,0.88);
-            padding: 32px;
-            border-radius: 14px;
+            margin: 130px auto 40px auto;
+            background: rgba(255,255,255,0.04);
+            padding: 34px;
+            border-radius: 18px;
             text-align: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.45);
-            backdrop-filter: blur(6px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.45);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,0.12);
         }
 
         .form-container h2 {
             margin-bottom: 12px;
+            font-size: 1.7rem;
+            color: #fff;
+            font-weight: 600;
         }
 
         .form-container p {
             margin-bottom: 25px;
-            color: #ddd;
-            font-size: 0.95rem;
+            color: #ccc;
+            font-size: 1rem;
         }
 
         /* Botões */
@@ -67,55 +65,54 @@
             padding: 12px;
             margin: 12px 0;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.25s ease;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            text-decoration: none;
+            text-align: center;
         }
 
         .btn-primary {
-            background: #fff;
+            background: rgba(255,255,255,0.9);
             color: #1e1e1e;
         }
 
         .btn-primary:hover {
-            background: #f2f2f2;
+            background: rgba(255,255,255,1);
+            transform: scale(1.04);
         }
 
         .btn-secondary {
-            background: transparent;
-            border: 2px solid #fff;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.5);
             color: #fff;
         }
 
         .btn-secondary:hover {
-            background: #fff;
-            color: #1e1e1e;
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.04);
         }
 
         /* Link inferior */
         .text-dim {
             display: block;
             margin-top: 20px;
-            color: #bbb;
+            color: #aaa;
             text-decoration: none;
             font-size: 0.9rem;
+            transition: 0.2s ease;
         }
 
         .text-dim:hover {
-            color: #f39c12;
+            color: #fff;
         }
 
-        /* Responsivo */
         @media (max-width: 480px) {
             .form-container {
                 margin-top: 80px;
                 padding: 25px;
-            }
-
-            .btn {
-                padding: 11px;
             }
         }
     </style>
@@ -126,14 +123,13 @@
     <div class="form-container">
         <h2>Bem-vindo à InstruMusic!</h2>
         <p>Escolha como você quer começar sua jornada musical.</p>
-        
+
         <a href="login.html" class="btn btn-primary">Fazer Login</a>
         <a href="register.html" class="btn btn-secondary">Criar Conta (Cadastre-se)</a>
-        
+
         <a href="index.html" class="text-dim">Voltar para a Página Inicial</a>
     </div>
 
-    <!-- Script partículas -->
     <script>
         const canvas = document.getElementById('particles-js');
         const ctx = canvas.getContext('2d');
@@ -149,8 +145,8 @@
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
                 this.radius = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
+                this.speedX = Math.random() * 0.6 - 0.3;
+                this.speedY = Math.random() * 0.6 - 0.3;
             }
 
             draw() {

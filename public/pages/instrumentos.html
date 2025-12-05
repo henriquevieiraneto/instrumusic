@@ -23,6 +23,24 @@
             flex-direction: column;
             overflow-x: hidden;
             position: relative;
+
+            /* ===== FUNDO REAL ===== */
+            background-image: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* OVERLAY ESCURO SUAVE (igual às outras páginas) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(3px);
+            z-index: -1;
         }
 
         /* BACKGROUND ANIMADO */
@@ -31,28 +49,21 @@
             inset: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
-            background-size: 400% 400%;
-            animation: gradientBG 20s ease infinite;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            z-index: -2;
         }
 
         /* HEADER TRANSPARENTE */
         .main-header {
-            background: transparent !important;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 10;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .main-header a {
@@ -63,6 +74,7 @@
             font-weight: 700;
             font-size: 1.8rem;
             text-decoration: none;
+            text-shadow: 0 0 8px rgba(0,140,255,0.6);
         }
 
         .main-nav a {
@@ -72,25 +84,29 @@
             font-weight: 600;
             text-decoration: none;
             transition: background 0.3s ease;
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .main-nav a:hover {
+            background: rgba(255,255,255,0.15);
         }
 
         /* BOTÕES */
         .btn-primary {
-            background-color: #ce0606;
-            color: #121212;
+            background-color: rgba(206, 6, 6, 0.9);
+            color: white;
+            backdrop-filter: blur(4px);
         }
 
         .btn-primary:hover {
-            background-color: #e6e6e6;
+            background-color: rgba(206, 6, 6, 1);
         }
 
         .btn-secondary {
-            background-color: #555;
-            color: #fff;
-        }
-
-        .btn-secondary:hover {
-            background-color: #777;
+            background-color: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.15);
         }
 
         /* CONTEÚDO */
@@ -99,7 +115,7 @@
             padding: 40px 20px;
             max-width: 1200px;
             margin: 0 auto;
-            z-index: 1;
+            z-index: 2;
         }
 
         .section-title {
@@ -108,7 +124,7 @@
             font-weight: 700;
             text-align: center;
             color: #fff;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            text-shadow: 0 0 12px rgba(0,140,255,0.6);
         }
 
         /* GRID DOS INSTRUMENTOS */
@@ -119,19 +135,21 @@
         }
 
         .instrument-card {
-            background-color: rgba(41,41,41,0.85);
-            border-radius: 12px;
+            background-color: rgba(255,255,255,0.08);
+            border-radius: 15px;
             padding: 20px;
             text-align: center;
             text-decoration: none;
             color: #eee;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            backdrop-filter: blur(4px);
+            transition: 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 0 20px rgba(0,0,0,0.35);
         }
 
         .instrument-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.45);
+            background-color: rgba(255,255,255,0.15);
         }
 
         .instrument-card img {
@@ -142,38 +160,24 @@
 
         .instrument-card h3 {
             margin-bottom: 10px;
-            color: #fff;
+            color: #7bc7ff;
         }
 
         /* FOOTER */
         footer {
-            background-color: rgba(18,18,18,0.85);
+            background-color: rgba(0,0,0,0.55);
             padding: 20px 0;
             text-align: center;
-            color: #999;
-            font-size: 0.9em;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+            color: #bbb;
             margin-top: auto;
             backdrop-filter: blur(6px);
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         /* RESPONSIVIDADE */
         @media (max-width: 768px) {
-            .main-header {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .main-nav {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                align-items: center;
-            }
-
-            .content-section {
-                padding: 30px 15px;
-            }
+            .main-header { flex-direction: column; gap: 15px; }
+            .main-nav { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
@@ -251,7 +255,7 @@
 
         class Particle {
             constructor() {
-                this.reset();
+            this.reset();
             }
 
             reset() {

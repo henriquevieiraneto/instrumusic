@@ -5,163 +5,203 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | InstruMusic</title>
 
+    <!-- Ícones e Fonte -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
+
     <style>
-        /* Reset básico */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        border: none;
+        outline: none;
+        text-decoration: none;
+        font-family: 'Poppins', sans-serif;
+        color: #fff;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #1e1e1e;
-            color: #eee;
-            overflow: hidden;
-            position: relative;
-        }
+    /* Fundo nítido igual ao depoimentos */
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-        /* Fundo animado */
-        #particles-js {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
-            background-size: 400% 400%;
-            animation: gradientBG 20s ease infinite;
-        }
+        background-image: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90"); 
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        overflow: hidden;
+        position: relative;
+    }
 
-        /* Formulário */
-        .form-container {
-            background-color: rgba(30, 30, 30, 0.85);
-            padding: 35px 28px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            backdrop-filter: blur(6px);
-            width: 100%;
-            max-width: 380px;
-            text-align: center;
-            z-index: 1;
-        }
+    /* Partículas */
+    #particles-js {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+    }
 
-        h2 {
-            margin-bottom: 20px;
-            color: #ffffff;
-            font-size: 1.6rem;
-        }
+    /* FORMULÁRIO GLASS */
+    .content {
+        width: 400px;
+        padding: 35px 40px;
 
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 16px;
-            border-radius: 8px;
-            border: none;
-            font-size: 1rem;
-            outline: none;
-        }
+        background: rgba(10, 40, 98, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(10px);
 
-        .forgot-password {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-            text-decoration: none;
-            color: #bbb;
-        }
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    }
 
-        .forgot-password:hover {
-            color: #ffffff;
-        }
+    .content h2 {
+        text-align: center;
+        font-size: 34px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
 
-        .btn {
-            padding: 12px;
-            width: 100%;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: opacity 0.3s;
-        }
+    .input-box {
+        width: 100%;
+        position: relative;
+        margin: 22px 0;
+    }
 
-        .btn-primary {
-            background-color: #ffffff;
-            color: #1e1e1e;
-        }
+    .input-box input {
+        width: 100%;
+        padding: 16px 48px 16px 18px;
+        font-size: 16px;
 
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
+        background: rgba(255, 255, 255, 0.10);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 30px;
 
-        .mt-20 {
-            margin-top: 20px;
-        }
+        backdrop-filter: blur(6px);
+        color: #fff;
+    }
 
-        .text-primary {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 600;
-        }
+    input::placeholder {
+        color: #e9e9e9;
+    }
 
-        .text-primary:hover {
-            text-decoration: underline;
-        }
+    .input-box i {
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        cursor: pointer;
+    }
 
-        /* Responsivo */
-        @media (max-width: 480px) {
-            .form-container {
-                padding: 28px 20px;
-            }
+    /* Lembrar */
+    .remember {
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 0 15px 0;
+        font-size: 14px;
+    }
+
+    .remember label input {
+        accent-color: #fff;
+        margin-right: 3px;
+    }
+
+    .remember a:hover {
+        text-decoration: underline;
+    }
+
+    /* BOTÃO */
+    .btnn {
+        width: 100%;
+        padding: 14px;
+        border-radius: 30px;
+
+        background: #e63946;
+        font-size: 17px;
+        font-weight: 600;
+        color: white;
+        cursor: pointer;
+        margin: 10px 0 25px 0;
+
+        transition: 0.3s;
+    }
+
+    .btnn:hover {
+        background: #d62839;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    /* Registro */
+    .signup-text {
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .signup-text a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 400px) {
+        .content {
+            width: 90%;
+            padding: 25px;
         }
+    }
     </style>
 </head>
 
 <body>
 
-    <!-- Fundo animado -->
+    <!-- Partículas -->
     <canvas id="particles-js"></canvas>
 
-    <div class="form-container">
-        <h2>Fazer Login</h2>
-
+    <!-- Formulário -->
+    <div class="content">
         <form id="loginForm">
-            <input type="email" id="email" name="email" placeholder="E-mail" required>
-            <input type="password" id="password" name="password" placeholder="Senha" required>
+            <h2>Login</h2>
 
-            <a href="#" class="forgot-password">Esqueceu sua senha?</a>
+            <div class="input-box">
+                <input type="email" id="email" placeholder="E-mail" required>
+                <i class="ri-mail-fill"></i>
+            </div>
 
-            <button type="submit" class="btn btn-primary mt-20">Entrar</button>
+            <div class="input-box">
+                <input type="password" id="password" placeholder="Senha" required>
+                <i class="ri-eye-off-fill toggle-password" id="togglePassword"></i>
+            </div>
+
+            <div class="remember">
+                <label><input type="checkbox"> Lembrar de mim</label>
+                <a href="#">Esqueceu a senha?</a>
+            </div>
+
+            <button type="submit" class="btnn">Entrar</button>
+
+            <div class="signup-text">
+                Não tem conta? <a href="register.html">Cadastre-se</a>
+            </div>
         </form>
-
-        <p class="mt-20">
-            Não tem uma conta?
-            <a href="register.html" class="text-primary">Cadastre-se aqui</a>
-        </p>
     </div>
 
-    <!-- Partículas -->
+    <!-- SCRIPT: Partículas -->
     <script>
-        const canvas = document.getElementById('particles-js');
-        const ctx = canvas.getContext('2d');
+        const canvas = document.getElementById("particles-js");
+        const ctx = canvas.getContext("2d");
 
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
 
         const particles = [];
-        const particleCount = 100;
+        const particleCount = 90;
 
         class Particle {
             constructor() {
@@ -175,7 +215,7 @@
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+                ctx.fillStyle = "rgba(255,255,255,0.75)";
                 ctx.fill();
             }
 
@@ -213,6 +253,19 @@
         init();
     </script>
 
-    <script src="/public/js/script.js"></script>
+    <!-- SCRIPT: Mostrar/Ocultar Senha -->
+    <script>
+        const togglePassword = document.getElementById("togglePassword");
+        const password = document.getElementById("password");
+
+        togglePassword.addEventListener("click", () => {
+            const type = password.type === "password" ? "text" : "password";
+            password.type = type;
+
+            togglePassword.classList.toggle("ri-eye-fill");
+            togglePassword.classList.toggle("ri-eye-off-fill");
+        });
+    </script>
+
 </body>
 </html>

@@ -1,414 +1,418 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Depoimentos | InstruMusic</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Depoimentos | InstruMusic</title>
 
-    <style>
-        /* RESET */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    /* RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #eee;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-            position: relative;
-        }
+    /* FUNDO COM OVERLAY ESCURECIDO */
+    body {
+      margin: 0;
+      padding: 0;
 
-        /* FUNDO ANIMADO */
-        #particles-js {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
-            background-size: 400% 400%;
-            animation: gradientBG 18s ease infinite;
-        }
+      /* Imagem nítida */
+      background-image: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        /* HEADER REALMENTE TRANSPARENTE */
-        .main-header {
-            background: transparent;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    /* ESCURECIMENTO DO FUNDO */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35); /* ESCURECIMENTO SUAVE */
+      z-index: -1; /* ATRÁS DO CONTEÚDO */
+    }
 
-        .main-header a {
-            color: #fff !important;
-            text-decoration: none;
-            font-weight: 600;
-        }
+    /* CANVAS DAS PARTÍCULAS - ACIMA DO OVERLAY */
+    #particles-js {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0; /* ACIMA DO overlay */
+      background: transparent !important;
+      pointer-events: none;
+    }
 
-        .logo a {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
+    /* HEADER */
+    .main-header {
+     
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(6px);
+    }
 
-        .main-nav ul {
-            display: flex;
-            list-style: none;
-            gap: 15px;
-        }
+    .main-header a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
 
-        .main-nav a {
-            padding: 8px 12px;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-        }
+    .logo a {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
 
-        .main-nav a:hover {
-            background-color: rgba(243, 156, 18, 0.3);
-        }
+    .main-nav ul {
+      display: flex;
+      list-style: none;
+      gap: 15px;
+    }
 
-        /* BOTÃO CRIAR DEPOIMENTO */
-        .btn-create {
-            background-color: #e63946;
-            color: white;
-            padding: 12px 28px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: 0.3s;
-        }
+    .main-nav a {
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
 
-        .btn-create:hover {
-            background-color: #d62839;
-        }
+    .main-nav a:hover {
+      background-color: rgba(243, 156, 18, 0.3);
+    }
 
-        /* SEÇÃO PRINCIPAL */
-        .testimonials-glass {
-            flex-grow: 1;
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-        }
+    /* BOTÃO */
+    .btn-create {
+      background-color: #e63946;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      transition: 0.3s;
+      backdrop-filter: blur(6px);
+    }
 
-        .container {
-            display: flex;
-            justify-content: center;
-        }
+    .btn-create:hover {
+      background-color: #d62839;
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-            width: 100%;
-        }
+    /* CONTEÚDO */
+    .testimonials-glass {
+      flex-grow: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
 
-        .card {
-            background-color: rgba(41,41,41,0.85);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: left;
-            color: #eee;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            backdrop-filter: blur(6px);
-            transition: 0.3s ease;
-        }
+    .container {
+      display: flex;
+      justify-content: center;
+    }
 
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.55);
-        }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      width: 100%;
+    }
 
-        .author {
-            margin-top: 10px;
-            font-weight: 600;
-            color: #fff;
-            display: block;
-        }
+    .card {
+      
+      padding: 20px;
+      border-radius: 12px;
+      text-align: left;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      backdrop-filter: blur(6px);
+      transition: 0.3s ease;
+    }
 
-        /* MODAL */
-        #modalDepoimento {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(4px);
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
-        }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.55);
+    }
 
-        #modalDepoimento div {
-            background: #1c1c1c;
-            padding: 30px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 420px;
-        }
+    .author {
+      margin-top: 10px;
+      font-weight: 600;
+      display: block;
+    }
 
-        #modalDepoimento input,
-        #modalDepoimento textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 6px;
-            border: none;
-            font-size: 0.95rem;
-        }
+    /* MODAL */
+    #modalDepoimento {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(8px);
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+    }
 
-        #modalDepoimento button {
-            cursor: pointer;
-            border-radius: 8px;
-            border: none;
-            padding: 10px 20px;
-            margin-top: 12px;
-        }
+    #modalDepoimento div {
+      
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 420px;
+      color: #fff;
+    }
 
-        #modalDepoimento button.cancel {
-            background: none;
-            color: #bbb;
-            margin-left: 10px;
-        }
+    #modalDepoimento input,
+    #modalDepoimento textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.95rem;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
 
-        /* RODAPÉ */
-        footer {
-            background-color: rgba(18,18,18,0.85);
-            padding: 20px 0;
-            text-align: center;
-            color: #aaa;
-            font-size: 0.9rem;
-            margin-top: auto;
-        }
+    #modalDepoimento button {
+      cursor: pointer;
+      border-radius: 30px;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 12px;
+      font-weight: 600;
+    }
 
-        /* RESPONSIVIDADE */
-        @media (max-width: 768px) {
-            .main-header {
-                flex-direction: column;
-                gap: 12px;
-            }
+    #modalDepoimento button.cancel {
+      background: none;
+      color: #bbb;
+      margin-left: 10px;
+    }
 
-            .main-nav ul {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-        }
-    </style>
+    #modalDepoimento button.send {
+      background-color: #e63946;
+      color: #fff;
+    }
+
+    /* RODAPÉ */
+    footer {
+      
+      padding: 20px 0;
+      text-align: center;
+      color: #ccc;
+      font-size: 0.9rem;
+      backdrop-filter: blur(6px);
+      margin-top: auto;
+    }
+
+    /* RESPONSIVIDADE */
+    @media (max-width: 768px) {
+      .main-header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-    <canvas id="particles-js"></canvas>
+  <!-- PARTICULAS -->
+  <canvas id="particles-js"></canvas>
 
-    <header class="main-header">
-        <div class="logo"><a href="index.html">InstruMusic</a></div>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="instrumentos.html">Instrumentos</a></li>
-                <li><a href="depoimentos.html">Depoimentos</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="main-header">
+    <div class="logo"><a href="index.html">InstruMusic</a></div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="instrumentos.html">Instrumentos</a></li>
+        <li><a href="depoimentos.html">Depoimentos</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="btn-create" onclick="abrirFormularioDepoimento()">Criar Depoimento</button>
-    </div>
+  <div style="text-align: center; margin: 40px 0;">
+    <button class="btn-create" onclick="abrirFormularioDepoimento()">Criar Depoimento</button>
+  </div>
 
-    <section class="testimonials-glass">
-        <div class="container">
-            <div class="grid" id="gridDepoimentos">
+  <section class="testimonials-glass">
+    <div class="container">
+      <div class="grid" id="gridDepoimentos">
 
-                <!-- DEPOIMENTOS FIXOS -->
-                <div class="card">
-                    <p>"Em apenas três meses, consegui tocar minha primeira música completa na guitarra..."</p>
-                    <span class="author">— Lucas S., Aluno de Guitarra</span>
-                </div>
-
-                <div class="card">
-                    <p>"Eu achava que nunca teria coordenação para bateria, mas os exercícios progressivos me ajudaram muito..."</p>
-                    <span class="author">— Marina B., Aluna de Bateria</span>
-                </div>
-
-                <div class="card">
-                    <p>"As aulas de teclado foram fundamentais para entender teoria musical..."</p>
-                    <span class="author">— Rafael C., Aluno de Teclado</span>
-                </div>
-
-                <div class="card">
-                    <p>"Sempre quis tocar violino, mas o custo era alto. Com a InstruMusic realizei meu sonho..."</p>
-                    <span class="author">— Sofia P., Aluna de Violino</span>
-                </div>
-
-                <div class="card">
-                    <p>"A qualidade do material didático é superior. Consigo revisar as lições sempre que preciso..."</p>
-                    <span class="author">— Eduardo L., Aluno de Flauta</span>
-                </div>
-
-                <div class="card">
-                    <p>"Como músico sênior, procurei algo novo para aprender. Excelente plataforma..."</p>
-                    <span class="author">— João V., Aluno de Trompete</span>
-                </div>
-
-                <div class="card">
-                    <p>"O melhor investimento que fiz. Minha evolução foi muito rápida!"</p>
-                    <span class="author">— Ana K., Aluna de Guitarra</span>
-                </div>
-
-                <div class="card">
-                    <p>"As dicas de improvisação no teclado abriram minha mente para o jazz..."</p>
-                    <span class="author">— Pedro F., Aluno de Teclado</span>
-                </div>
-
-            </div>
+        <div class="card">
+          <p>"Em apenas três meses, consegui tocar minha primeira música completa na guitarra..."</p>
+          <span class="author">— Lucas S., Aluno de Guitarra</span>
         </div>
-    </section>
 
-    <!-- MODAL -->
-    <div id="modalDepoimento">
-        <div>
-            <h2>Novo Depoimento</h2>
-
-            <label>Nome:</label>
-            <input id="nomeDep">
-
-            <label>Instrumento:</label>
-            <input id="instDep">
-
-            <label>Depoimento:</label>
-            <textarea id="textoDep" rows="4"></textarea>
-
-            <button style="background:#e63946; color:white;" onclick="enviarDepoimento()">Enviar</button>
-            <button class="cancel" onclick="fecharFormularioDepoimento()">Cancelar</button>
+        <div class="card">
+          <p>"Eu achava que nunca teria coordenação para bateria, mas os exercícios progressivos me ajudaram muito..."</p>
+          <span class="author">— Marina B., Aluna de Bateria</span>
         </div>
+
+        <div class="card">
+          <p>"As aulas de teclado foram fundamentais para entender teoria musical..."</p>
+          <span class="author">— Rafael C., Aluno de Teclado</span>
+        </div>
+
+        <div class="card">
+          <p>"Sempre quis tocar violino, mas o custo era alto. Com a InstruMusic realizei meu sonho..."</p>
+          <span class="author">— Sofia P., Aluna de Violino</span>
+        </div>
+
+      </div>
     </div>
+  </section>
 
-    <footer>
-        <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
-    </footer>
+  <!-- MODAL -->
+  <div id="modalDepoimento">
+    <div>
+      <h2>Novo Depoimento</h2>
 
-    <!-- SCRIPT PARTÍCULAS -->
-    <script>
-        const canvas = document.getElementById("particles-js");
-        const ctx = canvas.getContext("2d");
+      <label>Nome:</label>
+      <input id="nomeDep" placeholder="Seu nome">
 
-        let width = canvas.width = innerWidth;
-        let height = canvas.height = innerHeight;
+      <label>Instrumento:</label>
+      <input id="instDep" placeholder="Instrumento">
 
-        const particles = [];
-        const particleCount = 90;
+      <label>Depoimento:</label>
+      <textarea id="textoDep" rows="4" placeholder="Escreva seu depoimento"></textarea>
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.radius = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 0.6 - 0.3;
-                this.speedY = Math.random() * 0.6 - 0.3;
-            }
+      <button class="send" onclick="enviarDepoimento()">Enviar</button>
+      <button class="cancel" onclick="fecharFormularioDepoimento()">Cancelar</button>
+    </div>
+  </div>
 
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(255,255,255,0.7)";
-                ctx.fill();
-            }
+  <footer>
+    <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
+  </footer>
 
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+  <!-- SCRIPT DAS PARTÍCULAS -->
+  <script>
+    const canvas = document.getElementById("particles-js");
+    const ctx = canvas.getContext("2d");
 
-                if (this.x < 0) this.x = width;
-                if (this.x > width) this.x = 0;
-                if (this.y < 0) this.y = height;
-                if (this.y > height) this.y = 0;
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
 
-                this.draw();
-            }
-        }
+    const particles = [];
+    const particleCount = 100;
 
-        function init() {
-            for (let i = 0; i < particleCount; i++)
-                particles.push(new Particle());
-            animate();
-        }
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.radius = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+      }
 
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => p.update());
-            requestAnimationFrame(animate);
-        }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.8)";
+        ctx.fill();
+      }
 
-        onresize = () => {
-            width = canvas.width = innerWidth;
-            height = canvas.height = innerHeight;
-        };
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
 
-        init();
-    </script>
+        if (this.x < 0) this.x = width;
+        if (this.x > width) this.x = 0;
+        if (this.y < 0) this.y = height;
+        if (this.y > height) this.y = 0;
 
-    <!-- SCRIPT MODAL -->
-    <script>
-        function abrirFormularioDepoimento() {
-            document.getElementById("modalDepoimento").style.display = "flex";
-        }
+        this.draw();
+      }
+    }
 
-        function fecharFormularioDepoimento() {
-            document.getElementById("modalDepoimento").style.display = "none";
-        }
+    function init() {
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+      animate();
+    }
 
-        function enviarDepoimento() {
-            const nome = nomeDep.value.trim();
-            const inst = instDep.value.trim();
-            const texto = textoDep.value.trim();
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => p.update());
+      requestAnimationFrame(animate);
+    }
 
-            if (!nome || !inst || !texto) {
-                alert("Preencha todos os campos!");
-                return;
-            }
+    window.addEventListener("resize", () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
 
-            adicionarDepoimento(nome, inst, texto);
-            fecharFormularioDepoimento();
+    init();
+  </script>
 
-            nomeDep.value = "";
-            instDep.value = "";
-            textoDep.value = "";
-        }
+  <!-- SCRIPT MODAL -->
+  <script>
+    function abrirFormularioDepoimento() {
+      document.getElementById("modalDepoimento").style.display = "flex";
+    }
 
-        function adicionarDepoimento(nome, inst, texto) {
-            const grid = document.getElementById("gridDepoimentos");
+    function fecharFormularioDepoimento() {
+      document.getElementById("modalDepoimento").style.display = "none";
+    }
 
-            const card = document.createElement("div");
-            card.className = "card";
-            card.innerHTML = `
-                <p>"${texto}"</p>
-                <span class="author">— ${nome}, Aluno(a) de ${inst}</span>
-            `;
+    function enviarDepoimento() {
+      const nome = nomeDep.value.trim();
+      const inst = instDep.value.trim();
+      const texto = textoDep.value.trim();
 
-            grid.appendChild(card);
+      if (!nome || !inst || !texto) {
+        alert("Preencha todos os campos!");
+        return;
+      }
 
-            card.style.opacity = "0";
-            setTimeout(() => {
-                card.style.transition = "0.5s";
-                card.style.opacity = "1";
-            }, 50);
-        }
-    </script>
+      adicionarDepoimento(nome, inst, texto);
+      fecharFormularioDepoimento();
+
+      nomeDep.value = "";
+      instDep.value = "";
+      textoDep.value = "";
+    }
+
+    function adicionarDepoimento(nome, inst, texto) {
+      const grid = document.getElementById("gridDepoimentos");
+
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <p>"${texto}"</p>
+        <span class="author">— ${nome}, Aluno(a) de ${inst}</span>
+      `;
+
+      grid.appendChild(card);
+      card.style.opacity = "0";
+
+      setTimeout(() => {
+        card.style.transition = "0.5s";
+        card.style.opacity = "1";
+      }, 50);
+    }
+  </script>
 
 </body>
 </html>
