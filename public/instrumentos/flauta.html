@@ -52,7 +52,7 @@
   .btn{display:inline-block;padding:10px 18px;border-radius:8px;font-weight:700;text-decoration:none;cursor:pointer}
   .btn-secondary{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.15)}
   .btn-secondary:hover{background:#fff;color:#111}
-  .btn-primary{background:#fff;color:#111}
+  .btn-primary{background:#d30404;color:#111}
   .btn-primary:hover{opacity:.9}
 
   main.content-section{
@@ -62,12 +62,15 @@
     border-radius:12px;backdrop-filter: blur(8px);
     border:1px solid rgba(255,255,255,0.06);
   }
-  .instrument-image-large{display:block;max-width:92%;margin:0 auto 22px auto;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
-  h1{color:#fff;margin:12px 0 8px;font-size:1.9rem}
-  h2{color:#fff;margin:28px 0 12px;font-size:1.25rem}
-  p{line-height:1.6;margin-bottom:16px;color:#e6e6e6}
-  .course-list{margin-left:20px;margin-bottom:20px;color:#eee}
-  footer{position:relative;z-index:2;text-align:center;padding:18px;color:#bbb;margin-top:30px}
+  .instrument-image-large {
+    display: block;
+    margin: 0 auto 25px auto;
+    max-width: 60%; /* reduz o tamanho da imagem */
+    height: auto;    /* mantém proporção */
+    border-radius: 12px;
+    box-shadow: none; /* remove quadrado/sombra */
+}
+
 
   @media(max-width:600px){
     header.main-header{flex-direction:column;gap:10px}
@@ -82,13 +85,13 @@
 <canvas id="particles-js" aria-hidden="true"></canvas>
 
 <header class="main-header" role="banner">
-  <a class="logo" href="../pages/index.html">InstruMusic</a>
+  <a class="logo" href="/public/pages/index.html">InstruMusic</a>
   <nav class="main-nav" role="navigation" aria-label="Main">
     <a class="nav-item" href="#">Meus Cursos</a>
-    <a class="nav-item" href="../pages/progresso.html">Progresso</a>
-    <a class="nav-item" href="../pages/perfil.html">Perfil</a>
-    <a class="btn btn-secondary" href="../pages/login.html">Login</a>
-    <a class="btn btn-primary" href="../pages/register.html">Criar Conta</a>
+    <a class="nav-item" href="/public/pages/progresso.html">Progresso</a>
+    <a class="nav-item" href="/public/pages/perfil.html">Perfil</a>
+    <a class="btn btn-secondary" href="/public/pages/login.html">Login</a>
+    <a class="btn btn-primary" href="/public/pages/register.html">Criar Conta</a>
   </nav>
 </header>
 
@@ -121,88 +124,114 @@
 </footer>
 
 <script>
-  // Canvas particles - robust: handles DPR and resize
-  (function(){
-    const canvas = document.getElementById('particles-js');
-    const ctx = canvas.getContext && canvas.getContext('2d');
-    if (!ctx) return; // se por algum motivo não houver 2D, sai
+(function(){
+  const canvas = document.getElementById('particles-js');
+  const ctx = canvas.getContext('2d');
+  if(!ctx) return;
 
-    let DPR = window.devicePixelRatio || 1;
-    let W = 0, H = 0;
-    const particles = [];
-    const PARTICLE_COUNT = 90;
+  let DPR = window.devicePixelRatio || 1;
+  let W = 0, H = 0;
+  const particles = [];
+  const PARTICLE_COUNT = 80;
+  const CONNECT_DISTANCE = 120;
+  const notes = ["\u266A", "\u266B"]; // notas musicais Unicode
 
-    function setSize(){
-      DPR = window.devicePixelRatio || 1;
-      W = window.innerWidth;
-      H = window.innerHeight;
-      canvas.style.width = W + 'px';
-      canvas.style.height = H + 'px';
-      canvas.width = Math.floor(W * DPR);
-      canvas.height = Math.floor(H * DPR);
-      ctx.setTransform(DPR,0,0,DPR,0,0);
-    }
+  function setSize(){
+    DPR = window.devicePixelRatio || 1;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.style.width = W+'px';
+    canvas.style.height = H+'px';
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
 
-    function Particle(){
-      this.reset();
-    }
-    Particle.prototype.reset = function(){
-      this.x = Math.random() * W;
-      this.y = Math.random() * H;
-      this.r = Math.random() * 2 + 0.6;
-      // speed small and varied
-      this.vx = (Math.random() - 0.5) * 0.6;
-      this.vy = (Math.random() - 0.5) * 0.6;
-      this.alpha = 0.35 + Math.random() * 0.65;
-    }
-    Particle.prototype.update = function(){
-      this.x += this.vx;
-      this.y += this.vy;
-      if(this.x < -10) this.x = W + 10;
-      if(this.x > W + 10) this.x = -10;
-      if(this.y < -10) this.y = H + 10;
-      if(this.y > H + 10) this.y = -10;
-    }
-    Particle.prototype.draw = function(){
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
-      ctx.fillStyle = 'rgba(255,255,255,' + (this.alpha * 0.85) + ')';
-      ctx.fill();
-    }
+  function Particle(){
+    this.reset();
+  }
 
-    function initParticles(){
-      particles.length = 0;
-      for(let i=0;i<PARTICLE_COUNT;i++){
-        particles.push(new Particle());
+  Particle.prototype.reset = function(){
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.size = Math.random() * 16 + 8; // tamanho da nota
+    this.vx = (Math.random() - 0.5) * 0.6;
+    this.vy = (Math.random() - 0.5) * 0.6;
+    this.alpha = 0.3 + Math.random() * 0.7;
+    this.note = notes[Math.floor(Math.random() * notes.length)];
+    this.rotation = Math.random() * 2 * Math.PI; // rotação aleatória
+    this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+  }
+
+  Particle.prototype.update = function(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.rotation += this.rotationSpeed;
+
+    if(this.x < -20) this.x = W + 20;
+    if(this.x > W + 20) this.x = -20;
+    if(this.y < -20) this.y = H + 20;
+    if(this.y > H + 20) this.y = -20;
+  }
+
+  Particle.prototype.draw = function(){
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.fillStyle = "#fff";
+    ctx.font = `${this.size}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(this.note, 0, 0);
+    ctx.restore();
+  }
+
+  function connectParticles(){
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < CONNECT_DISTANCE){
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(255,255,255,' + ((1 - dist/CONNECT_DISTANCE) * 0.25) + ')';
+          ctx.lineWidth = 1;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
       }
     }
+  }
 
-    let rafId = null;
-    function render(){
-      ctx.clearRect(0,0,W,H);
-      for(let p of particles){
-        p.update();
-        p.draw();
-      }
-      rafId = requestAnimationFrame(render);
-    }
+  function initParticles(){
+    particles.length = 0;
+    for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
+  }
 
-    // initialize
-    function init(){
-      setSize();
-      initParticles();
-      if (rafId) cancelAnimationFrame(rafId);
-      render();
-    }
+  let rafId = null;
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    connectParticles();
+    for(let p of particles) p.update(), p.draw();
+    rafId = requestAnimationFrame(render);
+  }
 
-    window.addEventListener('resize', function(){
-      // debounce small resize to avoid jank
-      clearTimeout(window._particles_resize_timeout);
-      window._particles_resize_timeout = setTimeout(init, 120);
-    });
+  function init(){
+    setSize();
+    initParticles();
+    if(rafId) cancelAnimationFrame(rafId);
+    render();
+  }
 
-    init();
-  })();
+  window.addEventListener('resize',function(){
+    clearTimeout(window._particles_resize_timeout);
+    window._particles_resize_timeout = setTimeout(init,120);
+  });
+
+  init();
+})();
 </script>
 
 </body>

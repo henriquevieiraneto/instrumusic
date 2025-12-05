@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Guitarra | InstruMusic</title>
 <style>
+  
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%}
   body{
@@ -15,14 +16,19 @@
     position:relative;
   }
 
-  /* Fundo gradiente animado */
-  body::before {
-    content:"";
-    position:fixed;
-    top:0;left:0;
-    width:100%;height:100%;
+  /* Imagem de fundo */
+  #background-img{
+    position:fixed;inset:0;
+    z-index:-5;
+    background: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90") center/cover no-repeat;
+    filter: brightness(0.38);
+  }
+
+  /* Gradiente animado transparente por cima */
+  #gradient-overlay {
+    position:fixed;inset:0;
     z-index:-4;
-    background: linear-gradient(135deg,#1e1e1e,#2c2c2c,#1e1e1e,#3a3a3a);
+    background: linear-gradient(135deg,#1e1e1e80,#2c2c2c80,#1e1e1e80,#3a3a3a80);
     background-size:400% 400%;
     animation: gradientBG 22s ease infinite;
   }
@@ -33,21 +39,12 @@
     100%{background-position:0% 50%}
   }
 
-  /* Imagem de fundo */
-  #background-img{
-    position:fixed;inset:0;
-    z-index:-5;
-    background: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90") center/cover no-repeat;
-    filter:brightness(0.38);
-  }
-
   /* Canvas de partículas */
   #particles-js{
     position:fixed;left:0;top:0;
     width:100vw;height:100vh;
     z-index:-3;
     pointer-events:none;
-    display:block;
   }
 
   header.main-header{
@@ -77,13 +74,14 @@
     border-radius:12px;backdrop-filter: blur(8px);
     box-shadow:0 0 30px rgba(0,0,0,0.5);
   }
-
-  .instrument-image-large{
-    display:block;margin:0 auto 25px auto;
-    max-width:100%;
-    border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.4);
-  }
+.instrument-image-large {
+    display: block;
+    margin: 0 auto 25px auto;
+    max-width: 60%; /* reduz o tamanho da imagem */
+    height: auto;    /* mantém proporção */
+    border-radius: 12px;
+    box-shadow: none; /* remove quadrado/sombra */
+}
 
   h1{font-size:2.2rem;margin-bottom:20px;color:#ff4141;text-align:center}
   h2{margin-top:30px;margin-bottom:12px;font-size:1.6rem;color:#fff;border-bottom:2px solid rgba(255,255,255,0.1);padding-bottom:5px}
@@ -97,17 +95,18 @@
 </head>
 <body>
 
-<div id="background-img" aria-hidden="true"></div>
-<canvas id="particles-js" aria-hidden="true"></canvas>
+<div id="background-img"></div>
+<div id="gradient-overlay"></div>
+<canvas id="particles-js"></canvas>
 
 <header class="main-header">
-  <a href="../pages/index.html" class="logo">InstruMusic</a>
+  <a href="/public/pages/index.html" class="logo">InstruMusic</a>
   <nav class="main-nav">
     <a href="#">Meus Cursos</a>
-    <a href="../pages/progresso.html">Progresso</a>
-    <a href="../pages/perfil.html">Perfil</a>
-    <a href="../pages/login.html" class="btn btn-secondary">Login</a>
-    <a href="../pages/register.html" class="btn btn-primary">Criar Conta</a>
+    <a href="/public/pages/progresso.html">Progresso</a>
+    <a href="/public/pages/perfil.html">Perfil</a>
+    <a href="/public/pages/login.html" class="btn btn-secondary btn-small">Login</a>
+    <a href="/public/pages/register.html" class="btn btn-primary btn-small">Criar Conta</a>
   </nav>
 </header>
 
@@ -134,65 +133,99 @@
 <footer>
   <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
 </footer>
-
 <script>
 (function(){
   const canvas = document.getElementById('particles-js');
-  const ctx = canvas.getContext && canvas.getContext('2d');
+  const ctx = canvas.getContext('2d');
   if(!ctx) return;
 
-  let DPR = window.devicePixelRatio||1;
-  let W=0,H=0;
-  const particles=[];
-  const PARTICLE_COUNT = 90;
+  let DPR = window.devicePixelRatio || 1;
+  let W = 0, H = 0;
+  const particles = [];
+  const PARTICLE_COUNT = 80;
+  const CONNECT_DISTANCE = 120;
+  const notes = ["\u266A", "\u266B"]; // notas musicais Unicode
 
   function setSize(){
-    DPR = window.devicePixelRatio||1;
+    DPR = window.devicePixelRatio || 1;
     W = window.innerWidth;
     H = window.innerHeight;
     canvas.style.width = W+'px';
     canvas.style.height = H+'px';
-    canvas.width = Math.floor(W*DPR);
-    canvas.height = Math.floor(H*DPR);
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
     ctx.setTransform(DPR,0,0,DPR,0,0);
   }
 
   function Particle(){
     this.reset();
   }
-  Particle.prototype.reset=function(){
-    this.x=Math.random()*W;
-    this.y=Math.random()*H;
-    this.r=Math.random()*2+0.6;
-    this.vx=(Math.random()-0.5)*0.6;
-    this.vy=(Math.random()-0.5)*0.6;
-    this.alpha=0.35+Math.random()*0.65;
+
+  Particle.prototype.reset = function(){
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.size = Math.random() * 16 + 8; // tamanho da nota
+    this.vx = (Math.random() - 0.5) * 0.6;
+    this.vy = (Math.random() - 0.5) * 0.6;
+    this.alpha = 0.3 + Math.random() * 0.7;
+    this.note = notes[Math.floor(Math.random() * notes.length)];
+    this.rotation = Math.random() * 2 * Math.PI; // rotação aleatória
+    this.rotationSpeed = (Math.random() - 0.5) * 0.02;
   }
-  Particle.prototype.update=function(){
-    this.x+=this.vx;
-    this.y+=this.vy;
-    if(this.x<-10) this.x=W+10;
-    if(this.x>W+10) this.x=-10;
-    if(this.y<-10) this.y=H+10;
-    if(this.y>H+10) this.y=-10;
+
+  Particle.prototype.update = function(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.rotation += this.rotationSpeed;
+
+    if(this.x < -20) this.x = W + 20;
+    if(this.x > W + 20) this.x = -20;
+    if(this.y < -20) this.y = H + 20;
+    if(this.y > H + 20) this.y = -20;
   }
-  Particle.prototype.draw=function(){
-    ctx.beginPath();
-    ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
-    ctx.fillStyle='rgba(255,255,255,'+(this.alpha*0.85)+')';
-    ctx.fill();
+
+  Particle.prototype.draw = function(){
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.fillStyle = "#fff";
+    ctx.font = `${this.size}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(this.note, 0, 0);
+    ctx.restore();
+  }
+
+  function connectParticles(){
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < CONNECT_DISTANCE){
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(255,255,255,' + ((1 - dist/CONNECT_DISTANCE) * 0.25) + ')';
+          ctx.lineWidth = 1;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
   }
 
   function initParticles(){
-    particles.length=0;
+    particles.length = 0;
     for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
   }
 
-  let rafId=null;
+  let rafId = null;
   function render(){
     ctx.clearRect(0,0,W,H);
-    for(let p of particles){p.update();p.draw();}
-    rafId=requestAnimationFrame(render);
+    connectParticles();
+    for(let p of particles) p.update(), p.draw();
+    rafId = requestAnimationFrame(render);
   }
 
   function init(){
@@ -204,12 +237,11 @@
 
   window.addEventListener('resize',function(){
     clearTimeout(window._particles_resize_timeout);
-    window._particles_resize_timeout=setTimeout(init,120);
+    window._particles_resize_timeout = setTimeout(init,120);
   });
 
   init();
 })();
 </script>
-
 </body>
 </html>

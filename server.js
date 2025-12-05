@@ -17,7 +17,6 @@ const db = mysql.createPool({
     user: 'root',
     password: 'senai',
     database: 'instrumusic_db',
-    port: 3306
 });
 
 

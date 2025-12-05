@@ -1,250 +1,238 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teclado | InstruMusic</title>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Teclado | InstruMusic</title>
+<style>
+  * {margin:0;padding:0;box-sizing:border-box;}
+  html, body {height:100%; position: relative; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+  body {color:#eee; overflow-x:hidden; min-height:100vh;}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #1e1e1e;
-            color: #eee;
-            position: relative;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+  /* Imagem de fundo */
+  #background-img {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    z-index: -4;
+    background: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90") center/cover no-repeat;
+    filter: brightness(0.38);
+  }
 
-        /* Fundo animado */
-        #particles-js {
-            position: fixed;
-            top: 0; 
-            left: 0;
-            width: 100%; 
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #1e1e1e, #2c2c2c, #1e1e1e, #3a3a3a);
-            background-size: 400% 400%;
-            animation: gradientBG 20s ease infinite;
-        }
+  /* Gradiente animado por cima da imagem */
+  body::before {
+    content:"";
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    z-index: -3;
+    background: linear-gradient(135deg,#1e1e1e,#2c2c2c,#1e1e1e,#3a3a3a);
+    background-size:400% 400%;
+    animation: gradientBG 22s ease infinite;
+    opacity: 0.6; /* deixa a imagem visível */
+  }
 
-        @keyframes gradientBG {
-            0% {background-position:0% 50%;}
-            50% {background-position:100% 50%;}
-            100% {background-position:0% 50%;}
-        }
+  @keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
 
-        /* Header */
-        header.main-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background: rgba(30, 30, 30, 0.9);
-        }
+  /* Canvas de partículas */
+  #particles-js {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    z-index: -2;
+    pointer-events: none;
+  }
 
-        header a.logo {
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: #fff;
-            text-decoration: none;
-        }
+  /* Header */
+  header.main-header {
+    position: relative; z-index:2;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:15px 30px;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    position:sticky;
+    top:0;
+    box-shadow:0 4px 6px rgba(0,0,0,0.3);
+  }
+  .logo {font-weight:700; color:#fff; text-decoration:none; font-size:1.6rem;}
+  nav.main-nav a {margin-left:18px; color:#eee; text-decoration:none; font-size:0.95rem;}
+  nav.main-nav a:hover {color:#ff4141;}
+  .btn {display:inline-block; padding:8px 14px; border-radius:8px; font-weight:700; text-decoration:none; cursor:pointer; font-size:0.85rem;}
+  .btn-secondary {background:transparent; color:#fff; border:2px solid rgba(255,255,255,0.15);}
+  .btn-secondary:hover {background:#fff; color:#111;}
+  .btn-primary {background:#ff4141; color:#fff; border:2px solid #ff4141;}
+  .btn-primary:hover {background:#ff6363;}
 
-        nav.main-nav a {
-            margin-left: 18px;
-            color: #eee;
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
+  /* Conteúdo */
+  main.content-section {
+    position: relative; z-index:2;
+    max-width:900px; margin:80px auto; padding:35px;
+    background: rgba(30,30,30,0.55);
+    border-radius:12px; backdrop-filter: blur(8px);
+    box-shadow:0 0 30px rgba(0,0,0,0.5);
+  }
+  .instrument-image-large {
+    display: block;
+    max-width: 65%;  /* reduz o tamanho da imagem */
+    height: auto;     /* mantém proporção */
+    margin: 0 auto 25px auto;
+    border-radius: 12px;
+    box-shadow: none; /* remove sombra/quadrado */
+}
 
-        /* Botões */
-        .btn {
-            display: inline-block;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .btn-small {
-            padding: 8px 14px;
-            font-size: 0.85rem;
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: #ffffff;
-            border: 2px solid #ffffff;
-        }
-
-        .btn-secondary:hover {
-            background-color: #ffffff;
-            color: #1e1e1e;
-        }
-
-        .btn-primary {
-            background-color: #ff4141;
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            background-color: #ff6565;
-        }
-
-        /* Conteúdo principal */
-        main.content-section {
-            max-width: 900px;
-            margin: 80px auto;
-            padding: 25px;
-            background: rgba(30,30,30,0.85);
-            border-radius: 12px;
-        }
-
-        main h1 {
-            color: #fff;
-            margin: 20px 0;
-            font-size: 2rem;
-        }
-
-        main h2 {
-            color: #fff;
-            margin-top: 28px;
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-        }
-
-        main p {
-            line-height: 1.7;
-            margin-bottom: 18px;
-            font-size: 1rem;
-        }
-
-        ul.course-list {
-            margin-left: 20px;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        /* Imagem do instrumento */
-        .instrument-image-large {
-            display: block;
-            max-width: 100%;
-            margin: 0 auto 30px auto;
-            border-radius: 12px;
-        }
-
-        /* Rodapé */
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #bbb;
-            margin-top: 40px;
-        }
-    </style>
+</style>
 </head>
-
 <body>
-    <canvas id="particles-js"></canvas>
 
-    <header class="main-header" style="background: transparent; border-bottom: none;">
-        <a href="../pages/index.html" class="logo">InstruMusic</a>
-        <nav class="main-nav">
-            <a href="#" class="nav-item">Meus Cursos</a>
-            <a href="../pages/progresso.html" class="nav-item">Progresso</a>
-            <a href="../pages/perfil.html" class="nav-item">Perfil</a>
-            <a href="../pages/login.html" class="btn btn-secondary btn-small">Login</a>
-            <a href="../pages/register.html" class="btn btn-primary btn-small">Criar Conta</a>
-        </nav>
-    </header>
-    
+<div id="background-img" aria-hidden="true"></div>
+<canvas id="particles-js" aria-hidden="true"></canvas>
 
-    <main class="content-section instrument-detail">
-        <img src="../img/teclado.png" alt="Teclado/Sintetizador" class="instrument-image-large">
+<header class="main-header">
+  <a href="/public/pages/index.html" class="logo">InstruMusic</a>
+  <nav class="main-nav">
+    <a href="#" class="nav-item">Meus Cursos</a>
+    <a href="/public/pages/progresso.html" class="nav-item">Progresso</a>
+    <a href="/public/pages/perfil.html" class="nav-item">Perfil</a>
+    <a href="/public/pages/login.html" class="btn btn-secondary btn-small">Login</a>
+    <a href="/public/pages/register.html" class="btn btn-primary btn-small">Criar Conta</a>
+  </nav>
+</header>
 
-        <h1>Aprenda a tocar Teclado</h1>
-        <p>
-            O teclado, seja piano digital ou sintetizador, permite criar harmonias complexas e melodias ricas.
-            Nossos cursos exploram teoria musical, digitação, performance e improvisação para diversos estilos.
-            Descubra novas possibilidades sonoras e desenvolva sua musicalidade.
-        </p>
+<main class="content-section instrument-detail">
+  <img src="../img/teclado.png" alt="Teclado/Sintetizador" class="instrument-image-large">
 
-        <h2>Cursos Disponíveis</h2>
-        <ul class="course-list">
-            <li>Teoria Musical e Formação de Acordes</li>
-            <li>Digitação e Leitura Rítmica</li>
-            <li>Improvisação e Criação de Timbres (Sintetizadores)</li>
-            <li>Acompanhamento e Solo em Pop e Jazz</li>
-        </ul>
+  <h1>Aprenda a tocar Teclado</h1>
+  <p>
+      O teclado, seja piano digital ou sintetizador, permite criar harmonias complexas e melodias ricas.
+      Nossos cursos exploram teoria musical, digitação, performance e improvisação para diversos estilos.
+      Descubra novas possibilidades sonoras e desenvolva sua musicalidade.
+  </p>
 
-       
-    </main>
+  <h2>Cursos Disponíveis</h2>
+  <ul class="course-list">
+      <li>Teoria Musical e Formação de Acordes</li>
+      <li>Digitação e Leitura Rítmica</li>
+      <li>Improvisação e Criação de Timbres (Sintetizadores)</li>
+      <li>Acompanhamento e Solo em Pop e Jazz</li>
+  </ul>
+</main>
 
-    <footer>
-        <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
-    </footer>
+<footer>
+  <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
+</footer>
+<script>
+(function(){
+  const canvas = document.getElementById('particles-js');
+  const ctx = canvas.getContext('2d');
+  if(!ctx) return;
 
-    <script>
-        const canvas = document.getElementById('particles-js');
-        const ctx = canvas.getContext('2d');
+  let DPR = window.devicePixelRatio || 1;
+  let W = 0, H = 0;
+  const particles = [];
+  const PARTICLE_COUNT = 80;
+  const CONNECT_DISTANCE = 120;
+  const notes = ["\u266A", "\u266B"]; // notas musicais Unicode
 
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+  function setSize(){
+    DPR = window.devicePixelRatio || 1;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.style.width = W+'px';
+    canvas.style.height = H+'px';
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
 
-        const particles = [];
-        const particleCount = 80;
+  function Particle(){
+    this.reset();
+  }
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.radius = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255,255,255,0.7)';
-                ctx.fill();
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0) this.x = width;
-                if (this.x > width) this.x = 0;
-                if (this.y < 0) this.y = height;
-                if (this.y > height) this.y = 0;
-                this.draw();
-            }
+  Particle.prototype.reset = function(){
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.size = Math.random() * 16 + 8; // tamanho da nota
+    this.vx = (Math.random() - 0.5) * 0.6;
+    this.vy = (Math.random() - 0.5) * 0.6;
+    this.alpha = 0.3 + Math.random() * 0.7;
+    this.note = notes[Math.floor(Math.random() * notes.length)];
+    this.rotation = Math.random() * 2 * Math.PI; // rotação aleatória
+    this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+  }
+
+  Particle.prototype.update = function(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.rotation += this.rotationSpeed;
+
+    if(this.x < -20) this.x = W + 20;
+    if(this.x > W + 20) this.x = -20;
+    if(this.y < -20) this.y = H + 20;
+    if(this.y > H + 20) this.y = -20;
+  }
+
+  Particle.prototype.draw = function(){
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.fillStyle = "#fff";
+    ctx.font = `${this.size}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(this.note, 0, 0);
+    ctx.restore();
+  }
+
+  function connectParticles(){
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < CONNECT_DISTANCE){
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(255,255,255,' + ((1 - dist/CONNECT_DISTANCE) * 0.25) + ')';
+          ctx.lineWidth = 1;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
         }
+      }
+    }
+  }
 
-        function init() {
-            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
-            animate();
-        }
+  function initParticles(){
+    particles.length = 0;
+    for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
+  }
 
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => p.update());
-            requestAnimationFrame(animate);
-        }
+  let rafId = null;
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    connectParticles();
+    for(let p of particles) p.update(), p.draw();
+    rafId = requestAnimationFrame(render);
+  }
 
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
+  function init(){
+    setSize();
+    initParticles();
+    if(rafId) cancelAnimationFrame(rafId);
+    render();
+  }
 
-        init();
-    </script>
+  window.addEventListener('resize',function(){
+    clearTimeout(window._particles_resize_timeout);
+    window._particles_resize_timeout = setTimeout(init,120);
+  });
 
+  init();
+})();
+</script>
 </body>
 </html>
