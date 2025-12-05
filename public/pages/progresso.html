@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | InstruMusic</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ===============================
+           FUNDO COM FOTO + OVERLAY ESCURO
+        ================================ */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            
+            /* Imagem usada na página inicial */
+            background: 
+                linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)),
+                url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ===============================
+                CABEÇALHO
+        ================================ */
+        .header {
+            width: 100%;
+            padding: 15px 40px;
+            background: rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            backdrop-filter: blur(12px);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 20;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #cfcfcf;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.25s;
+        }
+
+        nav a:hover {
+            color: #00aaff;
+            font-weight: bold;
+        }
+
+        .btn-logout {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 14px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.35);
+        }
+
+        /* ===============================
+                CONTEÚDO
+        ================================ */
+        main {
+            padding-top: 120px;
+            padding-bottom: 40px;
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* Cartões translúcidos */
+        .light-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(14px);
+            color: #fff;
+            padding: 24px;
+            width: 92%;
+            max-width: 900px;
+            margin: 0 auto 40px auto;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.45);
+        }
+
+        .light-card h3 {
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        /* ===============================
+                BARRAS DE PROGRESSO
+        ================================ */
+        .progress-item {
+            margin-bottom: 18px;
+        }
+
+        .progress-label {
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: #ececec;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 14px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #00aaff, #66ddff);
+            width: 0;
+            animation: fillBar 1.7s ease forwards;
+        }
+
+        @keyframes fillBar {
+            from { width: 0; }
+            to { width: var(--value); }
+        }
+
+        /* ===============================
+                    FOOTER
+        ================================ */
+        footer {
+            text-align: center;
+            padding: 18px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+    </style>
+
+</head>
+<body>
+
+    <canvas id="particles-js"></canvas>
+
+    <header class="header">
+        <a href="index.html" class="logo">InstruMusic</a>
+
+        <nav>
+            <a href="meus-cursos.html">Meus Cursos</a>
+            <a href="perfil.html">Perfil</a>
+        </nav>
+
+        <button class="btn-logout" onclick="window.location.href='/public/pages/login.html'">Sair</button>
+    </header>
+
+    <main>
+
+        <!-- CARD 1 -->
+        <div class="light-card">
+            <h3>Seu Progresso</h3>
+
+            <p><strong>Instrumento Escolhido:</strong> Guitarra</p>
+            <p><strong>Próxima Aula:</strong> Técnica – Dedilhado</p>
+            <p><strong>Material de Apoio:</strong> 
+                <a href="/public/pages/materiais.html" style="color:#66ddff;">Ver Partituras Iniciais</a>
+            </p>
+        </div>
+
+        <!-- CARD 2 — GRÁFICO -->
+        <div class="light-card">
+            <h3>Progresso das Aulas</h3>
+
+            <div class="progress-item">
+                <div class="progress-label">Introdução ao Instrumento — 100%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="--value: 100%;"></div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-label">Acordes Básicos — 75%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="--value: 75%;"></div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-label">Ritmos Iniciais — 50%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="--value: 50%;"></div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-label">Dedilhado — 20%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="--value: 20%;"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        © 2025 InstruMusic. Todos os direitos reservados.
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('particles-js');
+        const ctx = canvas.getContext('2d');
+
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+
+        const particles = [];
+        const total = 80;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.r = Math.random() * 2 + 1;
+                this.sx = Math.random() * .5 - .25;
+                this.sy = Math.random() * .5 - .25;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(255,255,255,0.7)";
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.sx;
+                this.y += this.sy;
+
+                if (this.x < 0) this.x = w;
+                if (this.x > w) this.x = 0;
+                if (this.y < 0) this.y = h;
+                if (this.y > h) this.y = 0;
+
+                this.draw();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < total; i++) {
+                particles.push(new Particle());
+            }
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            particles.forEach(p => p.update());
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        });
+
+        init();
+    </script>
+
+</body>
+</html>

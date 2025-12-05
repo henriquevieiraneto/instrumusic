@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sobre Nós | InstruMusic</title>
+
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #eee;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+
+            /* 🔥 FUNDO PRINCIPAL — MESMA IMAGEM DAS OUTRAS PÁGINAS */
+            background: 
+                linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)),
+                url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90")
+                center/cover no-repeat fixed;
+        }
+
+        /* CANVAS DE PARTÍCULAS */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* fica atrás de tudo */
+            pointer-events: none;
+        }
+
+        /* HEADER TOTALMENTE TRANSPARENTE */
+        .main-header {
+            background: transparent !important;
+            backdrop-filter: none !important;
+            box-shadow: none !important;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-header a {
+            color: #fff !important;
+        }
+
+        .logo a {
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .main-nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .main-nav ul li a:hover {
+            background-color: #fff;
+            color: #121212;
+        }
+
+        .btn-primary {
+            padding: 10px 18px;
+            font-weight: 700;
+            border-radius: 6px;
+            text-decoration: none;
+            background-color: #ff0000;
+            color: #121212;
+        }
+
+        /* ÁREA DE CONTEÚDO */
+        .content-section {
+            flex-grow: 1;
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #fff;
+            font-weight: 700;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* 🔥 CARD PRINCIPAL — MESMO ESTILO DAS OUTRAS PÁGINAS */
+        .about-content {
+           
+            border-radius: 12px;
+            padding: 30px 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.45);
+            font-size: 1.15em;
+            line-height: 1.8;
+            backdrop-filter: blur(4px);
+            transition: 0.3s;
+        }
+
+        .about-content:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+        }
+
+        /* --- SEÇÃO EXPLORE MUSIC --- */
+        .music-explore-section {
+            padding: 60px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .music-explore-container {
+            display: flex;
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .music-card {
+            flex: 1;
+            border-left: 5px solid #007bff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.55);
+            transition: 0.3s;
+            backdrop-filter: blur(4px);
+        }
+
+        .music-card:hover {
+            transform: translateY(-5px);
+            border-left-color: #87cefa;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.8);
+        }
+
+        .music-card h3 {
+            color: #87cefa;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .music-card p {
+            color: #dcdcdc;
+            margin-bottom: 20px;
+        }
+
+        .music-card a {
+            background-color: #007bff;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .music-card a:hover {
+            background-color: #0056b3;
+        }
+
+        /* FOOTER PADRÃO */
+        .main-footer {
+            
+            backdrop-filter: blur(5px);
+            padding: 40px 20px 20px;
+            color: #ccc;
+            margin-top: 50px;
+            border-top: 5px solid #007bff;
+        }
+
+        .footer-container {
+            display: flex;
+            gap: 30px;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: auto;
+            flex-wrap: wrap;
+        }
+
+        .footer-section h4 {
+            color: #87cefa;
+            border-bottom: 2px solid #007bff;
+            margin-bottom: 15px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .music-explore-container { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CANVAS DE PARTÍCULAS -->
+    <canvas id="particles-js"></canvas>
+
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="logo"><a href="index.html">InstruMusic</a></div>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="sobre.html" aria-current="page">Sobre</a></li>
+                <li><a href="instrumentos.html">Instrumentos</a></li>
+                <li><a href="depoimentos.html">Depoimentos</a></li>
+            </ul>
+        </nav>
+
+        <a href="entry.html" class="btn btn-primary">Login / Cadastro</a>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="content-section">
+        <h2 class="section-title">Nossa Missão</h2>
+
+        <div class="about-content">
+            <p>A InstruMusic é uma organização que possibilita pessoas a partir dos 6 anos de idade aprender a tocar diversos instrumentos...</p>
+        </div>
+    </main>
+
+    <!-- SEÇÃO EXPLORE MUSIC -->
+    <section class="music-explore-section">
+        <h2 class="section-title">Comece a Explorar!</h2>
+
+        <div class="music-explore-container">
+
+            <div class="music-card">
+                <h3>Gêneros Musicais</h3>
+                <p>Descubra o universo do Rock, Jazz, Clássica e muito mais!</p>
+                <a href="../pages/generos.html">Ver Gêneros</a>
+            </div>
+
+            <div class="music-card">
+                <h3>Teoria Musical Básica</h3>
+                <p>Entenda notas, acordes e ritmos de forma simples.</p>
+                <a href="../pages/teoria.html">Aprender Teoria</a>
+            </div>
+
+            <div class="music-card">
+                <h3>Histórias Que Inspiram</h3>
+                <p>Veja vídeos e depoimentos de outros alunos e músicos.</p>
+                <a href="../pages/depoimentos.html">Assista Agora</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-container">
+
+            <div class="footer-section">
+                <h4>InstruMusic</h4>
+                <p>A plataforma definitiva para sua jornada musical.</p>
+                <p>&copy; 2025</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="sobre.html">Sobre a Plataforma</a></li>
+                    <li><a href="instrumentos.html">Nossos Instrumentos</a></li>
+                    <li><a href="teoria.html">Aprender Teoria</a></li>
+                    <li><a href="generos.html">Gêneros Musicais</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contato</h4>
+                <p>Email: contato@instrumusic.com</p>
+                <p>Telefone: (11) 98765-4321</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Siga-nos</h4>
+                <div class="social-links">
+                    <a href="#">FB</a>
+                    <a href="#">IG</a>
+                    <a href="#">YT</a>
+                    <a href="#">X</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            Política de Privacidade | Termos de Serviço
+        </div>
+    </footer>
+<script>
+(function(){
+  const canvas = document.getElementById('particles-js');
+  const ctx = canvas.getContext('2d');
+  if(!ctx) return;
+
+  let DPR = window.devicePixelRatio || 1;
+  let W = 0, H = 0;
+  const particles = [];
+  const PARTICLE_COUNT = 80;
+  const CONNECT_DISTANCE = 120;
+  const notes = ["\u266A", "\u266B"]; // notas musicais Unicode
+
+  function setSize(){
+    DPR = window.devicePixelRatio || 1;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.style.width = W+'px';
+    canvas.style.height = H+'px';
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+
+  function Particle(){
+    this.reset();
+  }
+
+  Particle.prototype.reset = function(){
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.size = Math.random() * 16 + 8; // tamanho da nota
+    this.vx = (Math.random() - 0.5) * 0.6;
+    this.vy = (Math.random() - 0.5) * 0.6;
+    this.alpha = 0.3 + Math.random() * 0.7;
+    this.note = notes[Math.floor(Math.random() * notes.length)];
+    this.rotation = Math.random() * 2 * Math.PI; // rotação aleatória
+    this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+  }
+
+  Particle.prototype.update = function(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.rotation += this.rotationSpeed;
+
+    if(this.x < -20) this.x = W + 20;
+    if(this.x > W + 20) this.x = -20;
+    if(this.y < -20) this.y = H + 20;
+    if(this.y > H + 20) this.y = -20;
+  }
+
+  Particle.prototype.draw = function(){
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.fillStyle = "#fff";
+    ctx.font = `${this.size}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(this.note, 0, 0);
+    ctx.restore();
+  }
+
+  function connectParticles(){
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < CONNECT_DISTANCE){
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(255,255,255,' + ((1 - dist/CONNECT_DISTANCE) * 0.25) + ')';
+          ctx.lineWidth = 1;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function initParticles(){
+    particles.length = 0;
+    for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
+  }
+
+  let rafId = null;
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    connectParticles();
+    for(let p of particles) p.update(), p.draw();
+    rafId = requestAnimationFrame(render);
+  }
+
+  function init(){
+    setSize();
+    initParticles();
+    if(rafId) cancelAnimationFrame(rafId);
+    render();
+  }
+
+  window.addEventListener('resize',function(){
+    clearTimeout(window._particles_resize_timeout);
+    window._particles_resize_timeout = setTimeout(init,120);
+  });
+
+  init();
+})();
+</script>
+</body>
+</html>
