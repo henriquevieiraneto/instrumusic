@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função para exibir mensagens na tela
     function showMessage(container, message, type = 'success') {
         container.innerText = message;
-        container.className = `message ${type}`; // Ex.: message success / message error
+        container.className = `message ${type}`; 
         container.style.display = 'block';
-        setTimeout(() => container.style.display = 'none', 4000); // desaparece após 4s
+        setTimeout(() => container.style.display = 'none', 4000); 
     }
 
     // --- Lógica do Formulário de Login ---
