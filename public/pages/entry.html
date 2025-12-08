@@ -21,11 +21,10 @@ body {
     z-index: -1;
     pointer-events:none;
 }
-/* Caixa de opções */
 .form-container {
     max-width: 380px;
     margin: 130px auto 40px auto;
-    background: rgba(30, 144, 255, 0.15); /* azul suave translúcido */
+    background: rgba(30, 144, 255, 0.15); 
     padding: 34px;
     border-radius: 18px;
     text-align: center;
@@ -82,14 +81,13 @@ body {
     <h2>Bem-vindo à InstruMusic!</h2>
     <p>Escolha como você quer começar sua jornada musical.</p>
 
-    <a href="login.html" class="btn btn-primary">Fazer Login</a>
-    <a href="register.html" class="btn btn-secondary">Criar Conta (Cadastre-se)</a>
+    <a href="/public/pages/login.html" class="btn btn-primary">Fazer Login</a>
+    <a href="/public/pages/register.html" class="btn btn-secondary">Criar Conta (Cadastre-se)</a>
 
-    <a href="index.html" class="text-dim">Voltar para a Página Inicial</a>
+    <a href="/public/pages/index.html" class="text-dim">Voltar para a Página Inicial</a>
 </div>
 
 <script>
-// Partículas com notas musicais
 (function(){
     const canvas = document.getElementById('particles-js');
     const ctx = canvas.getContext('2d');

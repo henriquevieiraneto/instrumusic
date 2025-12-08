@@ -22,7 +22,6 @@
     100%{background-position:0% 50%}
   }
 
-  /* imagem de fundo (fica abaixo do canvas) */
   #background-img{
     position:fixed;inset:0;
     z-index:-4;
@@ -30,7 +29,6 @@
     filter:brightness(0.38);
   }
 
-  /* canvas de partículas (entre imagem e conteúdo) */
   #particles-js{
     position:fixed;left:0;top:0;
     width:100vw;height:100vh;
@@ -65,10 +63,10 @@
   .instrument-image-large {
     display: block;
     margin: 0 auto 25px auto;
-    max-width: 60%; /* reduz o tamanho da imagem */
-    height: auto;    /* mantém proporção */
+    max-width: 60%; 
+    height: auto;   
     border-radius: 12px;
-    box-shadow: none; /* remove quadrado/sombra */
+    box-shadow: none; 
 }
 
 
@@ -96,7 +94,6 @@
 </header>
 
 <main class="content-section" role="main">
-  <!-- imagem com fallback automático caso o primeiro caminho não exista -->
   <img
     src="/public/img/flauta.webp"
     alt="Flauta Transversal"
@@ -134,7 +131,7 @@
   const particles = [];
   const PARTICLE_COUNT = 80;
   const CONNECT_DISTANCE = 120;
-  const notes = ["\u266A", "\u266B"]; // notas musicais Unicode
+  const notes = ["\u266A", "\u266B"]; 
 
   function setSize(){
     DPR = window.devicePixelRatio || 1;
@@ -154,12 +151,12 @@
   Particle.prototype.reset = function(){
     this.x = Math.random() * W;
     this.y = Math.random() * H;
-    this.size = Math.random() * 16 + 8; // tamanho da nota
+    this.size = Math.random() * 16 + 8; 
     this.vx = (Math.random() - 0.5) * 0.6;
     this.vy = (Math.random() - 0.5) * 0.6;
     this.alpha = 0.3 + Math.random() * 0.7;
     this.note = notes[Math.floor(Math.random() * notes.length)];
-    this.rotation = Math.random() * 2 * Math.PI; // rotação aleatória
+    this.rotation = Math.random() * 2 * Math.PI;
     this.rotationSpeed = (Math.random() - 0.5) * 0.02;
   }
 

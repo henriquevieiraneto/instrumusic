@@ -7,11 +7,10 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const port = 3000; // Porta local fixa
-const JWT_SECRET = "super_secret_key"; // Chave fixa local
+const port = 3000; 
+const JWT_SECRET = "super_secret_key";
 
 
-// 🔥 CONEXÃO DIRETA COM MYSQL LOCAL (SEM NUVEM)
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
@@ -46,7 +45,7 @@ app.get("/:page", (req, res) => {
 });
 
 
-// 📌 Cadastro
+//  Cadastro
 app.post("/api/register", async (req, res) => {
     const { name, email, password } = req.body;
     if (!name || !email || !password)
@@ -71,7 +70,7 @@ app.post("/api/register", async (req, res) => {
 });
 
 
-// 📌 Login
+//  Login
 app.post("/api/login", async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password)

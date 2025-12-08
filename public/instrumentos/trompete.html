@@ -8,7 +8,7 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   html,body{height:100%; position:relative; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#eee; overflow-x:hidden;}
 
-  /* Imagem de fundo */
+
   #background-img {
     position: fixed;
     top:0; left:0;
@@ -18,7 +18,6 @@
     filter: brightness(0.38);
   }
 
-  /* Gradiente animado */
   body::before {
     content:"";
     position: fixed;
@@ -37,7 +36,6 @@
     100%{background-position:0% 50%;}
   }
 
-  /* Canvas de partículas */
   #particles-js {
     position: fixed;
     top:0; left:0;
@@ -46,7 +44,6 @@
     pointer-events:none;
   }
 
-  /* Header */
   header.main-header {
     position: relative; z-index:2;
     display:flex; justify-content:space-between; align-items:center;
@@ -66,7 +63,6 @@
   .btn-primary{background:#ff4141;color:#fff;border:2px solid #ff4141;}
   .btn-primary:hover{background:#ff6363;}
 
-  /* Conteúdo */
   main.content-section {
     position: relative; z-index:2;
     max-width:900px; margin:80px auto; padding:35px;
@@ -76,11 +72,11 @@
   }
 .instrument-image-large {
     display: block;
-    max-width: 65%;  /* reduz o tamanho da imagem */
-    height: auto;     /* mantém proporção */
+    max-width: 65%; 
+    height: auto;    
     margin: 0 auto 25px auto;
     border-radius: 12px;
-    box-shadow: none; /* remove sombra/quadrado */
+    box-shadow: none; 
 }
 </style>
 <body>
@@ -100,7 +96,7 @@
 </header>
 
 <main class="content-section instrument-detail">
-  <img src="../img/trompete.png" alt="Trompete Dourado" class="instrument-image-large">
+  <img src="/public/img/trompete.png" alt="Trompete Dourado" class="instrument-image-large">
 
   <h1>Aprenda a tocar Trompete</h1>
   <p>
@@ -134,7 +130,7 @@
   const particles = [];
   const PARTICLE_COUNT = 80;
   const CONNECT_DISTANCE = 120;
-  const notes = ["\u266A", "\u266B"]; // notas musicais Unicode
+  const notes = ["\u266A", "\u266B"]; 
 
   function setSize(){
     DPR = window.devicePixelRatio || 1;
@@ -154,12 +150,12 @@
   Particle.prototype.reset = function(){
     this.x = Math.random() * W;
     this.y = Math.random() * H;
-    this.size = Math.random() * 16 + 8; // tamanho da nota
+    this.size = Math.random() * 16 + 8; 
     this.vx = (Math.random() - 0.5) * 0.6;
     this.vy = (Math.random() - 0.5) * 0.6;
     this.alpha = 0.3 + Math.random() * 0.7;
     this.note = notes[Math.floor(Math.random() * notes.length)];
-    this.rotation = Math.random() * 2 * Math.PI; // rotação aleatória
+    this.rotation = Math.random() * 2 * Math.PI; 
     this.rotationSpeed = (Math.random() - 0.5) * 0.02;
   }
 

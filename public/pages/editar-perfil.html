@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editar Perfil | InstruMusic</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90") center/cover no-repeat fixed;
+    position: relative;
+    overflow: hidden;
+}
+
+#particles-js {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    z-index: 3;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+nav a:hover {
+    background: rgba(230, 57, 70, 0.3);
+    color: #e63946;
+}
+
+.container {
+    width: 420px;
+    max-width: 95%;
+    background: rgba(10, 40, 98, 0.35);
+    border: 1px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 60px 30px 30px 30px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    z-index: 2;
+    text-align: center;
+    position: relative;
+}
+
+.profile-photo {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+}   
+.profile-photo img, .profile-photo .placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.4);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    background: #2a2a2a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    color: #fff;
+}
+.profile-photo:hover img, .profile-photo:hover .placeholder {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+.profile-photo label {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    background: #e63946;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 2px solid rgba(255,255,255,0.5);
+}
+.profile-photo label i {
+    font-size: 18px;
+    color: #fff;
+}
+
+.container h1 {
+    margin-top: 80px;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.input-box {
+    width: 100%;
+    margin: 15px 0;
+}
+.input-box input {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 16px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    transition: 0.3s;
+}
+.input-box input:focus {
+    background: rgba(255,255,255,0.2);
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 30px;
+    background: #e63946;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+button:hover {
+    background: #d62839;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+    .container { padding: 70px 20px 30px 20px; }
+    nav { padding: 12px 20px; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles-js"></canvas>
+
+<nav>
+    <a href="/public/pages/index.html/">Home</a>
+    <a href="/public/pages/perfil.html">Perfil</a>
+    <a href="/public/pages/index.html">Sair</a>
+</nav>
+
+<div class="container">
+    <div class="profile-photo">
+        <img id="profileImage" src="" alt="Foto de Perfil" style="display:none;">
+        <div class="placeholder" id="profilePlaceholder">👤</div>
+        <label for="fotoInput"><i class="ri-pencil-fill"></i></label>
+        <input type="file" id="fotoInput" style="display:none;">
+    </div>
+
+    <h1>Editar Perfil</h1>
+<form id="editProfileForm">
+    <div class="input-box">
+        <input type="text" id="nome" placeholder="Nome completo" required>
+    </div>
+    <div class="input-box">
+        <input type="email" id="email" placeholder="E-mail" required>
+    </div>
+    <div class="input-box">
+        <input type="password" id="senha" placeholder="Nova senha">
+    </div>
+    <button type="button" id="saveBtn">Salvar Alterações</button>
+</form>
+
+<script>
+document.getElementById('saveBtn').addEventListener('click', function() {
+    window.location.href = 'index.html'; 
+});
+</script>
+
+
+<footer>&copy; 2025 InstruMusic</footer>
+
+<script>
+(function(){
+    const canvas = document.getElementById('particles-js');
+    const ctx = canvas.getContext('2d');
+    if(!ctx) return;
+
+    let DPR = window.devicePixelRatio || 1;
+    let W = 0, H = 0;
+    const particles = [];
+    const PARTICLE_COUNT = 90;
+    const CONNECT_DISTANCE = 120;
+    const notes = ["\u266A","\u266B"];
+
+    function setSize(){
+        DPR = window.devicePixelRatio || 1;
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.style.width = W+'px';
+        canvas.style.height = H+'px';
+        canvas.width = Math.floor(W*DPR);
+        canvas.height = Math.floor(H*DPR);
+        ctx.setTransform(DPR,0,0,DPR,0,0);
+    }
+
+    function Particle(){ this.reset(); }
+    Particle.prototype.reset=function(){
+        this.x=Math.random()*W;
+        this.y=Math.random()*H;
+        this.size=Math.random()*16+8;
+        this.vx=(Math.random()-0.5)*0.6;
+        this.vy=(Math.random()-0.5)*0.6;
+        this.alpha=0.3+Math.random()*0.7;
+        this.note = notes[Math.floor(Math.random()*notes.length)];
+        this.rotation = Math.random()*2*Math.PI;
+        this.rotationSpeed = (Math.random()-0.5)*0.02;
+    }
+    Particle.prototype.update=function(){
+        this.x+=this.vx;
+        this.y+=this.vy;
+        this.rotation += this.rotationSpeed;
+        if(this.x<-20) this.x=W+20;
+        if(this.x>W+20) this.x=-20;
+        if(this.y<-20) this.y=H+20;
+        if(this.y>H+20) this.y=-20;
+    }
+    Particle.prototype.draw=function(){
+        ctx.save();
+        ctx.globalAlpha=this.alpha;
+        ctx.translate(this.x,this.y);
+        ctx.rotate(this.rotation);
+        ctx.fillStyle="#fff";
+        ctx.font=`${this.size}px Arial`;
+        ctx.textAlign="center";
+        ctx.textBaseline="middle";
+        ctx.fillText(this.note,0,0);
+        ctx.restore();
+    }
+
+    function connectParticles(){
+        for(let i=0;i<particles.length;i++){
+            for(let j=i+1;j<particles.length;j++){
+                const dx=particles[i].x-particles[j].x;
+                const dy=particles[i].y-particles[j].y;
+                const dist=Math.sqrt(dx*dx+dy*dy);
+                if(dist<CONNECT_DISTANCE){
+                    ctx.beginPath();
+                    ctx.strokeStyle='rgba(255,255,255,'+((1-dist/CONNECT_DISTANCE)*0.25)+')';
+                    ctx.lineWidth=1;
+                    ctx.moveTo(particles[i].x,particles[i].y);
+                    ctx.lineTo(particles[j].x,particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function initParticles(){
+        particles.length=0;
+        for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
+    }
+
+    let rafId=null;
+    function render(){
+        ctx.clearRect(0,0,W,H);
+        connectParticles();
+        for(let p of particles) p.update(), p.draw();
+        rafId=requestAnimationFrame(render);
+    }
+
+    function init(){
+        setSize();
+        initParticles();
+        if(rafId) cancelAnimationFrame(rafId);
+        render();
+    }
+
+    window.addEventListener('resize',function(){
+        clearTimeout(window._particles_resize_timeout);
+        window._particles_resize_timeout=setTimeout(init,120);
+    });
+
+    init();
+})();
+
+const fotoInput = document.getElementById('fotoInput');
+const profileImage = document.getElementById('profileImage');
+const profilePlaceholder = document.getElementById('profilePlaceholder');
+
+fotoInput.addEventListener('change', function(e){
+    const file = e.target.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(ev){
+            profileImage.src = ev.target.result;
+            profileImage.style.display = "block";
+            profilePlaceholder.style.display = "none";
+        }
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+
+</body>
+</html>

@@ -6,15 +6,13 @@
     <title>Dashboard | InstruMusic</title>
 
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        /* ===============================
-           FUNDO COM FOTO + OVERLAY ESCURO
-        ================================ */
+        * { margin: 0; 
+            padding: 0;
+            box-sizing: border-box;
+         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             
-            /* Imagem usada na página inicial */
             background: 
                 linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)),
                 url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90");
@@ -36,9 +34,7 @@
             pointer-events: none;
         }
 
-        /* ===============================
-                CABEÇALHO
-        ================================ */
+   
         .header {
             width: 100%;
             padding: 15px 40px;
@@ -92,9 +88,6 @@
             background: rgba(255,255,255,0.35);
         }
 
-        /* ===============================
-                CONTEÚDO
-        ================================ */
         main {
             padding-top: 120px;
             padding-bottom: 40px;
@@ -108,7 +101,6 @@
             font-weight: bold;
         }
 
-        /* Cartões translúcidos */
         .light-card {
             background: rgba(255,255,255,0.08);
             backdrop-filter: blur(14px);
@@ -127,9 +119,6 @@
             font-size: 20px;
         }
 
-        /* ===============================
-                BARRAS DE PROGRESSO
-        ================================ */
         .progress-item {
             margin-bottom: 18px;
         }
@@ -161,9 +150,7 @@
             to { width: var(--value); }
         }
 
-        /* ===============================
-                    FOOTER
-        ================================ */
+
         footer {
             text-align: center;
             padding: 18px;
@@ -178,11 +165,11 @@
     <canvas id="particles-js"></canvas>
 
     <header class="header">
-        <a href="index.html" class="logo">InstruMusic</a>
+        <a href="/public/pages/index.html" class="logo">InstruMusic</a>
 
         <nav>
-            <a href="meus-cursos.html">Meus Cursos</a>
-            <a href="perfil.html">Perfil</a>
+            <a href="/public/pages/meus-cursos.html">Meus Cursos</a>
+            <a href="/public/pages/perfil.html">Perfil</a>
         </nav>
 
         <button class="btn-logout" onclick="window.location.href='/public/pages/login.html'">Sair</button>
@@ -190,7 +177,6 @@
 
     <main>
 
-        <!-- CARD 1 -->
         <div class="light-card">
             <h3>Seu Progresso</h3>
 
@@ -201,7 +187,6 @@
             </p>
         </div>
 
-        <!-- CARD 2 — GRÁFICO -->
         <div class="light-card">
             <h3>Progresso das Aulas</h3>
 
@@ -239,66 +224,115 @@
     <footer>
         © 2025 InstruMusic. Todos os direitos reservados.
     </footer>
+<script>
+(function(){
+  const canvas = document.getElementById('particles-js');
+  const ctx = canvas.getContext('2d');
+  if(!ctx) return;
 
-    <script>
-        const canvas = document.getElementById('particles-js');
-        const ctx = canvas.getContext('2d');
+  let DPR = window.devicePixelRatio || 1;
+  let W = 0, H = 0;
+  const particles = [];
+  const PARTICLE_COUNT = 80;
+  const CONNECT_DISTANCE = 120;
+  const notes = ["\u266A", "\u266B"]; 
 
-        let w = canvas.width = window.innerWidth;
-        let h = canvas.height = window.innerHeight;
+  function setSize(){
+    DPR = window.devicePixelRatio || 1;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.style.width = W+'px';
+    canvas.style.height = H+'px';
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
 
-        const particles = [];
-        const total = 80;
+  function Particle(){
+    this.reset();
+  }
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * w;
-                this.y = Math.random() * h;
-                this.r = Math.random() * 2 + 1;
-                this.sx = Math.random() * .5 - .25;
-                this.sy = Math.random() * .5 - .25;
-            }
+  Particle.prototype.reset = function(){
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.size = Math.random() * 16 + 8; 
+    this.vx = (Math.random() - 0.5) * 0.6;
+    this.vy = (Math.random() - 0.5) * 0.6;
+    this.alpha = 0.3 + Math.random() * 0.7;
+    this.note = notes[Math.floor(Math.random() * notes.length)];
+    this.rotation = Math.random() * 2 * Math.PI;
+    this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+  }
 
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(255,255,255,0.7)";
-                ctx.fill();
-            }
+  Particle.prototype.update = function(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.rotation += this.rotationSpeed;
 
-            update() {
-                this.x += this.sx;
-                this.y += this.sy;
+    if(this.x < -20) this.x = W + 20;
+    if(this.x > W + 20) this.x = -20;
+    if(this.y < -20) this.y = H + 20;
+    if(this.y > H + 20) this.y = -20;
+  }
 
-                if (this.x < 0) this.x = w;
-                if (this.x > w) this.x = 0;
-                if (this.y < 0) this.y = h;
-                if (this.y > h) this.y = 0;
+  Particle.prototype.draw = function(){
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.fillStyle = "#fff";
+    ctx.font = `${this.size}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(this.note, 0, 0);
+    ctx.restore();
+  }
 
-                this.draw();
-            }
+  function connectParticles(){
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < CONNECT_DISTANCE){
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(255,255,255,' + ((1 - dist/CONNECT_DISTANCE) * 0.25) + ')';
+          ctx.lineWidth = 1;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
         }
+      }
+    }
+  }
 
-        function init() {
-            for (let i = 0; i < total; i++) {
-                particles.push(new Particle());
-            }
-            animate();
-        }
+  function initParticles(){
+    particles.length = 0;
+    for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
+  }
 
-        function animate() {
-            ctx.clearRect(0, 0, w, h);
-            particles.forEach(p => p.update());
-            requestAnimationFrame(animate);
-        }
+  let rafId = null;
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    connectParticles();
+    for(let p of particles) p.update(), p.draw();
+    rafId = requestAnimationFrame(render);
+  }
 
-        window.addEventListener('resize', () => {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-        });
+  function init(){
+    setSize();
+    initParticles();
+    if(rafId) cancelAnimationFrame(rafId);
+    render();
+  }
 
-        init();
-    </script>
+  window.addEventListener('resize',function(){
+    clearTimeout(window._particles_resize_timeout);
+    window._particles_resize_timeout = setTimeout(init,120);
+  });
 
+  init();
+})();
+</script>
 </body>
 </html>

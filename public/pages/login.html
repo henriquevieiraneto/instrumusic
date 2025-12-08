@@ -5,12 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login | InstruMusic</title>
 
-<!-- Ícones e Fonte -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
 
 <style>
-/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -22,7 +20,6 @@
     color: #fff;
 }
 
-/* Fundo e canvas */
 body {
     min-height: 100vh;
     display: flex;
@@ -33,7 +30,6 @@ body {
     background: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90") center/cover no-repeat fixed;
 }
 
-/* Formulário Glass */
 .content {
     width: 400px;
     padding: 35px 40px;
@@ -43,7 +39,7 @@ body {
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.4);
     position: relative;
-    z-index: 2; /* acima das partículas */
+    z-index: 2; 
 }
 
 .content h2 { text-align: center; font-size: 34px; font-weight: 700; margin-bottom: 20px; }
@@ -77,13 +73,12 @@ input::placeholder { color: #e9e9e9; }
     .content { width: 90%; padding: 25px; }
 }
 
-/* Canvas */
 #particles-js {
     position: fixed;
     top:0; left:0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* atrás do formulário */
+    z-index: 1; 
     pointer-events: none;
 }
 </style>
@@ -98,30 +93,30 @@ input::placeholder { color: #e9e9e9; }
         <h2>Login</h2>
 
         <div class="input-box">
-            <input type="email" id="email" name="email" placeholder="E-mail" required>
+            <input type="email" id="email" placeholder="E-mail" required>
             <i class="ri-mail-fill"></i>
         </div>
 
         <div class="input-box">
-            <input type="password" id="password" name="password" placeholder="Senha" required>
+            <input type="password" id="password" placeholder="Senha" required>
             <i class="ri-eye-off-fill toggle-password" id="togglePassword"></i>
         </div>
 
         <div class="remember">
             <label><input type="checkbox"> Lembrar de mim</label>
-            <a href="#">Esqueceu a senha?</a>
+           <a href="/public/pages/editar-perfil.html">Esqueceu a senha?</a>
+
         </div>
 
         <button type="submit" class="btnn">Entrar</button>
 
         <div class="signup-text">
-            Não tem conta? <a href="register.html">Cadastre-se</a>
+            Não tem conta? <a href="/public/pages/register.html">Cadastre-se</a>
         </div>
     </form>
 </div>
 
 <script>
-// Partículas com notas musicais
 (function(){
     const canvas = document.getElementById('particles-js');
     const ctx = canvas.getContext('2d');
@@ -230,7 +225,6 @@ input::placeholder { color: #e9e9e9; }
 </script>
 
 <script>
-// Mostrar/Ocultar Senha
 const togglePassword = document.getElementById("togglePassword");
 const password = document.getElementById("password");
 togglePassword.addEventListener("click", () => {
@@ -241,6 +235,5 @@ togglePassword.addEventListener("click", () => {
 });
 </script>
 <script src="/public/js/script.js"></script>
-
 </body>
 </html>

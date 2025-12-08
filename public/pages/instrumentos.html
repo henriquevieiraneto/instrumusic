@@ -6,14 +6,12 @@
     <title>Explore Nossos Instrumentos | InstruMusic</title>
 
     <style>
-        /* RESET */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* BASE */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #eee;
@@ -24,7 +22,6 @@
             overflow-x: hidden;
             position: relative;
 
-            /* ===== FUNDO REAL ===== */
             background-image: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90");
             background-size: cover;
             background-position: center;
@@ -32,7 +29,6 @@
             background-attachment: fixed;
         }
 
-        /* OVERLAY ESCURO SUAVE (igual às outras páginas) */
         body::before {
             content: "";
             position: fixed;
@@ -43,7 +39,6 @@
             z-index: -1;
         }
 
-        /* BACKGROUND ANIMADO */
         #particles-js {
             position: fixed;
             inset: 0;
@@ -52,7 +47,6 @@
             z-index: -2;
         }
 
-        /* HEADER TRANSPARENTE */
         .main-header {
             background: rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
@@ -93,7 +87,6 @@
             background: rgba(255,255,255,0.15);
         }
 
-        /* BOTÕES */
         .btn-primary {
             background-color: rgba(206, 6, 6, 0.9);
             color: white;
@@ -109,7 +102,6 @@
             border: 1px solid rgba(255,255,255,0.15);
         }
 
-        /* CONTEÚDO */
         .content-section {
             flex-grow: 1;
             padding: 40px 20px;
@@ -127,7 +119,6 @@
             
         }
 
-        /* GRID DOS INSTRUMENTOS */
         .instrument-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -163,7 +154,6 @@
             color: #7bc7ff;
         }
 
-        /* FOOTER */
         footer {
             background-color: rgba(0,0,0,0.55);
             padding: 20px 0;
@@ -174,7 +164,6 @@
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* RESPONSIVIDADE */
         @media (max-width: 768px) {
             .main-header { flex-direction: column; gap: 15px; }
             .main-nav { flex-direction: column; gap: 10px; }
@@ -187,10 +176,10 @@
     <canvas id="particles-js"></canvas>
 
     <header class="main-header header-public">
-        <div class="logo"><a href="index.html">InstruMusic</a></div>
+        <div class="logo"><a href="/public/pages/index.html">InstruMusic</a></div>
         <nav class="main-nav">
-            <a href="login.html" class="btn btn-secondary btn-small">Login</a>
-            <a href="register.html" class="btn btn-primary btn-small">Criar Conta</a>
+            <a href="/public/pages/login.html" class="btn btn-secondary btn-small">Login</a>
+            <a href="/public/pages/register.html" class="btn btn-primary btn-small">Criar Conta</a>
         </nav>
     </header>
 
@@ -199,37 +188,37 @@
 
         <div class="instrument-grid">
 
-            <a href="../instrumentos/guitarra.html" class="instrument-card">
+            <a href="/public/instrumentos/guitarra.html" class="instrument-card">
                 <img src="/public/img/guitarra.png" alt="Guitarra Vermelha">
                 <h3>Guitarra</h3>
                 <p>Domine os riffs com estilo!</p>
             </a>
 
-            <a href="../instrumentos/bateria.html" class="instrument-card">
+            <a href="/public/instrumentos/bateria.html" class="instrument-card">
                 <img src="/public/img/bateria.webp" alt="Bateria Acústica">
                 <h3>Bateria</h3>
                 <p>Entre no ritmo com energia!</p>
             </a>
 
-            <a href="../instrumentos/teclado.html" class="instrument-card">
+            <a href="/public/instrumentos/teclado.html" class="instrument-card">
                 <img src="/public/img/teclado.png" alt="Teclado/Sintetizador">
                 <h3>Teclado</h3>
                 <p>Toque harmonias e melodias únicas.</p>
             </a>
 
-            <a href="../instrumentos/violino.html" class="instrument-card">
+            <a href="/public/instrumentos/violino.html" class="instrument-card">
                 <img src="/public/img/violino.png" alt="Violino Clássico">
                 <h3>Violino</h3>
                 <p>Emocione com notas clássicas e intensas.</p>
             </a>
 
-            <a href="../instrumentos/flauta.html" class="instrument-card">
+            <a href="/public/instrumentos/flauta.html" class="instrument-card">
                 <img src="/public/img/flauta.webp" alt="Flauta Transversal">
                 <h3>Flauta</h3>
                 <p>Sopre suavidade com delicadeza.</p>
             </a>
 
-            <a href="../instrumentos/trompete.html" class="instrument-card">
+            <a href="/public/instrumentos/trompete.html" class="instrument-card">
                 <img src="/public/img/trompete.png" alt="Trompete Dourado">
                 <h3>Trompete</h3>
                 <p>Encha o ar com sons vibrantes!</p>
@@ -241,71 +230,116 @@
     <footer>
         <p>© 2025 InstruMusic. Todos os direitos reservados.</p>
     </footer>
+<script>
+(function(){
+  const canvas = document.getElementById('particles-js');
+  const ctx = canvas.getContext('2d');
+  if(!ctx) return;
 
-    <!-- ANIMAÇÃO DE PARTÍCULAS -->
-    <script>
-        const canvas = document.getElementById('particles-js');
-        const ctx = canvas.getContext('2d');
+  let DPR = window.devicePixelRatio || 1;
+  let W = 0, H = 0;
+  const particles = [];
+  const PARTICLE_COUNT = 80;
+  const CONNECT_DISTANCE = 120;
+  const notes = ["\u266A", "\u266B"];
 
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+  function setSize(){
+    DPR = window.devicePixelRatio || 1;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.style.width = W+'px';
+    canvas.style.height = H+'px';
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
 
-        const particles = [];
-        const particleCount = 100;
+  function Particle(){
+    this.reset();
+  }
 
-        class Particle {
-            constructor() {
-            this.reset();
-            }
+  Particle.prototype.reset = function(){
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.size = Math.random() * 16 + 8; 
+    this.vx = (Math.random() - 0.5) * 0.6;
+    this.vy = (Math.random() - 0.5) * 0.6;
+    this.alpha = 0.3 + Math.random() * 0.7;
+    this.note = notes[Math.floor(Math.random() * notes.length)];
+    this.rotation = Math.random() * 2 * Math.PI; 
+    this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+  }
 
-            reset() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.radius = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-            }
+  Particle.prototype.update = function(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.rotation += this.rotationSpeed;
 
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-                ctx.fill();
-            }
+    if(this.x < -20) this.x = W + 20;
+    if(this.x > W + 20) this.x = -20;
+    if(this.y < -20) this.y = H + 20;
+    if(this.y > H + 20) this.y = -20;
+  }
 
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+  Particle.prototype.draw = function(){
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.fillStyle = "#fff";
+    ctx.font = `${this.size}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(this.note, 0, 0);
+    ctx.restore();
+  }
 
-                if (this.x < 0) this.x = width;
-                if (this.x > width) this.x = 0;
-                if (this.y < 0) this.y = height;
-                if (this.y > height) this.y = 0;
-
-                this.draw();
-            }
+  function connectParticles(){
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < CONNECT_DISTANCE){
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(255,255,255,' + ((1 - dist/CONNECT_DISTANCE) * 0.25) + ')';
+          ctx.lineWidth = 1;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
         }
+      }
+    }
+  }
 
-        function init() {
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-            animate();
-        }
+  function initParticles(){
+    particles.length = 0;
+    for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
+  }
 
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => p.update());
-            requestAnimationFrame(animate);
-        }
+  let rafId = null;
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    connectParticles();
+    for(let p of particles) p.update(), p.draw();
+    rafId = requestAnimationFrame(render);
+  }
 
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
+  function init(){
+    setSize();
+    initParticles();
+    if(rafId) cancelAnimationFrame(rafId);
+    render();
+  }
 
-        init();
-    </script>
+  window.addEventListener('resize',function(){
+    clearTimeout(window._particles_resize_timeout);
+    window._particles_resize_timeout = setTimeout(init,120);
+  });
+
+  init();
+})();
+</script>
 
 </body>
 </html>

@@ -19,25 +19,22 @@
             overflow-x: hidden;
             position: relative;
 
-            /* 🔥 FUNDO PADRÃO NÍTIDO (MESMA IMAGEM DAS OUTRAS PÁGINAS) */
             background: 
                 linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)),
                 url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90")
                 center/cover no-repeat fixed;
         }
 
-        /* =========================== Partículas =========================== */
         #particles-js {
             position: fixed;
             top: 0; 
             left: 0;
             width: 100%; 
             height: 100%;
-            z-index: -1;   /* FICA ATRÁS DO FUNDO */
+            z-index: -1;   
             pointer-events: none;
         }
 
-        /* ======================= Header transparente ======================= */
         .main-header {
             background: transparent !important;
             backdrop-filter: none !important;
@@ -94,7 +91,6 @@
             background: #ff2d2d;
         }
 
-        /* =========================== Conteúdo =========================== */
         .dashboard-section {
             padding-top: 140px;
             padding-bottom: 50px;
@@ -110,7 +106,6 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.6);
         }
 
-        /* =========================== Widget =========================== */
         .widget {
             background: rgba(20,20,20,0.60);
             backdrop-filter: blur(5px);
@@ -146,7 +141,6 @@
             margin: 18px 0;
         }
 
-        /* Botão */
         .btn-primary {
             display: inline-block;
             background: #007bff;
@@ -167,23 +161,20 @@
 
 <body>
 
-    <!-- Partículas -->
     <canvas id="particles-js"></canvas>
 
-    <!-- Header -->
     <header class="main-header">
-        <div class="logo"><a href="index.html">InstruMusic</a></div>
+        <div class="logo"><a href="/public/pages/index.html">InstruMusic</a></div>
 
         <nav class="main-nav">
-            <a href="meus-cursos.html">Meus Cursos</a>
-            <a href="progresso.html">Progresso</a>
-            <a href="perfil.html">Perfil</a>
+            <a href="/public/pages/meus-cursos.html">Meus Cursos</a>
+            <a href="/public/pages/progresso.html">Progresso</a>
+            <a href="/public/pages/perfil.html">Perfil</a>
         </nav>
 
         <button id="logoutBtn">Sair</button>
     </header>
 
-    <!-- Conteúdo -->
     <main class="dashboard-section">
         <h2 class="section-title">Dados do Usuário</h2>
 
@@ -199,69 +190,121 @@
             <p>Instrumento Principal: Guitarra</p>
             <p>Tipo de Ensino: Presencial</p>
 
-            <a href="#" class="btn-primary">Editar Perfil</a>
+            <a href="/public/pages/editar-perfil.html" class="btn-primary">Editar Perfil</a>
+
+            
         </div>
     </main>
+<script>
+(function(){
+  const canvas = document.getElementById('particles-js');
+  const ctx = canvas.getContext('2d');
+  if(!ctx) return;
 
+  let DPR = window.devicePixelRatio || 1;
+  let W = 0, H = 0;
+  const particles = [];
+  const PARTICLE_COUNT = 80;
+  const CONNECT_DISTANCE = 120;
+  const notes = ["\u266A", "\u266B"]; 
 
-    <!-- Partículas -->
-    <script>
-        const canvas = document.getElementById('particles-js');
-        const ctx = canvas.getContext('2d');
+  function setSize(){
+    DPR = window.devicePixelRatio || 1;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.style.width = W+'px';
+    canvas.style.height = H+'px';
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
 
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+  function Particle(){
+    this.reset();
+  }
 
-        const particles = [];
-        const particleCount = 90;
+  Particle.prototype.reset = function(){
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.size = Math.random() * 16 + 8; 
+    this.vx = (Math.random() - 0.5) * 0.6;
+    this.vy = (Math.random() - 0.5) * 0.6;
+    this.alpha = 0.3 + Math.random() * 0.7;
+    this.note = notes[Math.floor(Math.random() * notes.length)];
+    this.rotation = Math.random() * 2 * Math.PI; 
+    this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+  }
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.radius = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * 0.4 - 0.2;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255,255,255,0.7)';
-                ctx.fill();
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+  Particle.prototype.update = function(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.rotation += this.rotationSpeed;
 
-                if (this.x < 0) this.x = width;
-                if (this.x > width) this.x = 0;
-                if (this.y < 0) this.y = height;
-                if (this.y > height) this.y = 0;
+    if(this.x < -20) this.x = W + 20;
+    if(this.x > W + 20) this.x = -20;
+    if(this.y < -20) this.y = H + 20;
+    if(this.y > H + 20) this.y = -20;
+  }
 
-                this.draw();
-            }
+  Particle.prototype.draw = function(){
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.fillStyle = "#fff";
+    ctx.font = `${this.size}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(this.note, 0, 0);
+    ctx.restore();
+  }
+
+  function connectParticles(){
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < CONNECT_DISTANCE){
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(255,255,255,' + ((1 - dist/CONNECT_DISTANCE) * 0.25) + ')';
+          ctx.lineWidth = 1;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
         }
+      }
+    }
+  }
 
-        function init() {
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-            animate();
-        }
+  function initParticles(){
+    particles.length = 0;
+    for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
+  }
 
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => p.update());
-            requestAnimationFrame(animate);
-        }
+  let rafId = null;
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    connectParticles();
+    for(let p of particles) p.update(), p.draw();
+    rafId = requestAnimationFrame(render);
+  }
 
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
+  function init(){
+    setSize();
+    initParticles();
+    if(rafId) cancelAnimationFrame(rafId);
+    render();
+  }
 
-        init();
-    </script>
+  window.addEventListener('resize',function(){
+    clearTimeout(window._particles_resize_timeout);
+    window._particles_resize_timeout = setTimeout(init,120);
+  });
 
+  init();
+})();
+</script>
+<script src="/public/js/script.js"></script>
 </body>
 </html>

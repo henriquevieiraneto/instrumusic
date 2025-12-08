@@ -4,10 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>InstruMusic: Aprenda, Crie, Transforme!</title>
-
-        <!-- Estilos -->
         <link rel="stylesheet" href="/public/css/styles.css">
         <link rel="stylesheet" href="/public/css/index.css">
+        
     </head>
 
     <body>
@@ -17,17 +16,16 @@
 
             <nav class="main-nav">
                 <ul>
-                    <li><a href="sobre.html">Sobre</a></li>
-                    <li><a href="instrumentos.html">Instrumentos</a></li>
-                    <li><a href="depoimentos.html">Depoimentos</a></li>
+                    <li><a href="/public/pages/sobre.html">Sobre</a></li>
+                    <li><a href="/public/pages/instrumentos.html">Instrumentos</a></li>
+                    <li><a href="/public/pages/depoimentos.html">Depoimentos</a></li>
                 </ul>
             </nav>
-            <a class="login-btn" href="entry.html">Login / Cadastro</a>
+            <a class="login-btn" href="/public/pages/entry.html">Login / Cadastro</a>
         </header>
 
         <main class="hero-section hero-home">
 
-            <!-- Slideshow -->
             <div class="slideshow">
                 <img src="/public/img/p1.png" class="slide active" alt="Slide 1">
                 <img src="/public/img/p2.png" class="slide" alt="Slide 2">
@@ -37,16 +35,14 @@
                 <img src="/public/img/p6.png" class="slide" alt="Slide 6">
             </div>
 
-            <!-- Conteúdo Principal -->
             <div class="hero-content">
                 <h1>InstruMusic: Aprenda, Crie, Transforme!</h1>
                 <p>Sua jornada musical gratuita começa aqui.</p>
-                <a href="../pages/instrumentos.html" class="btn btn-secondary">Comece a Aprender</a>
+                <a href="/public/pages/instrumentos.html" class="btn btn-secondary">Comece a Aprender</a>
             </div>
 
         </main>
 
-        <!-- Script para o Slideshow -->
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 let index = 0;
@@ -62,7 +58,6 @@
             });
         </script>
 
-        <!-- Script Externo -->
         <script src="/public/js/script.js"></script>
 
     </body>
