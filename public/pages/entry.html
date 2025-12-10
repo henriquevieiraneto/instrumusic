@@ -1,78 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bem-vindo(a) | InstruMusic</title>
-<style>
-/* SEU CSS AQUI (MANTIDO INTACTO) */
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#fff; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo(a) | InstruMusic</title>
 
-body {
-    min-height: 100vh;
-    overflow: hidden;
-    position: relative;
-    background: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90") center/cover no-repeat fixed;
-}
+    <style>
+        /* SEU CSS AQUI (MANTIDO INTACTO) */
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#fff; }
 
-#particles-js {
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    z-index: -1;
-    pointer-events:none;
-}
-.form-container {
-    max-width: 380px;
-    margin: 130px auto 40px auto;
-    background: rgba(30, 144, 255, 0.15); 
-    padding: 34px;
-    border-radius: 18px;
-    text-align: center;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.45);
-    backdrop-filter: blur(18px);
-    border: 1px solid rgba(255,255,255,0.12);
-    position: relative;
-    z-index:2;
-}
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90") center/cover no-repeat fixed;
+        }
+
+        /* Camada escura com blur sobre o fundo */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(3px);
+            z-index: 1; /* Acima das partículas */
+        }
+
+        #particles-js {
+            position: fixed;
+            top:0; left:0;
+            width:100%; height:100%;
+            z-index: -1; /* Abaixo do body::after */
+            pointer-events:none;
+        }
+        .form-container {
+            max-width: 380px;
+            margin: 130px auto 40px auto;
+            /* Cor levemente azulada semi-transparente */
+            background: rgba(30, 144, 255, 0.15); 
+            padding: 34px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.45);
+            backdrop-filter: blur(18px); /* Efeito de vidro fosco */
+            border: 1px solid rgba(255,255,255,0.12);
+            position: relative;
+            z-index:2; /* Acima do body::after e partículas */
+        }
 
 
-.form-container h2 { margin-bottom:12px; font-size:1.7rem; font-weight:600; }
-.form-container p { margin-bottom:25px; color:#cccccc; font-size:1rem; }
+        .form-container h2 { margin-bottom:12px; font-size:1.7rem; font-weight:600; }
+        .form-container p { margin-bottom:25px; color:#cccccc; font-size:1rem; }
 
-.btn {
-    display:block;
-    width:100%;
-    padding:12px;
-    margin:12px 0;
-    border:none;
-    border-radius:12px;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.25s ease;
-    font-size:1rem;
-    text-decoration:none;
-    text-align:center;
-}
+        .btn {
+            display:block;
+            width:100%;
+            padding:12px;
+            margin:12px 0;
+            border:none;
+            border-radius:12px;
+            font-weight:600;
+            cursor:pointer;
+            transition:0.25s ease;
+            font-size:1rem;
+            text-decoration:none;
+            text-align:center;
+        }
 
-.btn-primary {
-    background: rgba(255,255,255,0.9);
-    color: #1e1e1e;
-}
-.btn-primary:hover { background: rgba(255,255,255,1); transform: scale(1.04); }
+        .btn-primary {
+            /* Botão claro de destaque */
+            background: rgba(255,255,255,0.9);
+            color: #1e1e1e;
+        }
+        .btn-primary:hover { background: rgba(255,255,255,1); transform: scale(1.04); }
 
-.btn-secondary {
-    background: rgba(255,255,255,0.05);
-    border: 2px solid rgba(255,255,255,0.5);
-    color: #fff;
-}
-.btn-secondary:hover { background: rgba(255,255,255,0.15); transform: scale(1.04); }
+        .btn-secondary {
+            /* Botão transparente para segunda opção */
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.5);
+            color: #fff;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.15); transform: scale(1.04); }
 
-.text-dim { display:block; margin-top:20px; color:#aaaaaa; text-decoration:none; font-size:0.9rem; transition:0.2s ease; }
-.text-dim:hover { color:#fff; }
+        .text-dim { display:block; margin-top:20px; color:#aaaaaa; text-decoration:none; font-size:0.9rem; transition:0.2s ease; }
+        .text-dim:hover { color:#fff; }
 
-@media(max-width:480px){ .form-container{ margin-top:80px; padding:25px; } }
-</style>
+        @media(max-width:480px){ .form-container{ margin-top:80px; padding:25px; } }
+    </style>
 </head>
 <body>
 
@@ -89,6 +104,7 @@ body {
 </div>
 
 <script>
+// LÓGICA DO FUNDO ANIMADO (PARTICLES.JS)
 (function(){
     const canvas = document.getElementById('particles-js');
     const ctx = canvas.getContext('2d');
@@ -99,7 +115,7 @@ body {
     const particles=[];
     const PARTICLE_COUNT = 90;
     const CONNECT_DISTANCE = 120;
-    const notes = ["\u266A","\u266B"]; // ♫ ♬
+    const notes = ["\u266A","\u266B"]; // Símbolos ♫ ♬
 
     function setSize(){
         DPR = window.devicePixelRatio||1;
@@ -195,6 +211,7 @@ body {
 </script>
 
 <script>
+// LÓGICA DE REDIRECIONAMENTO (CHECA SE JÁ ESTÁ LOGADO)
 document.addEventListener('DOMContentLoaded', () => {
     // Tenta obter o token.
     const token = localStorage.getItem('userToken');
@@ -202,8 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Se o token existir, significa que o usuário já está logado.
     if (token) {
         console.log("Token encontrado. Redirecionando para a página inicial.");
-        // Redireciona para a Home
-        window.location.href = '/index.html'; 
+        // Redireciona para a Home (assumindo que index.html é a página principal)
+        window.location.href = '/public/pages/index.html'; 
     }
     // Se não houver token, o usuário permanece nesta página para fazer login/cadastro.
 });

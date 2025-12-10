@@ -1,59 +1,99 @@
-/**
- * Arquivo: public/js/auth.js
- * Descrição: Lógica de verificação de autenticação e Logout.
- */
-
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Função de Logout
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Remove o token e o nome do usuário
-            localStorage.removeItem('userToken');
-            localStorage.removeItem('userName'); 
-            
-            // Informa o usuário e redireciona
-            alert('Você saiu da conta com sucesso!'); 
-            window.location.href = '/public/pages/index.html'; 
-        });
+    // FUNÇÃO PRINCIPAL: Renderiza a navegação com base no estado de login
+    function renderNavigation() {
+        // Simulação: Checa a existência de um token de usuário no armazenamento local
+        const token = localStorage.getItem('userToken');
+        const mainNavUl = document.querySelector('.main-nav ul');
+        const authControls = document.getElementById('auth-controls');
+
+        // Limpa a navegação e controles existentes
+        if (mainNavUl) mainNavUl.innerHTML = '';
+        if (authControls) authControls.innerHTML = '';
+
+        const currentPath = window.location.pathname;
+
+        // Links de navegação principais
+        const baseLinks = [
+            { href: "/public/pages/index.html", text: "Início" },
+            { href: "/public/pages/sobre.html", text: "Sobre" },
+            { href: "/public/pages/instrumentos.html", text: "Instrumentos" },
+            { href: "/public/pages/depoimentos.html", text: "Depoimentos" }
+        ];
+
+        let links;
+
+        if (token) {
+            // USUÁRIO LOGADO
+            links = [
+                ...baseLinks,
+                { href: "/public/pages/progresso.html", text: "Progresso" },
+                { href: "/public/pages/perfil.html", text: "Perfil" }
+            ];
+
+            // Botão de Logout
+            const logoutButton = document.createElement('a');
+            logoutButton.classList.add('login-btn');
+            logoutButton.textContent = 'Logout';
+            logoutButton.href = '#';
+            logoutButton.addEventListener('click', handleLogout);
+            if (authControls) authControls.appendChild(logoutButton);
+
+        } else {
+            // USUÁRIO DESLOGADO
+            links = baseLinks;
+
+            // Botão de Login/Cadastro
+            const loginButton = document.createElement('a');
+            loginButton.classList.add('login-btn');
+            loginButton.textContent = 'Login / Cadastro';
+            loginButton.href = '/public/pages/entry.html';
+            if (authControls) authControls.appendChild(loginButton);
+        }
+
+        // Constrói a lista de links na navegação
+        if (mainNavUl) {
+            links.forEach(link => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = link.href;
+                a.textContent = link.text;
+
+                // Define o link ativo (aria-current)
+                if (currentPath.endsWith(link.href)) {
+                    a.setAttribute('aria-current', 'page');
+                }
+                
+                li.appendChild(a);
+                mainNavUl.appendChild(li);
+            });
+        }
     }
 
-    // 2. Função de Verificação de Autenticação para Proteger Páginas
-    // Para usar esta função: adicione <script src="/public/js/auth.js"></script> no topo da página
-    // e no BODY da página que você quer proteger (ex: perfil.html), adicione o atributo:
-    // <body data-auth-required="true">
-    
-    const requiresAuth = document.body.getAttribute('data-auth-required') === 'true'; 
-    const token = localStorage.getItem('userToken');
+    // FUNÇÃO DE LOGOUT
+    function handleLogout(event) {
+        event.preventDefault();
+        // Remove o token de simulação
+        localStorage.removeItem('userToken');
+        // Redireciona para a página inicial
+        window.location.href = '/public/pages/index.html';
+    }
 
-    if (requiresAuth) {
-        if (!token) {
-            // Se a página exige autenticação e o token não existe
-            alert('Acesso negado. Faça login para acessar esta área.');
-            window.location.href = '/public/pages/login.html'; 
-        } 
-        // Em um sistema mais complexo, você faria uma requisição ao backend
-        // para validar se o token não expirou.
-    }
+    // SIMULAÇÃO DE LOGIN/CADASTRO (A ser usado nas páginas login.html e cadastro.html)
+    window.simulateLogin = (username) => {
+        // Simula a criação de um token
+        localStorage.setItem('userToken', `token-${new Date().getTime()}`);
+        // Simula o armazenamento de dados básicos do usuário
+        localStorage.setItem('userData', JSON.stringify({
+            username: username || 'Júlia Moraes',
+            email: 'julia.moraes@instrumusic.com',
+            instrument: 'Piano Clássico',
+            level: 'Intermediário',
+            memberSince: '14 de junho de 2024'
+        }));
+        // Redireciona para o Dashboard (Progresso)
+        window.location.href = '/public/pages/progresso.html';
+    };
     
-    // 3. Redirecionamento de Páginas de Autenticação
-    // Se o usuário já tem um token, ele não deve ver login/cadastro
-    const authPages = ['login.html', 'register.html'];
-    const currentPage = window.location.pathname.split('/').pop();
-
-    if (authPages.includes(currentPage) && token) {
-        // Se estiver em login ou cadastro E já estiver logado, redireciona para a home
-        alert('Você já está logado!');
-        window.location.href = '/public/pages/index.html'; 
-    }
-    
-    // 4. Exibir nome do usuário (Opcional, se houver um elemento #userNameDisplay)
-    const userNameDisplay = document.getElementById('userNameDisplay');
-    const userName = localStorage.getItem('userName');
-    if (userNameDisplay && userName) {
-        userNameDisplay.textContent = `Olá, ${userName}`;
-    }
+    // Executa a função de renderização da navegação ao carregar a página
+    renderNavigation();
 });

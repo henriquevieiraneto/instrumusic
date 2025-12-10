@@ -1,356 +1,381 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cadastro | InstruMusic</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil | InstruMusic</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <style>
+        /* CSS Base (Similar ao Dashboard) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90") center/cover no-repeat fixed;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        #particles-js { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+        
+        /* Header */
+        .header { display:flex; justify-content:space-between; align-items:center; padding:15px 30px; }
+        .logo { font-size: 22px; font-weight: bold; color: white; text-decoration: none; }
+        nav { display: flex; gap: 24px; }
+        nav a { color: #cfcfcf; text-decoration: none; font-size: 16px; padding: 8px 12px; border-radius: 5px; transition: 0.25s; }
+        nav a.active { background: rgba(255, 255, 255, 0.2); color: #fff; font-weight: 600; }
+        nav a:not(.active):hover { color: #00aaff; font-weight: bold; }
+        .btn-logout { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); padding: 8px 14px; border-radius: 8px; color: white; cursor: pointer; transition: .25s; }
+        .btn-logout:hover { background: rgba(255,255,255,0.35); }
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
+        /* Perfil Content */
+        main { padding: 80px 20px; max-width: 600px; margin: 0 auto; }
+        h2 { text-align: center; margin-bottom: 40px; font-size: 32px; color: #66ddff; text-shadow: 0 0 10px rgba(102, 221, 255, 0.4); }
 
-<style>
-/* Estilos mantidos da página de login, focados na estética e layout do formulário */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    border: none;
-    outline: none;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    color: #fff;
-}
+        .profile-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(14px);
+            border-radius: 14px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
 
-body {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-    background: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90") center/cover no-repeat fixed;
-}
+        .profile-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .profile-icon {
+            font-size: 60px;
+            color: #00aaff;
+            margin-bottom: 10px;
+        }
+        .profile-header h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .profile-header p {
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        .profile-detail {
+            margin-bottom: 15px;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+        }
+        .profile-detail:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
 
-.content {
-    width: 400px;
-    padding: 35px 40px;
-    background: rgba(10, 40, 98, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    position: relative;
-    z-index: 2; 
-}
+        .detail-icon {
+            font-size: 20px;
+            color: #66ddff;
+            margin-right: 15px;
+            width: 30px; /* Garante alinhamento */
+            text-align: center;
+        }
+        .detail-label {
+            font-weight: 600;
+            width: 120px;
+            color: #ccc;
+        }
+        .detail-value {
+            flex-grow: 1;
+        }
 
-.content h2 { text-align: center; font-size: 34px; font-weight: 700; margin-bottom: 20px; }
-.input-box { width: 100%; position: relative; margin: 18px 0; }
-.input-box input {
-    width: 100%; padding: 16px 48px 16px 18px; font-size: 16px;
-    background: rgba(255, 255, 255, 0.10);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 30px; backdrop-filter: blur(6px); color: #fff;
-}
-input::placeholder { color: #e9e9e9; }
-.input-box i { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 20px; cursor: pointer; }
+        .btn-edit {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 25px;
+            background: #e63946;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-edit:hover {
+            background: #d62839;
+            transform: translateY(-1px);
+        }
+        
+        #loadingContainer {
+            text-align: center;
+            padding: 50px 0;
+            font-size: 1.2rem;
+            color: #00aaff;
+        }
+        #errorContainer {
+            background: rgba(255,0,0,0.1); 
+            border: 1px solid rgba(255,0,0,0.3);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
 
-.btnn {
-    width: 100%; padding: 14px; border-radius: 30px;
-    background: #46b8e6; /* Cor ligeiramente diferente para o botão de cadastro */
-    font-size: 17px; font-weight: 600; color: white; cursor: pointer; margin: 20px 0 25px 0;
-    transition: 0.3s;
-}
-.btnn:hover {
-    background: #39a6d6; 
-    transform: translateY(-2px); 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-}
-
-.login-text { text-align: center; font-size: 15px; margin-top: -10px; }
-.login-text a:hover { text-decoration: underline; }
-
-/* Estilo para a mensagem de erro/sucesso */
-#messageDisplay {
-    color: #ffcccc; 
-    background-color: rgba(220, 20, 60, 0.2); 
-    border: 1px solid #e63946;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    display: none; 
-    text-align: center;
-    font-size: 14px;
-}
-.success {
-    color: #ccffcc !important;
-    background-color: rgba(20, 220, 60, 0.2) !important;
-    border-color: #39d672 !important;
-}
-
-@media (max-width: 400px) {
-    .content { width: 90%; padding: 25px; }
-}
-
-#particles-js {
-    position: fixed;
-    top:0; left:0;
-    width: 100%;
-    height: 100%;
-    z-index: 1; 
-    pointer-events: none;
-}
-</style>
+        /* Footer */
+        footer { text-align: center; padding: 18px; color: #ccc; font-size: 0.9rem; margin-top: 50px; }
+    </style>
 </head>
-
 <body>
 
-<canvas id="particles-js"></canvas>
+    <canvas id="particles-js"></canvas>
 
-<div class="content">
-    <form id="registerForm">
-        <h2>Cadastre-se</h2>
+    <header class="header">
+        <a href="/public/pages/index.html" class="logo">InstruMusic</a>
 
-        <div id="messageDisplay"></div>
+        <nav>
+            <a href="/public/pages/meus-cursos.html">Meus Cursos</a>
+            <a href="/public/pages/progresso.html">Progresso</a>
+            <a href="/public/pages/perfil.html" class="active">Perfil</a>
+        </nav>
 
-        <div class="input-box">
-            <input type="text" id="name" placeholder="Nome Completo" required>
-            <i class="ri-user-fill"></i>
+        <button class="btn-logout" id="logoutBtn">Sair</button>
+    </header>
+
+    <main>
+        <h2>Configurações do Perfil</h2>
+
+        <div id="loadingContainer">Carregando dados do usuário...</div>
+        <div id="errorContainer">Não foi possível carregar os dados do seu perfil. Verifique sua conexão.</div>
+
+        <div class="profile-card" id="profileCard" style="display:none;">
+            <div class="profile-header">
+                <i class="ri-user-smile-line profile-icon"></i>
+                <h3 id="userName">Nome Completo do Usuário</h3>
+                <p>Membro desde <span id="memberSince">Junho de 2024</span></p>
+            </div>
+
+            <div class="profile-details-container">
+                
+                <div class="profile-detail">
+                    <i class="ri-mail-fill detail-icon"></i>
+                    <span class="detail-label">Email:</span>
+                    <span class="detail-value" id="userEmail">usuario@instrumusic.com</span>
+                </div>
+                
+                <div class="profile-detail">
+                    <i class="ri-music-fill detail-icon"></i>
+                    <span class="detail-label">Instrumento:</span>
+                    <span class="detail-value" id="userInstrument">Piano Clássico</span>
+                </div>
+                
+                <div class="profile-detail">
+                    <i class="ri-medal-fill detail-icon"></i>
+                    <span class="detail-label">Nível:</span>
+                    <span class="detail-value" id="userLevel">Intermediário</span>
+                </div>
+
+            </div>
+
+            <button class="btn-edit" onclick="alert('Funcionalidade de Edição em construção!');">Editar Perfil</button>
         </div>
+    </main>
 
-        <div class="input-box">
-            <input type="email" id="email" placeholder="E-mail" required>
-            <i class="ri-mail-fill"></i>
-        </div>
+    <footer>
+        © 2025 InstruMusic. Todos os direitos reservados.
+    </footer>
 
-        <div class="input-box">
-            <input type="password" id="password" placeholder="Senha" required>
-            <i class="ri-eye-off-fill toggle-password" id="togglePassword"></i>
-        </div>
-        
-        <div class="input-box">
-            <input type="password" id="confirmPassword" placeholder="Confirme a Senha" required>
-            <i class="ri-lock-fill"></i>
-        </div>
+    <script>
+    (function(){
+    const canvas = document.getElementById('particles-js');
+    const ctx = canvas.getContext('2d');
+    if(!ctx) return;
 
-        <button type="submit" class="btnn">Cadastrar</button>
+    let DPR = window.devicePixelRatio || 1;
+    let W = 0, H = 0;
+    const particles = [];
+    const PARTICLE_COUNT = 80;
+    const CONNECT_DISTANCE = 120;
+    const notes = ["\u266A", "\u266B"]; 
 
-        <div class="login-text">
-            Já tem conta? <a href="/public/pages/login.html">Faça Login</a>
-        </div>
-    </form>
-</div>
-
-<script>
-// Lógica das Partículas (MANTIDA)
-(function(){
-    const canvas = document.getElementById('particles-js');
-    const ctx = canvas.getContext('2d');
-    if(!ctx) return;
-
-    let DPR = window.devicePixelRatio || 1;
-    let W = 0, H = 0;
-    const particles = [];
-    const PARTICLE_COUNT = 90;
-    const CONNECT_DISTANCE = 120;
-    const notes = ["\u266A","\u266B"]; 
-
-    function setSize(){
-        DPR = window.devicePixelRatio || 1;
-        W = window.innerWidth;
-        H = window.innerHeight;
-        canvas.style.width = W+'px';
-        canvas.style.height = H+'px';
-        canvas.width = Math.floor(W*DPR);
-        canvas.height = Math.floor(H*DPR);
-        ctx.setTransform(DPR,0,0,DPR,0,0);
-    }
-
-    function Particle(){
-        this.reset();
-    }
-    Particle.prototype.reset=function(){
-        this.x=Math.random()*W;
-        this.y=Math.random()*H;
-        this.size=Math.random()*16+8;
-        this.vx=(Math.random()-0.5)*0.6;
-        this.vy=(Math.random()-0.5)*0.6;
-        this.alpha=0.3+Math.random()*0.7;
-        this.note = notes[Math.floor(Math.random()*notes.length)];
-        this.rotation = Math.random()*2*Math.PI;
-        this.rotationSpeed = (Math.random()-0.5)*0.02;
-    }
-    Particle.prototype.update=function(){
-        this.x+=this.vx;
-        this.y+=this.vy;
-        this.rotation += this.rotationSpeed;
-
-        if(this.x<-20) this.x=W+20;
-        if(this.x>W+20) this.x=-20;
-        if(this.y<-20) this.y=H+20;
-        if(this.y>H+20) this.y=-20;
-    }
-    Particle.prototype.draw=function(){
-        ctx.save();
-        ctx.globalAlpha=this.alpha;
-        ctx.translate(this.x,this.y);
-        ctx.rotate(this.rotation);
-        ctx.fillStyle="#fff";
-        ctx.font=`${this.size}px Arial`;
-        ctx.textAlign="center";
-        ctx.textBaseline="middle";
-        ctx.fillText(this.note,0,0);
-        ctx.restore();
-    }
-
-    function connectParticles(){
-        for(let i=0;i<particles.length;i++){
-            for(let j=i+1;j<particles.length;j++){
-                const dx=particles[i].x-particles[j].x;
-                const dy=particles[i].y-particles[j].y;
-                const dist=Math.sqrt(dx*dx+dy*dy);
-                if(dist<CONNECT_DISTANCE){
-                    ctx.beginPath();
-                    ctx.strokeStyle='rgba(255,255,255,'+((1-dist/CONNECT_DISTANCE)*0.25)+')';
-                    ctx.lineWidth=1;
-                    ctx.moveTo(particles[i].x,particles[i].y);
-                    ctx.lineTo(particles[j].x,particles[j].y);
-                    ctx.stroke();
-                }
-            }
-        }
-    }
-
-    function initParticles(){
-        particles.length=0;
-        for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
-    }
-
-    let rafId=null;
-    function render(){
-        ctx.clearRect(0,0,W,H);
-        connectParticles();
-        for(let p of particles) p.update(), p.draw();
-        rafId=requestAnimationFrame(render);
-    }
-
-    function init(){
-        setSize();
-        initParticles();
-        if(rafId) cancelAnimationFrame(rafId);
-        render();
-    }
-
-    window.addEventListener('resize',function(){
-        clearTimeout(window._particles_resize_timeout);
-        window._particles_resize_timeout=setTimeout(init,120);
-    });
-
-    init();
-})();
-</script>
-
-<script>
-// Lógica de mostrar/esconder senha (MANTIDA)
-const togglePassword = document.getElementById("togglePassword");
-const password = document.getElementById("password");
-togglePassword.addEventListener("click", () => {
-    const type = password.type === "password" ? "text" : "password";
-    password.type = type;
-    togglePassword.classList.toggle("ri-eye-fill");
-    togglePassword.classList.toggle("ri-eye-off-fill");
-});
-</script>
-
-<script>
-const registerForm = document.getElementById('registerForm');
-const nameInput = document.getElementById('name');
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const confirmPasswordInput = document.getElementById('confirmPassword');
-const messageDisplay = document.getElementById('messageDisplay');
-
-// Função utilitária para exibir mensagens (erro ou sucesso)
-function displayMessage(message, isSuccess = false) {
-    messageDisplay.textContent = message;
-    messageDisplay.classList.toggle('success', isSuccess);
-    messageDisplay.style.display = 'block';
-}
-
-function clearMessage() {
-    messageDisplay.style.display = 'none';
-    messageDisplay.classList.remove('success');
-}
-
-registerForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    clearMessage();
-
-    const nome = nameInput.value.trim();
-    const email = emailInput.value.trim();
-    const senha = passwordInput.value.trim();
-    const confirmacaoSenha = confirmPasswordInput.value.trim();
-
-    // 1. Validação de Senhas
-    if (senha !== confirmacaoSenha) {
-        displayMessage('A senha e a confirmação de senha não coincidem.');
-        return;
+    function setSize(){
+        DPR = window.devicePixelRatio || 1;
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.style.width = W+'px';
+        canvas.style.height = H+'px';
+        canvas.width = Math.floor(W * DPR);
+        canvas.height = Math.floor(H * DPR);
+        ctx.setTransform(DPR,0,0,DPR,0,0);
     }
 
-    // 2. Validação básica de campos
-    if (!nome || !email || !senha) {
-        displayMessage('Por favor, preencha todos os campos.');
-        return;
+    function Particle(){ this.reset(); }
+
+    Particle.prototype.reset = function(){
+        this.x = Math.random() * W;
+        this.y = Math.random() * H;
+        this.size = Math.random() * 16 + 8; 
+        this.vx = (Math.random() - 0.5) * 0.6;
+        this.vy = (Math.random() - 0.5) * 0.6;
+        this.alpha = 0.3 + Math.random() * 0.7;
+        this.note = notes[Math.floor(Math.random() * notes.length)];
+        this.rotation = Math.random() * 2 * Math.PI;
+        this.rotationSpeed = (Math.random() - 0.5) * 0.02;
     }
 
-    // 3. Enviar dados para a API
-    try {
-        const response = await fetch('http://localhost:3000/api/register', { 
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ nome, email, senha }) 
-        });
+    Particle.prototype.update = function(){
+        this.x += this.vx;
+        this.y += this.vy;
+        this.rotation += this.rotationSpeed;
+        if(this.x < -20) this.x = W + 20;
+        if(this.x > W + 20) this.x = -20;
+        if(this.y < -20) this.y = H + 20;
+        if(this.y > H + 20) this.y = -20;
+    }
 
-        if (!response.ok) {
-            // Tenta ler o erro do backend para dar um feedback específico
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Erro ao registrar usuário. Tente outro e-mail.');
+    Particle.prototype.draw = function(){
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.fillStyle = "#fff";
+        ctx.font = `${this.size}px Arial`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(this.note, 0, 0);
+        ctx.restore();
+    }
+
+    function connectParticles(){
+        for(let i=0;i<particles.length;i++){
+        for(let j=i+1;j<particles.length;j++){
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if(dist < CONNECT_DISTANCE){
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(255,255,255,' + ((1 - dist/CONNECT_DISTANCE) * 0.25) + ')';
+            ctx.lineWidth = 1;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+            }
+        }
+        }
+    }
+
+    function initParticles(){
+        particles.length = 0;
+        for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
+    }
+
+    let rafId = null;
+    function render(){
+        ctx.clearRect(0,0,W,H);
+        connectParticles();
+        for(let p of particles) p.update(), p.draw();
+        rafId = requestAnimationFrame(render);
+    }
+
+    function init(){
+        setSize();
+        initParticles();
+        if(rafId) cancelAnimationFrame(rafId);
+        render();
+    }
+
+    window.addEventListener('resize',function(){
+        clearTimeout(window._particles_resize_timeout);
+        window._particles_resize_timeout = setTimeout(init,120);
+    });
+
+    init();
+    })();
+    </script>
+    
+    <script src="/public/js/auth.js"></script> 
+    <script>
+    const loadingContainer = document.getElementById('loadingContainer');
+    const profileCard = document.getElementById('profileCard');
+    const errorContainer = document.getElementById('errorContainer');
+    const token = localStorage.getItem('userToken');
+
+    // MOCK: Simulação de dados do usuário retornados pelo backend
+    const mockUserData = {
+        nome: "Júlia Moraes",
+        email: "julia.moraes@instrumusic.com",
+        instrumento: "Piano Clássico",
+        nivel: "Intermediário",
+        membroDesde: "2024-06-15" 
+    };
+
+    function displayError(message) {
+        loadingContainer.style.display = 'none';
+        profileCard.style.display = 'none';
+        errorContainer.textContent = message;
+        errorContainer.style.display = 'block';
+    }
+
+    function formatMemberSince(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    async function fetchUserData() {
+        if (!token) {
+            console.log("Token não encontrado. Redirecionando para a página de entrada.");
+            window.location.href = '/public/pages/entry.html'; 
+            return;
         }
 
-        // Sucesso
-        const data = await response.json();
-        
-        displayMessage('Cadastro realizado com sucesso! Redirecionando para o login...', true);
-        
-        // Opcional: Armazenar o token e redirecionar direto para Home (se o backend retornar um token)
-        if (data.token) {
-             localStorage.setItem('userToken', data.token);
-             setTimeout(() => {
-                window.location.href = '/public/pages/index.html'; 
-            }, 1500); // Redireciona para Home após 1.5s
-        } else {
-             // Redirecionar para a página de Login para o usuário entrar
-             setTimeout(() => {
-                window.location.href = '/public/pages/login.html'; 
-            }, 1500); 
+        try {
+            // Em uma aplicação real, aqui seria o fetch:
+            // const response = await fetch('http://localhost:3000/api/perfil', { 
+            //     headers: { 'Authorization': `Bearer ${token}` }
+            // });
+            // if (!response.ok) throw new Error('Falha ao buscar perfil.');
+            // const data = await response.json();
+            
+            // SIMULAÇÃO: Usando dados mock
+            await new Promise(resolve => setTimeout(resolve, 1000)); 
+            const data = mockUserData;
+            
+            // Preencher o Card de Perfil
+            document.getElementById('userName').textContent = data.nome;
+            document.getElementById('userEmail').textContent = data.email;
+            document.getElementById('userInstrument').textContent = data.instrumento;
+            document.getElementById('userLevel').textContent = data.nivel;
+            document.getElementById('memberSince').textContent = formatMemberSince(data.membroDesde);
+
+            // Mostrar Card e esconder Loading
+            loadingContainer.style.display = 'none';
+            profileCard.style.display = 'block';
+
+        } catch (error) {
+            console.error('Erro ao carregar o perfil:', error);
+            if (error.message.includes('401') && typeof realizarLogout === 'function') {
+                 realizarLogout(); // Redireciona se a sessão expirou
+            } else {
+                displayError('Ocorreu um erro ao carregar o seu perfil. Por favor, tente novamente.');
+            }
         }
-
-    } catch (error) {
-        console.error('Erro de Cadastro:', error);
-        displayMessage(error.message);
     }
-});
-</script>
 
-<script src="/public/js/auth.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Checa se o usuário já está logado. Se estiver, redireciona para a Home.
-    if (localStorage.getItem('userToken')) {
-        window.location.href = '/public/pages/index.html';
-    }
-});
-</script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Inicia o Carregamento dos Dados
+        fetchUserData();
+
+        // 2. Configura o Botão de Logout
+        const logoutButton = document.getElementById('logoutBtn');
+        if (logoutButton && typeof realizarLogout === 'function') {
+            logoutButton.addEventListener('click', realizarLogout); 
+        } else if (logoutButton) {
+            // Fallback simples caso auth.js não carregue
+             logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('userToken');
+                window.location.href = '/public/pages/entry.html';
+             });
+        }
+    });
+    </script>
 </body>
 </html>

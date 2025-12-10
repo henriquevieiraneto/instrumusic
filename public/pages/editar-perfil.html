@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Editar Perfil | InstruMusic</title>
+<title>Meu Perfil | InstruMusic</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
 
 <style>
-/* SEU CSS AQUI (MANTIDO INTACTO) */
+/* ---------------------------------------------------- */
+/* CSS REUTILIZADO DO EDITAR-PERFIL (para consistência) */
+/* ---------------------------------------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -37,6 +39,7 @@ body {
     pointer-events: none;
 }
 
+/* Nav Bar (Header) */
 nav {
     position: fixed;
     top: 0;
@@ -68,7 +71,7 @@ nav a:hover {
     border: 1px solid rgba(255,255,255,0.25);
     backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 60px 30px 30px 30px;
+    padding: 30px; /* Reduzido o padding superior */
     box-shadow: 0 12px 30px rgba(0,0,0,0.5);
     z-index: 2;
     text-align: center;
@@ -76,13 +79,11 @@ nav a:hover {
 }
 
 .profile-photo {
-    position: absolute;
-    top: -60px;
-    left: 50%;
-    transform: translateX(-50%);
+    /* Posição no Perfil (não mais flutuando para fora) */
     width: 120px;
     height: 120px;
-}   
+    margin: 0 auto 20px auto;
+} 
 .profile-photo img, .profile-photo .placeholder {
     width: 100%;
     height: 100%;
@@ -97,58 +98,42 @@ nav a:hover {
     font-size: 48px;
     color: #fff;
 }
-.profile-photo:hover img, .profile-photo:hover .placeholder {
-    transform: scale(1.05);
-    transition: 0.3s;
-}
-.profile-photo label {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 36px;
-    height: 36px;
-    background: #e63946;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border: 2px solid rgba(255,255,255,0.5);
-}
-.profile-photo label i {
-    font-size: 18px;
-    color: #fff;
-}
 
 .container h1 {
-    margin-top: 80px;
+    margin-top: 10px; 
     font-size: 28px;
     font-weight: 700;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+    color: #e63946; /* Cor de destaque para o nome */
 }
 
-.input-box {
-    width: 100%;
-    margin: 15px 0;
+/* Estilos Específicos para Exibição de Dados */
+.data-entry {
+    background: rgba(255,255,255,0.08);
+    padding: 15px 20px;
+    border-radius: 12px;
+    text-align: left;
+    margin-bottom: 15px;
+    border-left: 5px solid #7bc7ff; /* Linha de destaque */
 }
-.input-box input {
-    width: 100%;
-    padding: 14px 18px;
-    font-size: 16px;
-    border-radius: 30px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.25);
-    backdrop-filter: blur(6px);
+.data-entry strong {
+    display: block;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+.data-entry p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
     color: #fff;
-    transition: 0.3s;
 }
-.input-box input:focus {
-    background: rgba(255,255,255,0.2);
-}
-
-button {
-    width: 100%;
-    padding: 14px;
+/* Botão de Edição */
+.btn-edit {
+    display: inline-block;
+    width: auto;
+    padding: 10px 20px;
     border-radius: 30px;
     background: #e63946;
     font-size: 17px;
@@ -157,8 +142,9 @@ button {
     cursor: pointer;
     margin-top: 20px;
     transition: 0.3s;
+    text-decoration: none;
 }
-button:hover {
+.btn-edit:hover {
     background: #d62839;
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
@@ -172,7 +158,7 @@ footer {
 }
 
 @media (max-width: 480px) {
-    .container { padding: 70px 20px 30px 20px; }
+    .container { padding: 30px 20px; }
     nav { padding: 12px 20px; }
 }
 </style>
@@ -183,7 +169,8 @@ footer {
 
 <nav>
     <a href="/public/pages/index.html">Home</a>
-    <a href="/public/pages/perfil.html">Perfil</a>
+    <a href="/public/pages/instrumentos.html">Instrumentos</a>
+    <a href="/public/pages/editar-perfil.html" style="background: rgba(230, 57, 70, 0.3); color: #e63946;">Editar</a>
     <a href="#" class="btn-logout">Sair</a> 
 </nav>
 
@@ -191,182 +178,171 @@ footer {
     <div class="profile-photo">
         <img id="profileImage" src="" alt="Foto de Perfil" style="display:none;">
         <div class="placeholder" id="profilePlaceholder">👤</div>
-        <label for="fotoInput"><i class="ri-pencil-fill"></i></label>
-        <input type="file" id="fotoInput" style="display:none;">
     </div>
 
-    <h1>Editar Perfil</h1>
-<form id="editProfileForm">
-    <div class="input-box">
-        <input type="text" id="nome" placeholder="Nome completo" required>
+    <h1 id="userNameDisplay">Carregando...</h1>
+    
+    <div id="profileData">
+        <div class="data-entry">
+            <strong>E-mail</strong>
+            <p id="emailDisplay">carregando@instrumusic.com</p>
+        </div>
+        <div class="data-entry">
+            <strong>Data de Cadastro</strong>
+            <p id="dateDisplay">-- / -- / ----</p>
+        </div>
+        <div class="data-entry">
+            <strong>Instrumento Principal</strong>
+            <p id="instrumentDisplay">Não Definido</p>
+        </div>
     </div>
-    <div class="input-box">
-        <input type="email" id="email" placeholder="E-mail" required>
-    </div>
-    <div class="input-box">
-        <input type="password" id="senha" placeholder="Nova senha">
-    </div>
-    <button type="button" id="saveBtn">Salvar Alterações</button>
-</form>
+    
+    <a href="/public/pages/editar-perfil.html" class="btn-edit">
+        <i class="ri-edit-line"></i> Editar Minhas Informações
+    </a>
+
+</div>
 
 <footer>&copy; 2025 InstruMusic</footer>
 
 
+<script src="/public/js/auth.js"></script>
 <script>
-document.getElementById('saveBtn').addEventListener('click', function() {
-    // 1. Lógica de Validação e Envio para a API (a ser implementada)
-    // Se a API retornar sucesso:
-    // alert('Perfil atualizado com sucesso!');
-    window.location.href = '/public/pages/perfil.html'; // Redireciona para a página de perfil
+// Chamada para a função de logout (se estiver no auth.js)
+document.querySelector('.btn-logout').addEventListener('click', function(e) {
+    e.preventDefault();
+    if (typeof realizarLogout === 'function') {
+        realizarLogout();
+    } else {
+        localStorage.removeItem('userToken');
+        window.location.href = '/public/pages/index.html';
+    }
 });
-</script>
 
-<script>
-(function(){
-    // ... Código das partículas (mantido intacto) ...
-    const canvas = document.getElementById('particles-js');
-    const ctx = canvas.getContext('2d');
-    if(!ctx) return;
 
-    let DPR = window.devicePixelRatio || 1;
-    let W = 0, H = 0;
-    const particles = [];
-    const PARTICLE_COUNT = 90;
-    const CONNECT_DISTANCE = 120;
-    const notes = ["\u266A","\u266B"];
-
-    function setSize(){
-        DPR = window.devicePixelRatio || 1;
-        W = window.innerWidth;
-        H = window.innerHeight;
-        canvas.style.width = W+'px';
-        canvas.style.height = H+'px';
-        canvas.width = Math.floor(W*DPR);
-        canvas.height = Math.floor(H*DPR);
-        ctx.setTransform(DPR,0,0,DPR,0,0);
-    }
-
-    function Particle(){ this.reset(); }
-    Particle.prototype.reset=function(){
-        this.x=Math.random()*W;
-        this.y=Math.random()*H;
-        this.size=Math.random()*16+8;
-        this.vx=(Math.random()-0.5)*0.6;
-        this.vy=(Math.random()-0.5)*0.6;
-        this.alpha=0.3+Math.random()*0.7;
-        this.note = notes[Math.floor(Math.random()*notes.length)];
-        this.rotation = Math.random()*2*Math.PI;
-        this.rotationSpeed = (Math.random()-0.5)*0.02;
-    }
-    Particle.prototype.update=function(){
-        this.x+=this.vx;
-        this.y+=this.vy;
-        this.rotation += this.rotationSpeed;
-        if(this.x<-20) this.x=W+20;
-        if(this.x>W+20) this.x=-20;
-        if(this.y<-20) this.y=H+20;
-        if(this.y>H+20) this.y=-20;
-    }
-    Particle.prototype.draw=function(){
-        ctx.save();
-        ctx.globalAlpha=this.alpha;
-        ctx.translate(this.x,this.y);
-        ctx.rotate(this.rotation);
-        ctx.fillStyle="#fff";
-        ctx.font=`${this.size}px Arial`;
-        ctx.textAlign="center";
-        ctx.textBaseline="middle";
-        ctx.fillText(this.note,0,0);
-        ctx.restore();
-    }
-
-    function connectParticles(){
-        for(let i=0;i<particles.length;i++){
-            for(let j=i+1;j<particles.length;j++){
-                const dx=particles[i].x-particles[j].x;
-                const dy=particles[i].y-particles[j].y;
-                const dist=Math.sqrt(dx*dx+dy*dy);
-                if(dist<CONNECT_DISTANCE){
-                    ctx.beginPath();
-                    ctx.strokeStyle='rgba(255,255,255,'+((1-dist/CONNECT_DISTANCE)*0.25)+')';
-                    ctx.lineWidth=1;
-                    ctx.moveTo(particles[i].x,particles[i].y);
-                    ctx.lineTo(particles[j].x,particles[j].y);
-                    ctx.stroke();
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Chama a função para carregar e exibir os dados do usuário.
+    exibirDadosDoPerfil();
+    
+    // 2. Adiciona o script de partículas para o fundo
+    (function(){
+        const canvas = document.getElementById('particles-js');
+        const ctx = canvas.getContext('2d');
+        if(!ctx) return;
+        
+        let DPR = window.devicePixelRatio || 1;
+        let W = 0, H = 0;
+        const particles = [];
+        const PARTICLE_COUNT = 90;
+        const CONNECT_DISTANCE = 120;
+        const notes = ["\u266A","\u266B"];
+        
+        function setSize(){
+            DPR = window.devicePixelRatio || 1;
+            W = window.innerWidth;
+            H = window.innerHeight;
+            canvas.style.width = W+'px';
+            canvas.style.height = H+'px';
+            canvas.width = Math.floor(W*DPR);
+            canvas.height = Math.floor(H*DPR);
+            ctx.setTransform(DPR,0,0,DPR,0,0);
+        }
+        
+        function Particle(){ this.reset(); }
+        Particle.prototype.reset=function(){
+            this.x=Math.random()*W;
+            this.y=Math.random()*H;
+            this.size=Math.random()*16+8;
+            this.vx=(Math.random()-0.5)*0.6;
+            this.vy=(Math.random()-0.5)*0.6;
+            this.alpha=0.3+Math.random()*0.7;
+            this.note = notes[Math.floor(Math.random()*notes.length)];
+            this.rotation = Math.random()*2*Math.PI;
+            this.rotationSpeed = (Math.random()-0.5)*0.02;
+        }
+        Particle.prototype.update=function(){
+            this.x+=this.vx;
+            this.y+=this.vy;
+            this.rotation += this.rotationSpeed;
+            if(this.x<-20) this.x=W+20;
+            if(this.x>W+20) this.x=-20;
+            if(this.y<-20) this.y=H+20;
+            if(this.y>H+20) this.y=-20;
+        }
+        Particle.prototype.draw=function(){
+            ctx.save();
+            ctx.globalAlpha=this.alpha;
+            ctx.translate(this.x,this.y);
+            ctx.rotate(this.rotation);
+            ctx.fillStyle="#fff";
+            ctx.font=`${this.size}px Arial`;
+            ctx.textAlign="center";
+            ctx.textBaseline="middle";
+            ctx.fillText(this.note,0,0);
+            ctx.restore();
+        }
+        
+        function connectParticles(){
+            for(let i=0;i<particles.length;i++){
+                for(let j=i+1;j<particles.length;j++){
+                    const dx=particles[i].x-particles[j].x;
+                    const dy=particles[i].y-particles[j].y;
+                    const dist=Math.sqrt(dx*dx+dy*dy);
+                    if(dist<CONNECT_DISTANCE){
+                        ctx.beginPath();
+                        ctx.strokeStyle='rgba(255,255,255,'+((1-dist/CONNECT_DISTANCE)*0.25)+')';
+                        ctx.lineWidth=1;
+                        ctx.moveTo(particles[i].x,particles[i].y);
+                        ctx.lineTo(particles[j].x,particles[j].y);
+                        ctx.stroke();
+                    }
                 }
             }
         }
-    }
-
-    function initParticles(){
-        particles.length=0;
-        for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
-    }
-
-    let rafId=null;
-    function render(){
-        ctx.clearRect(0,0,W,H);
-        connectParticles();
-        for(let p of particles) p.update(), p.draw();
-        rafId=requestAnimationFrame(render);
-    }
-
-    function init(){
-        setSize();
-        initParticles();
-        if(rafId) cancelAnimationFrame(rafId);
-        render();
-    }
-
-    window.addEventListener('resize',function(){
-        clearTimeout(window._particles_resize_timeout);
-        window._particles_resize_timeout=setTimeout(init,120);
-    });
-
-    init();
-})();
-
-const fotoInput = document.getElementById('fotoInput');
-const profileImage = document.getElementById('profileImage');
-const profilePlaceholder = document.getElementById('profilePlaceholder');
-
-fotoInput.addEventListener('change', function(e){
-    const file = e.target.files[0];
-    if(file){
-        const reader = new FileReader();
-        reader.onload = function(ev){
-            profileImage.src = ev.target.result;
-            profileImage.style.display = "block";
-            profilePlaceholder.style.display = "none";
+        
+        function initParticles(){
+            particles.length=0;
+            for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
         }
-        reader.readAsDataURL(file);
-    }
+        
+        let rafId=null;
+        function render(){
+            ctx.clearRect(0,0,W,H);
+            connectParticles();
+            for(let p of particles) p.update(), p.draw();
+            rafId=requestAnimationFrame(render);
+        }
+        
+        function init(){
+            setSize();
+            initParticles();
+            if(rafId) cancelAnimationFrame(rafId);
+            render();
+        }
+        
+        window.addEventListener('resize',function(){
+            clearTimeout(window._particles_resize_timeout);
+            window._particles_resize_timeout=setTimeout(init,120);
+        });
+        
+        init();
+    })();
 });
-</script>
-
-<script src="/public/js/auth.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // 1. O auth.js já fez a verificação do token e o redirecionamento, se necessário.
-    
-    // 2. Chama a função para carregar os dados do usuário.
-    carregarDadosDoPerfil();
-
-    // 3. Adiciona o listener para salvar os dados
-    document.getElementById('saveBtn').addEventListener('click', salvarPerfil);
-});
 
 
-// Função para carregar os dados do usuário usando o token
-function carregarDadosDoPerfil() {
+// Função para carregar e exibir os dados do usuário (similar à de editar, mas para exibição)
+function exibirDadosDoPerfil() {
     const token = localStorage.getItem('userToken');
-    if (!token) return; // Se não tiver token (embora o auth.js já devesse ter lidado com isso)
+    if (!token) {
+        window.location.href = '/public/pages/entry.html'; // Redireciona se não houver token
+        return;
+    }
 
-    // O token deve ser enviado no cabeçalho Authorization
-    fetch('http://localhost:3000/api/perfil', { // Rota para buscar o perfil (ajuste se necessário)
+    // Requisição ao endpoint do perfil
+    fetch('http://localhost:3000/api/perfil', { 
         method: 'GET',
         headers: {
-            'Authorization': 'Bearer ' + token, // Padrão JWT
+            'Authorization': 'Bearer ' + token, 
             'Content-Type': 'application/json'
         }
     })
@@ -374,69 +350,32 @@ function carregarDadosDoPerfil() {
         if (response.ok) {
             return response.json();
         }
-        // Se a API retornar 401 (Token inválido/expirado), forçamos o logout
-        if (response.status === 401) {
-            realizarLogout(); // Chama a função do auth.js
+        if (response.status === 401 && typeof realizarLogout === 'function') {
+            realizarLogout(); 
             throw new Error('Sessão expirada. Faça login novamente.');
         }
         throw new Error('Falha ao carregar o perfil.');
     })
     .then(data => {
-        // Preenche os campos do formulário com os dados recebidos
-        document.getElementById('nome').value = data.nome || '';
-        document.getElementById('email').value = data.email || '';
-        
-        // Se houver URL da foto:
+        // Formatação da data (Exemplo)
+        const dataCadastro = new Date(data.dataCadastro || Date.now()).toLocaleDateString('pt-BR');
+
+        // Atualiza os elementos na tela
+        document.getElementById('userNameDisplay').textContent = data.nome || 'Usuário InstruMusic';
+        document.getElementById('emailDisplay').textContent = data.email || 'N/A';
+        document.getElementById('dateDisplay').textContent = dataCadastro;
+        document.getElementById('instrumentDisplay').textContent = data.instrumentoPrincipal || 'Guitarra'; // Exemplo de dado
+
+        // Atualiza a foto de perfil
         if (data.fotoUrl) {
             document.getElementById('profileImage').src = data.fotoUrl;
             document.getElementById('profileImage').style.display = 'block';
             document.getElementById('profilePlaceholder').style.display = 'none';
         }
     })
-    .catch(error => console.error('Erro no carregamento do perfil:', error.message));
-}
-
-// Função para salvar o perfil
-function salvarPerfil() {
-    const token = localStorage.getItem('userToken');
-    const nome = document.getElementById('nome').value;
-    const email = document.getElementById('email').value;
-    const novaSenha = document.getElementById('senha').value; // Senha é opcional
-    
-    // Coleta dos dados para envio
-    const dadosParaEnviar = { nome, email };
-    if (novaSenha) {
-        dadosParaEnviar.senha = novaSenha;
-    }
-    
-    // TODO: Adicionar lógica para upload da foto (multipart/form-data)
-    // Se a foto foi alterada, a lógica de envio fica mais complexa (requer FormData).
-
-    fetch('http://localhost:3000/api/perfil', { // Rota para atualizar o perfil (ajuste se necessário)
-        method: 'PUT', // Usar PUT ou PATCH
-        headers: {
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dadosParaEnviar)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        if (response.status === 401) {
-            realizarLogout();
-        }
-        throw new Error('Falha ao salvar as alterações. Tente novamente.');
-    })
-    .then(data => {
-        alert('Perfil atualizado com sucesso!');
-        // Opcional: Atualizar o localStorage com novos dados, se o backend retornar
-        window.location.href = '/public/pages/perfil.html'; 
-    })
     .catch(error => {
-        console.error('Erro ao salvar perfil:', error);
-        alert(error.message || 'Erro desconhecido ao salvar o perfil.');
+        console.error('Erro no carregamento do perfil:', error.message);
+        document.getElementById('userNameDisplay').textContent = 'Erro de Carregamento';
     });
 }
 </script>
