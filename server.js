@@ -14,7 +14,7 @@ const JWT_SECRET = "super_secret_key";
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '@Hvn2009',
+    password: 'senai',
     database: 'instrumusic_db',
 });
 

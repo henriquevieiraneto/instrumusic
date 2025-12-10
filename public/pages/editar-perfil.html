@@ -1,384 +1,401 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meu Perfil | InstruMusic</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil | InstruMusic</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <style>
+        /* CSS Base (Copiado do perfil.html) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90") center/cover no-repeat fixed;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        #particles-js { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+        
+        /* Header */
+        .header { display:flex; justify-content:space-between; align-items:center; padding:15px 30px; }
+        .logo { font-size: 22px; font-weight: bold; color: white; text-decoration: none; }
+        nav { display: flex; gap: 24px; }
+        nav a { color: #cfcfcf; text-decoration: none; font-size: 16px; padding: 8px 12px; border-radius: 5px; transition: 0.25s; }
+        nav a.active { background: rgba(255, 255, 255, 0.2); color: #fff; font-weight: 600; }
+        nav a:not(.active):hover { color: #00aaff; font-weight: bold; }
+        .btn-logout { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); padding: 8px 14px; border-radius: 8px; color: white; cursor: pointer; transition: .25s; }
+        .btn-logout:hover { background: rgba(255,255,255,0.35); }
 
-<style>
-/* ---------------------------------------------------- */
-/* CSS REUTILIZADO DO EDITAR-PERFIL (para consistência) */
-/* ---------------------------------------------------- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-    color: #fff;
-}
+        /* Edição Content */
+        main { padding: 80px 20px; max-width: 600px; margin: 0 auto; }
+        h2 { text-align: center; margin-bottom: 40px; font-size: 32px; color: #66ddff; text-shadow: 0 0 10px rgba(102, 221, 255, 0.4); }
 
-body {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90") center/cover no-repeat fixed;
-    position: relative;
-    overflow: hidden;
-}
+        .edit-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(14px);
+            border-radius: 14px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-#particles-js {
-    position: fixed;
-    top:0;
-    left:0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-}
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-group label i {
+            font-size: 20px;
+            color: #66ddff;
+            margin-right: 10px;
+        }
 
-/* Nav Bar (Header) */
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 16px 32px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 16px;
-    z-index: 3;
-}
-nav a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 30px;
-    transition: 0.3s;
-}
-nav a:hover {
-    background: rgba(230, 57, 70, 0.3);
-    color: #e63946;
-}
+        .edit-card input[type="text"],
+        .edit-card input[type="email"],
+        .edit-card select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            appearance: none; /* Remove estilo nativo do select */
+        }
 
-.container {
-    width: 420px;
-    max-width: 95%;
-    background: rgba(10, 40, 98, 0.35);
-    border: 1px solid rgba(255,255,255,0.25);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 30px; /* Reduzido o padding superior */
-    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-    z-index: 2;
-    text-align: center;
-    position: relative;
-}
+        .edit-card input:focus,
+        .edit-card select:focus {
+            outline: none;
+            border-color: #66ddff;
+            box-shadow: 0 0 5px rgba(102, 221, 255, 0.5);
+        }
 
-.profile-photo {
-    /* Posição no Perfil (não mais flutuando para fora) */
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 20px auto;
-} 
-.profile-photo img, .profile-photo .placeholder {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid rgba(255,255,255,0.4);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    background: #2a2a2a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 48px;
-    color: #fff;
-}
+        .btn-save {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 25px;
+            background: #28a745; /* Verde para Salvar */
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-save:hover {
+            background: #1e7e34;
+            transform: translateY(-1px);
+        }
+        
+        .btn-cancel {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: transparent; 
+            border: 1px solid #e63946;
+            border-radius: 8px;
+            color: #e63946;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-cancel:hover {
+            background: rgba(230, 57, 70, 0.1);
+        }
 
-.container h1 {
-    margin-top: 10px; 
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 30px;
-    color: #e63946; /* Cor de destaque para o nome */
-}
-
-/* Estilos Específicos para Exibição de Dados */
-.data-entry {
-    background: rgba(255,255,255,0.08);
-    padding: 15px 20px;
-    border-radius: 12px;
-    text-align: left;
-    margin-bottom: 15px;
-    border-left: 5px solid #7bc7ff; /* Linha de destaque */
-}
-.data-entry strong {
-    display: block;
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.7);
-    margin-bottom: 5px;
-    font-weight: 400;
-}
-.data-entry p {
-    font-size: 1.1rem;
-    font-weight: 500;
-    margin: 0;
-    color: #fff;
-}
-/* Botão de Edição */
-.btn-edit {
-    display: inline-block;
-    width: auto;
-    padding: 10px 20px;
-    border-radius: 30px;
-    background: #e63946;
-    font-size: 17px;
-    font-weight: 600;
-    color: #fff;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: 0.3s;
-    text-decoration: none;
-}
-.btn-edit:hover {
-    background: #d62839;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-}
-
-footer {
-    text-align: center;
-    margin-top: 20px;
-    color: rgba(255,255,255,0.5);
-    font-size: 0.9rem;
-}
-
-@media (max-width: 480px) {
-    .container { padding: 30px 20px; }
-    nav { padding: 12px 20px; }
-}
-</style>
+        #loadingContainer, #errorContainer {
+            text-align: center;
+            padding: 50px 0;
+            font-size: 1.2rem;
+            color: #00aaff;
+        }
+        #errorContainer {
+            background: rgba(255,0,0,0.1); 
+            border: 1px solid rgba(255,0,0,0.3);
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        footer { text-align: center; padding: 18px; color: #ccc; font-size: 0.9rem; margin-top: 50px; }
+    </style>
 </head>
 <body>
 
-<canvas id="particles-js"></canvas>
+    <canvas id="particles-js"></canvas>
 
-<nav>
-    <a href="/public/pages/index.html">Home</a>
-    <a href="/public/pages/instrumentos.html">Instrumentos</a>
-    <a href="/public/pages/editar-perfil.html" style="background: rgba(230, 57, 70, 0.3); color: #e63946;">Editar</a>
-    <a href="#" class="btn-logout">Sair</a> 
-</nav>
+    <header class="header">
+        <a href="/public/pages/index.html" class="logo">InstruMusic</a>
 
-<div class="container">
-    <div class="profile-photo">
-        <img id="profileImage" src="" alt="Foto de Perfil" style="display:none;">
-        <div class="placeholder" id="profilePlaceholder">👤</div>
-    </div>
+        <nav>
+            <a href="/public/pages/meus-cursos.html">Meus Cursos</a>
+            <a href="/public/pages/progresso.html">Progresso</a>
+            <a href="/public/pages/perfil.html">Perfil</a>
+        </nav>
 
-    <h1 id="userNameDisplay">Carregando...</h1>
-    
-    <div id="profileData">
-        <div class="data-entry">
-            <strong>E-mail</strong>
-            <p id="emailDisplay">carregando@instrumusic.com</p>
+        <button class="btn-logout" id="logoutBtn">Sair</button>
+    </header>
+
+    <main>
+        <h2>Editar Perfil</h2>
+
+        <div id="loadingContainer">Carregando dados do usuário para edição...</div>
+        <div id="errorContainer">Não foi possível carregar os dados do seu perfil.</div>
+
+        <div class="edit-card" id="editCard" style="display:none;">
+            <form id="editProfileForm">
+                
+                <div class="form-group">
+                    <label for="userNameInput"><i class="ri-user-smile-line"></i> Nome Completo</label>
+                    <input type="text" id="userNameInput" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="userEmailInput"><i class="ri-mail-fill"></i> Email</label>
+                    <input type="email" id="userEmailInput" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userInstrumentInput"><i class="ri-music-fill"></i> Instrumento Principal</label>
+                    <select id="userInstrumentInput" required>
+                        <option value="Piano Clássico">Piano Clássico</option>
+                        <option value="Violão Acústico">Violão Acústico</option>
+                        <option value="Guitarra Elétrica">Guitarra Elétrica</option>
+                        <option value="Bateria">Bateria</option>
+                        <option value="Violino">Violino</option>
+                        <option value="Flauta Transversal">Flauta Transversal</option>
+                        <option value="Trompete">Trompete</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="userLevelInput"><i class="ri-medal-fill"></i> Nível de Habilidade</label>
+                    <select id="userLevelInput" required>
+                        <option value="Iniciante">Iniciante</option>
+                        <option value="Intermediário">Intermediário</option>
+                        <option value="Avançado">Avançado</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-save">Salvar Alterações</button>
+                <a href="/public/pages/perfil.html" class="btn-cancel">Cancelar</a>
+            </form>
         </div>
-        <div class="data-entry">
-            <strong>Data de Cadastro</strong>
-            <p id="dateDisplay">-- / -- / ----</p>
-        </div>
-        <div class="data-entry">
-            <strong>Instrumento Principal</strong>
-            <p id="instrumentDisplay">Não Definido</p>
-        </div>
-    </div>
+    </main>
+
+    <footer>
+        © 2025 InstruMusic. Todos os direitos reservados.
+    </footer>
+
+    <script src="/public/js/auth.js"></script> 
     
-    <a href="/public/pages/editar-perfil.html" class="btn-edit">
-        <i class="ri-edit-line"></i> Editar Minhas Informações
-    </a>
-
-</div>
-
-<footer>&copy; 2025 InstruMusic</footer>
-
-
-<script src="/public/js/auth.js"></script>
-<script>
-// Chamada para a função de logout (se estiver no auth.js)
-document.querySelector('.btn-logout').addEventListener('click', function(e) {
-    e.preventDefault();
-    if (typeof realizarLogout === 'function') {
-        realizarLogout();
-    } else {
-        localStorage.removeItem('userToken');
-        window.location.href = '/public/pages/index.html';
-    }
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    // 1. Chama a função para carregar e exibir os dados do usuário.
-    exibirDadosDoPerfil();
-    
-    // 2. Adiciona o script de partículas para o fundo
+    <script>
     (function(){
-        const canvas = document.getElementById('particles-js');
-        const ctx = canvas.getContext('2d');
-        if(!ctx) return;
-        
-        let DPR = window.devicePixelRatio || 1;
-        let W = 0, H = 0;
-        const particles = [];
-        const PARTICLE_COUNT = 90;
-        const CONNECT_DISTANCE = 120;
-        const notes = ["\u266A","\u266B"];
-        
-        function setSize(){
-            DPR = window.devicePixelRatio || 1;
-            W = window.innerWidth;
-            H = window.innerHeight;
-            canvas.style.width = W+'px';
-            canvas.style.height = H+'px';
-            canvas.width = Math.floor(W*DPR);
-            canvas.height = Math.floor(H*DPR);
-            ctx.setTransform(DPR,0,0,DPR,0,0);
-        }
-        
-        function Particle(){ this.reset(); }
-        Particle.prototype.reset=function(){
-            this.x=Math.random()*W;
-            this.y=Math.random()*H;
-            this.size=Math.random()*16+8;
-            this.vx=(Math.random()-0.5)*0.6;
-            this.vy=(Math.random()-0.5)*0.6;
-            this.alpha=0.3+Math.random()*0.7;
-            this.note = notes[Math.floor(Math.random()*notes.length)];
-            this.rotation = Math.random()*2*Math.PI;
-            this.rotationSpeed = (Math.random()-0.5)*0.02;
-        }
-        Particle.prototype.update=function(){
-            this.x+=this.vx;
-            this.y+=this.vy;
-            this.rotation += this.rotationSpeed;
-            if(this.x<-20) this.x=W+20;
-            if(this.x>W+20) this.x=-20;
-            if(this.y<-20) this.y=H+20;
-            if(this.y>H+20) this.y=-20;
-        }
-        Particle.prototype.draw=function(){
-            ctx.save();
-            ctx.globalAlpha=this.alpha;
-            ctx.translate(this.x,this.y);
-            ctx.rotate(this.rotation);
-            ctx.fillStyle="#fff";
-            ctx.font=`${this.size}px Arial`;
-            ctx.textAlign="center";
-            ctx.textBaseline="middle";
-            ctx.fillText(this.note,0,0);
-            ctx.restore();
-        }
-        
-        function connectParticles(){
-            for(let i=0;i<particles.length;i++){
-                for(let j=i+1;j<particles.length;j++){
-                    const dx=particles[i].x-particles[j].x;
-                    const dy=particles[i].y-particles[j].y;
-                    const dist=Math.sqrt(dx*dx+dy*dy);
-                    if(dist<CONNECT_DISTANCE){
-                        ctx.beginPath();
-                        ctx.strokeStyle='rgba(255,255,255,'+((1-dist/CONNECT_DISTANCE)*0.25)+')';
-                        ctx.lineWidth=1;
-                        ctx.moveTo(particles[i].x,particles[i].y);
-                        ctx.lineTo(particles[j].x,particles[j].y);
-                        ctx.stroke();
-                    }
-                }
+    const canvas = document.getElementById('particles-js');
+    if (!canvas) return; // Garante que o script só roda se o canvas existir
+    const ctx = canvas.getContext('2d');
+    if(!ctx) return;
+
+    let DPR = window.devicePixelRatio || 1;
+    let W = 0, H = 0;
+    const particles = [];
+    const PARTICLE_COUNT = 80;
+    const CONNECT_DISTANCE = 120;
+    const notes = ["\u266A", "\u266B"]; 
+
+    function setSize(){
+        DPR = window.devicePixelRatio || 1;
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.style.width = W+'px';
+        canvas.style.height = H+'px';
+        canvas.width = Math.floor(W * DPR);
+        canvas.height = Math.floor(H * DPR);
+        ctx.setTransform(DPR,0,0,DPR,0,0);
+    }
+
+    function Particle(){ this.reset(); }
+
+    Particle.prototype.reset = function(){
+        this.x = Math.random() * W;
+        this.y = Math.random() * H;
+        this.size = Math.random() * 16 + 8; 
+        this.vx = (Math.random() - 0.5) * 0.6;
+        this.vy = (Math.random() - 0.5) * 0.6;
+        this.alpha = 0.3 + Math.random() * 0.7;
+        this.note = notes[Math.floor(Math.random() * notes.length)];
+        this.rotation = Math.random() * 2 * Math.PI;
+        this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+    }
+
+    Particle.prototype.update = function(){
+        this.x += this.vx;
+        this.y += this.vy;
+        this.rotation += this.rotationSpeed;
+        if(this.x < -20) this.x = W + 20;
+        if(this.x > W + 20) this.x = -20;
+        if(this.y < -20) this.y = H + 20;
+        if(this.y > H + 20) this.y = -20;
+    }
+
+    Particle.prototype.draw = function(){
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.fillStyle = "#fff";
+        ctx.font = `${this.size}px Arial`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(this.note, 0, 0);
+        ctx.restore();
+    }
+
+    function connectParticles(){
+        for(let i=0;i<particles.length;i++){
+        for(let j=i+1;j<particles.length;j++){
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if(dist < CONNECT_DISTANCE){
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(255,255,255,' + ((1 - dist/CONNECT_DISTANCE) * 0.25) + ')';
+            ctx.lineWidth = 1;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
             }
         }
-        
-        function initParticles(){
-            particles.length=0;
-            for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
         }
-        
-        let rafId=null;
-        function render(){
-            ctx.clearRect(0,0,W,H);
-            connectParticles();
-            for(let p of particles) p.update(), p.draw();
-            rafId=requestAnimationFrame(render);
-        }
-        
-        function init(){
-            setSize();
-            initParticles();
-            if(rafId) cancelAnimationFrame(rafId);
-            render();
-        }
-        
-        window.addEventListener('resize',function(){
-            clearTimeout(window._particles_resize_timeout);
-            window._particles_resize_timeout=setTimeout(init,120);
-        });
-        
-        init();
-    })();
-});
-
-
-// Função para carregar e exibir os dados do usuário (similar à de editar, mas para exibição)
-function exibirDadosDoPerfil() {
-    const token = localStorage.getItem('userToken');
-    if (!token) {
-        window.location.href = '/public/pages/entry.html'; // Redireciona se não houver token
-        return;
     }
 
-    // Requisição ao endpoint do perfil
-    fetch('http://localhost:3000/api/perfil', { 
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + token, 
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        if (response.status === 401 && typeof realizarLogout === 'function') {
-            realizarLogout(); 
-            throw new Error('Sessão expirada. Faça login novamente.');
-        }
-        throw new Error('Falha ao carregar o perfil.');
-    })
-    .then(data => {
-        // Formatação da data (Exemplo)
-        const dataCadastro = new Date(data.dataCadastro || Date.now()).toLocaleDateString('pt-BR');
+    function initParticles(){
+        particles.length = 0;
+        for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
+    }
 
-        // Atualiza os elementos na tela
-        document.getElementById('userNameDisplay').textContent = data.nome || 'Usuário InstruMusic';
-        document.getElementById('emailDisplay').textContent = data.email || 'N/A';
-        document.getElementById('dateDisplay').textContent = dataCadastro;
-        document.getElementById('instrumentDisplay').textContent = data.instrumentoPrincipal || 'Guitarra'; // Exemplo de dado
+    let rafId = null;
+    function render(){
+        ctx.clearRect(0,0,W,H);
+        connectParticles();
+        for(let p of particles) p.update(), p.draw();
+        rafId = requestAnimationFrame(render);
+    }
 
-        // Atualiza a foto de perfil
-        if (data.fotoUrl) {
-            document.getElementById('profileImage').src = data.fotoUrl;
-            document.getElementById('profileImage').style.display = 'block';
-            document.getElementById('profilePlaceholder').style.display = 'none';
-        }
-    })
-    .catch(error => {
-        console.error('Erro no carregamento do perfil:', error.message);
-        document.getElementById('userNameDisplay').textContent = 'Erro de Carregamento';
+    function init(){
+        setSize();
+        initParticles();
+        if(rafId) cancelAnimationFrame(rafId);
+        render();
+    }
+
+    window.addEventListener('resize',function(){
+        clearTimeout(window._particles_resize_timeout);
+        window._particles_resize_timeout = setTimeout(init,120);
     });
-}
-</script>
 
+    init();
+    })();
+    </script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loadingContainer = document.getElementById('loadingContainer');
+        const editCard = document.getElementById('editCard');
+        const errorContainer = document.getElementById('errorContainer');
+        const form = document.getElementById('editProfileForm');
+
+        const token = localStorage.getItem('userToken');
+        
+        // Função para simular o carregamento dos dados e preencher o formulário
+        function loadProfileData() {
+            const userDataString = localStorage.getItem('userData');
+
+            if (!token || !userDataString) {
+                errorContainer.textContent = 'Sessão expirada. Redirecionando para login.';
+                errorContainer.style.display = 'block';
+                setTimeout(() => window.location.href = '/public/pages/entry.html', 1500);
+                return;
+            }
+            
+            try {
+                const userData = JSON.parse(userDataString);
+
+                // 1. Preencher os campos do formulário com os dados atuais
+                document.getElementById('userNameInput').value = userData.username || '';
+                document.getElementById('userEmailInput').value = userData.email || '';
+                document.getElementById('userInstrumentInput').value = userData.instrument || 'Piano Clássico';
+                document.getElementById('userLevelInput').value = userData.level || 'Intermediário';
+
+                // 2. Esconder loading e mostrar formulário
+                loadingContainer.style.display = 'none';
+                editCard.style.display = 'block';
+
+            } catch (e) {
+                console.error("Erro ao carregar dados do usuário:", e);
+                errorContainer.textContent = 'Erro ao processar dados do perfil.';
+                errorContainer.style.display = 'block';
+            }
+        }
+
+        // Função para simular o salvamento
+        function saveProfileData(event) {
+            event.preventDefault();
+            
+            // 1. Coletar novos dados
+            const newUserName = document.getElementById('userNameInput').value;
+            const newUserEmail = document.getElementById('userEmailInput').value;
+            const newUserInstrument = document.getElementById('userInstrumentInput').value;
+            const newUserLevel = document.getElementById('userLevelInput').value;
+
+            // 2. Carregar dados antigos (para manter 'memberSince')
+            const oldDataString = localStorage.getItem('userData');
+            let oldData = {};
+            if (oldDataString) {
+                try {
+                    oldData = JSON.parse(oldDataString);
+                } catch (e) {
+                    // Ignora erro, usa objeto vazio
+                }
+            }
+            
+            // 3. Criar o novo objeto de dados
+            const updatedData = {
+                username: newUserName,
+                email: newUserEmail,
+                instrument: newUserInstrument,
+                level: newUserLevel,
+                memberSince: oldData.memberSince || new Date().toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }) // Mantém a data antiga
+            };
+
+            // 4. Salvar (Simulação de backend)
+            localStorage.setItem('userData', JSON.stringify(updatedData));
+            
+            alert('Perfil atualizado com sucesso! (Simulação)');
+            
+            // 5. Redirecionar de volta para o perfil
+            window.location.href = '/public/pages/perfil.html';
+        }
+
+        // Event Listeners
+        loadProfileData();
+        form.addEventListener('submit', saveProfileData);
+    });
+    </script>
 </body>
 </html>
