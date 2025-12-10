@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
 
 <style>
+/* SEU CSS AQUI (MANTIDO INTACTO) */
 * {
     margin: 0;
     padding: 0;
@@ -81,7 +82,7 @@ nav a:hover {
     transform: translateX(-50%);
     width: 120px;
     height: 120px;
-}   
+}   
 .profile-photo img, .profile-photo .placeholder {
     width: 100%;
     height: 100%;
@@ -183,7 +184,7 @@ footer {
 <nav>
     <a href="/public/pages/index.html">Home</a>
     <a href="/public/pages/perfil.html">Perfil</a>
-    <a href="/public/pages/index.html">Sair</a>
+    <a href="#" class="btn-logout">Sair</a> 
 </nav>
 
 <div class="container">
@@ -208,17 +209,21 @@ footer {
     <button type="button" id="saveBtn">Salvar Alterações</button>
 </form>
 
+<footer>&copy; 2025 InstruMusic</footer>
+
+
 <script>
 document.getElementById('saveBtn').addEventListener('click', function() {
-    window.location.href = 'index.html'; 
+    // 1. Lógica de Validação e Envio para a API (a ser implementada)
+    // Se a API retornar sucesso:
+    // alert('Perfil atualizado com sucesso!');
+    window.location.href = '/public/pages/perfil.html'; // Redireciona para a página de perfil
 });
 </script>
 
-
-<footer>&copy; 2025 InstruMusic</footer>
-
 <script>
 (function(){
+    // ... Código das partículas (mantido intacto) ...
     const canvas = document.getElementById('particles-js');
     const ctx = canvas.getContext('2d');
     if(!ctx) return;
@@ -337,6 +342,103 @@ fotoInput.addEventListener('change', function(e){
         reader.readAsDataURL(file);
     }
 });
+</script>
+
+<script src="/public/js/auth.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. O auth.js já fez a verificação do token e o redirecionamento, se necessário.
+    
+    // 2. Chama a função para carregar os dados do usuário.
+    carregarDadosDoPerfil();
+
+    // 3. Adiciona o listener para salvar os dados
+    document.getElementById('saveBtn').addEventListener('click', salvarPerfil);
+});
+
+
+// Função para carregar os dados do usuário usando o token
+function carregarDadosDoPerfil() {
+    const token = localStorage.getItem('userToken');
+    if (!token) return; // Se não tiver token (embora o auth.js já devesse ter lidado com isso)
+
+    // O token deve ser enviado no cabeçalho Authorization
+    fetch('http://localhost:3000/api/perfil', { // Rota para buscar o perfil (ajuste se necessário)
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token, // Padrão JWT
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        // Se a API retornar 401 (Token inválido/expirado), forçamos o logout
+        if (response.status === 401) {
+            realizarLogout(); // Chama a função do auth.js
+            throw new Error('Sessão expirada. Faça login novamente.');
+        }
+        throw new Error('Falha ao carregar o perfil.');
+    })
+    .then(data => {
+        // Preenche os campos do formulário com os dados recebidos
+        document.getElementById('nome').value = data.nome || '';
+        document.getElementById('email').value = data.email || '';
+        
+        // Se houver URL da foto:
+        if (data.fotoUrl) {
+            document.getElementById('profileImage').src = data.fotoUrl;
+            document.getElementById('profileImage').style.display = 'block';
+            document.getElementById('profilePlaceholder').style.display = 'none';
+        }
+    })
+    .catch(error => console.error('Erro no carregamento do perfil:', error.message));
+}
+
+// Função para salvar o perfil
+function salvarPerfil() {
+    const token = localStorage.getItem('userToken');
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const novaSenha = document.getElementById('senha').value; // Senha é opcional
+    
+    // Coleta dos dados para envio
+    const dadosParaEnviar = { nome, email };
+    if (novaSenha) {
+        dadosParaEnviar.senha = novaSenha;
+    }
+    
+    // TODO: Adicionar lógica para upload da foto (multipart/form-data)
+    // Se a foto foi alterada, a lógica de envio fica mais complexa (requer FormData).
+
+    fetch('http://localhost:3000/api/perfil', { // Rota para atualizar o perfil (ajuste se necessário)
+        method: 'PUT', // Usar PUT ou PATCH
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dadosParaEnviar)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        if (response.status === 401) {
+            realizarLogout();
+        }
+        throw new Error('Falha ao salvar as alterações. Tente novamente.');
+    })
+    .then(data => {
+        alert('Perfil atualizado com sucesso!');
+        // Opcional: Atualizar o localStorage com novos dados, se o backend retornar
+        window.location.href = '/public/pages/perfil.html'; 
+    })
+    .catch(error => {
+        console.error('Erro ao salvar perfil:', error);
+        alert(error.message || 'Erro desconhecido ao salvar o perfil.');
+    });
+}
 </script>
 
 </body>

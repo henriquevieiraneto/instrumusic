@@ -1,239 +1,292 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login | InstruMusic</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | InstruMusic</title>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    border: none;
-    outline: none;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    color: #fff;
-}
-
-body {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-    background: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90") center/cover no-repeat fixed;
-}
-
-.content {
-    width: 400px;
-    padding: 35px 40px;
-    background: rgba(10, 40, 98, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    position: relative;
-    z-index: 2; 
-}
-
-.content h2 { text-align: center; font-size: 34px; font-weight: 700; margin-bottom: 20px; }
-.input-box { width: 100%; position: relative; margin: 22px 0; }
-.input-box input {
-    width: 100%; padding: 16px 48px 16px 18px; font-size: 16px;
-    background: rgba(255, 255, 255, 0.10);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 30px; backdrop-filter: blur(6px); color: #fff;
-}
-input::placeholder { color: #e9e9e9; }
-.input-box i { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 20px; cursor: pointer; }
-
-.remember { display: flex; justify-content: space-between; margin: 5px 0 15px 0; font-size: 14px; }
-.remember label input { accent-color: #fff; margin-right: 3px; }
-.remember a:hover { text-decoration: underline; }
-
-.btnn {
-    width: 100%; padding: 14px; border-radius: 30px;
-    background: #e63946; font-size: 17px; font-weight: 600; color: white; cursor: pointer; margin: 10px 0 25px 0;
-    transition: 0.3s;
-}
-.btnn:hover {
-    background: #d62839; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-}
-
-.signup-text { text-align: center; font-size: 15px; }
-.signup-text a:hover { text-decoration: underline; }
-
-@media (max-width: 400px) {
-    .content { width: 90%; padding: 25px; }
-}
-
-#particles-js {
-    position: fixed;
-    top:0; left:0;
-    width: 100%;
-    height: 100%;
-    z-index: 1; 
-    pointer-events: none;
-}
-</style>
-</head>
-
-<body>
-
-<canvas id="particles-js"></canvas>
-
-<div class="content">
-    <form id="loginForm">
-        <h2>Login</h2>
-
-        <div class="input-box">
-            <input type="email" id="email" placeholder="E-mail" required>
-            <i class="ri-mail-fill"></i>
-        </div>
-
-        <div class="input-box">
-            <input type="password" id="password" placeholder="Senha" required>
-            <i class="ri-eye-off-fill toggle-password" id="togglePassword"></i>
-        </div>
-
-        <div class="remember">
-            <label><input type="checkbox"> Lembrar de mim</label>
-           <a href="/public/pages/editar-perfil.html">Esqueceu a senha?</a>
-
-        </div>
-
-        <button type="submit" class="btnn">Entrar</button>
-
-        <div class="signup-text">
-            Não tem conta? <a href="/public/pages/register.html">Cadastre-se</a>
-        </div>
-    </form>
-</div>
-
-<script>
-(function(){
-    const canvas = document.getElementById('particles-js');
-    const ctx = canvas.getContext('2d');
-    if(!ctx) return;
-
-    let DPR = window.devicePixelRatio || 1;
-    let W = 0, H = 0;
-    const particles = [];
-    const PARTICLE_COUNT = 90;
-    const CONNECT_DISTANCE = 120;
-    const notes = ["\u266A","\u266B"]; // ♫ ♬
-
-    function setSize(){
-        DPR = window.devicePixelRatio || 1;
-        W = window.innerWidth;
-        H = window.innerHeight;
-        canvas.style.width = W+'px';
-        canvas.style.height = H+'px';
-        canvas.width = Math.floor(W*DPR);
-        canvas.height = Math.floor(H*DPR);
-        ctx.setTransform(DPR,0,0,DPR,0,0);
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Poppins, sans-serif;
+        color: #fff;
+        text-decoration: none;
     }
 
-    function Particle(){
-        this.reset();
-    }
-    Particle.prototype.reset=function(){
-        this.x=Math.random()*W;
-        this.y=Math.random()*H;
-        this.size=Math.random()*16+8;
-        this.vx=(Math.random()-0.5)*0.6;
-        this.vy=(Math.random()-0.5)*0.6;
-        this.alpha=0.3+Math.random()*0.7;
-        this.note = notes[Math.floor(Math.random()*notes.length)];
-        this.rotation = Math.random()*2*Math.PI;
-        this.rotationSpeed = (Math.random()-0.5)*0.02;
-    }
-    Particle.prototype.update=function(){
-        this.x+=this.vx;
-        this.y+=this.vy;
-        this.rotation += this.rotationSpeed;
-
-        if(this.x<-20) this.x=W+20;
-        if(this.x>W+20) this.x=-20;
-        if(this.y<-20) this.y=H+20;
-        if(this.y>H+20) this.y=-20;
-    }
-    Particle.prototype.draw=function(){
-        ctx.save();
-        ctx.globalAlpha=this.alpha;
-        ctx.translate(this.x,this.y);
-        ctx.rotate(this.rotation);
-        ctx.fillStyle="#fff";
-        ctx.font=`${this.size}px Arial`;
-        ctx.textAlign="center";
-        ctx.textBaseline="middle";
-        ctx.fillText(this.note,0,0);
-        ctx.restore();
+    body {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1920&q=90");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        overflow: hidden;
+        position: relative;
     }
 
-    function connectParticles(){
-        for(let i=0;i<particles.length;i++){
-            for(let j=i+1;j<particles.length;j++){
-                const dx=particles[i].x-particles[j].x;
-                const dy=particles[i].y-particles[j].y;
-                const dist=Math.sqrt(dx*dx+dy*dy);
-                if(dist<CONNECT_DISTANCE){
-                    ctx.beginPath();
-                    ctx.strokeStyle='rgba(255,255,255,'+((1-dist/CONNECT_DISTANCE)*0.25)+')';
-                    ctx.lineWidth=1;
-                    ctx.moveTo(particles[i].x,particles[i].y);
-                    ctx.lineTo(particles[j].x,particles[j].y);
-                    ctx.stroke();
-                }
-            }
+    #particles-js {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.35);
+        backdrop-filter: blur(2px);
+        z-index: -1;
+    }
+
+    .content {
+        width: 400px;
+        background: rgba(0, 0, 0, 0.35);
+        border: 2px solid rgba(255,255,255,0.18);
+        border-radius: 14px;
+        padding: 30px 35px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+    }
+
+    .content h2 {
+        text-align: center;
+        font-size: 34px;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .input-box {
+        width: 100%;
+        height: 55px;
+        position: relative;
+        margin: 18px 0;
+    }
+
+    .input-box input {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border: 2px solid rgba(255,255,255,0.25);
+        border-radius: 30px;
+        padding: 20px 45px 20px 20px;
+        font-size: 16px;
+        color: #fff;
+    }
+
+    .input-box i {
+        position: absolute;
+        top: 50%;
+        right: 18px;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    input::placeholder {
+        color: #f0f0f0;
+    }
+
+    .remember-forgot {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14.5px;
+        margin: -5px 0 15px;
+    }
+
+    .remember-forgot label input {
+        accent-color: #fff;
+        margin-right: 5px;
+    }
+    
+    .remember-forgot a {
+        color: #fff;
+    }
+
+    .remember-forgot a:hover {
+        text-decoration: underline;
+    }
+
+    .btnn {
+        width: 100%;
+        border-radius: 30px;
+        height: 45px;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        border: none;
+        background: #f0070791; 
+        color: #fff;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .btnn:hover {
+        background: #c90000;
+    }
+
+    .register-link {
+        text-align: center;
+        margin-top: 18px;
+        font-size: 14.5px;
+    }
+
+    .register-link a {
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .register-link a:hover {
+        text-decoration: underline;
+    }
+
+    /* ESTILO PARA MENSAGENS DE FEEDBACK */
+    .message {
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        display: none; 
+        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .message.error {
+        color: #ffcccc; 
+        background-color: rgba(220, 20, 60, 0.2); 
+        border: 1px solid #e63946;
+    }
+    .message.success {
+        color: #ccffcc !important;
+        background-color: rgba(20, 220, 60, 0.2) !important;
+        border-color: #39d672 !important;
+    }
+
+
+    @media (max-width: 400px) {
+        .content {
+            width: 92%;
+            padding: 25px;
+        }
+        .content h2 {
+            font-size: 28px;
         }
     }
+    </style>
+</head>
+<body>
 
-    function initParticles(){
-        particles.length=0;
-        for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
-    }
+    <div class="overlay"></div>
+    <canvas id="particles-js"></canvas>
 
-    let rafId=null;
-    function render(){
-        ctx.clearRect(0,0,W,H);
-        connectParticles();
-        for(let p of particles) p.update(), p.draw();
-        rafId=requestAnimationFrame(render);
-    }
+    <div class="content">
+        <form id="loginForm">
+            <h2>Login</h2>
 
-    function init(){
-        setSize();
-        initParticles();
-        if(rafId) cancelAnimationFrame(rafId);
-        render();
-    }
+            <div id="messageDisplay" class="message"></div>
 
-    window.addEventListener('resize',function(){
-        clearTimeout(window._particles_resize_timeout);
-        window._particles_resize_timeout=setTimeout(init,120);
-    });
+            <div class="input-box">
+                <input type="email" id="email" placeholder="E-mail" required>
+                <i class="ri-mail-fill"></i>
+            </div>
 
-    init();
-})();
-</script>
+            <div class="input-box">
+                <input type="password" id="password" placeholder="Senha" required>
+                <i class="ri-eye-off-fill toggle-password" id="togglePassword"></i>
+            </div>
 
-<script>
-const togglePassword = document.getElementById("togglePassword");
-const password = document.getElementById("password");
-togglePassword.addEventListener("click", () => {
-    const type = password.type === "password" ? "text" : "password";
-    password.type = type;
-    togglePassword.classList.toggle("ri-eye-fill");
-    togglePassword.classList.toggle("ri-eye-off-fill");
-});
-</script>
-<script src="/public/js/script.js"></script>
+            <div class="remember-forgot">
+                <label>
+                    <input type="checkbox" id="rememberMe">
+                    Lembrar de mim
+                </label>
+                <a href="#">Esqueceu a senha?</a>
+            </div>
+
+            <button type="submit" class="btnn">Entrar</button>
+
+            <div class="register-link">
+                Não tem conta? <a href="/public/pages/register.html">Cadastre-se</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('particles-js');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(255,255,255,0.8)";
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+
+                this.draw();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => p.update());
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener("resize", () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        init();
+    </script>
+
+    <script src="/public/js/auth.js"></script> 
+    <script src="/public/js/login.js"></script>
+
 </body>
 </html>

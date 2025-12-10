@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bem-vindo(a) | InstruMusic</title>
 <style>
+/* SEU CSS AQUI (MANTIDO INTACTO) */
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#fff; }
 
 body {
@@ -191,6 +192,21 @@ body {
 
     init();
 })();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Tenta obter o token.
+    const token = localStorage.getItem('userToken');
+
+    // Se o token existir, significa que o usuário já está logado.
+    if (token) {
+        console.log("Token encontrado. Redirecionando para a página inicial.");
+        // Redireciona para a Home
+        window.location.href = '/index.html'; 
+    }
+    // Se não houver token, o usuário permanece nesta página para fazer login/cadastro.
+});
 </script>
 
 </body>
